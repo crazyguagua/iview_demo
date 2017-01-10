@@ -1,12 +1,13 @@
+
 var routes = [{
     path: '/',
     name: 'login',
-    compnent: resolve => require(['./views/login'], resolve)
+    component:require('./views/login')//component 不能拼写错误，否则路由加载不进来
 
 }, {
     path: '/home',
     name: 'home',
-    compnent: resolve => require(['./views/home'], resolve)
+    component:require('./views/home')
 
 }]
 

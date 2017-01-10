@@ -6,17 +6,16 @@ import routes from './router'
 import VueRouter from 'vue-router'
 
 //import iview from 'iview'
-//import 'iview/dist/styles/iview.css'; // 使用 CSS
+import 'iview/dist/styles/iview.css'// 使用 CSS
 /* eslint-disable no-new */
 Vue.use(VueRouter);
 //Vue.use(iview);
-
+console.log(routes);
 const router = new VueRouter({
-    routes,
-    mode: 'history'
-})
+    mode:'history',
+    routes  //等于 routes:routes
+ })
 
 const app = new Vue({
-    router: router,
-    render: h => h(App)
+    router: router
 }).$mount('#app')

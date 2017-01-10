@@ -17,6 +17,7 @@
     </div>
 </template>
 <script>
+    import '../assets/login.css'
     export default {
         methods: {
             doLogin: function() {
@@ -29,5 +30,4 @@
 </script>
 
 <style>
-    @import '../assets/login.css'
 </style>

@@ -4,25 +4,30 @@
             <h1>后台管理系统</h1>
         </div>
         <div class="login-panel">
-            <form action="" novalidate class="loginform">
+            <div  novalidate class="loginform">
                 <div class="form-input"><input type="text" class="form-control"name="uname" placeholder="请输入用户名"></div>
                 <div class="form-input"><input type="password" class="form-control" name="pwd" placeholder="请输入密码"></div>
                 <div class="loginbar">
                     <label for=""><input type="checkbox"><span>记住我</span></label>
-                    <button>登陆</button>
+                    <button class="btn btn-login" @click="doLogin"><span>登陆</span></button>
                 </div>
                 
-            </form>
+            </div>
         </div>
     </div>
 </template>
 <script>
-    export default{
-
+    export default {
+        methods: {
+            doLogin: function() {
+                this.$router.push({
+                    path: '/home'
+                });
+            }
+        }
     }
-    
 </script>
 
 <style>
-@import '../assets/login.css'
+    @import '../assets/login.css'
 </style>

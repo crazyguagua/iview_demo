@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <NavHeader></NavHeader>
         <Menu :theme="theme2">
                 <Submenu key="1">
                     <template slot="title">
@@ -38,6 +38,7 @@
 </div>
 </template>
 <script type="text/ecmascript-6">
+    import NavHeader from '../components/NavHeader'
     export default {
         data() {
             return {

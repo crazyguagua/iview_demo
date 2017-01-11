@@ -7,20 +7,21 @@
             </a>
         </div>
         <div class="nav-header-btns clearfix">
-            <ul class="nav">
+            <ul class="nav clearfix">
                 <li class="user-li"><i class="iconfont avatar"></i><span class="user-info"><small>欢迎你，</small>zhangxiaodong</span>
                <div class="dropdown-div">
                    <dropdown>
                         <a href="javascript:void(0)"><i class="iconfont arrow-down"></i></a>
+                        <dropdown-menu slot="list">
+                            <dropdown-item></dropdown-item>
+                            <dropdown-item></dropdown-item>
+                            <dropdown-item></dropdown-item>
+                        </dropdown-menu>
                     </dropdown>
-                    <dropdown-menu slot="list">
-                        <dropdown-item></dropdown-item>
-                        <dropdown-item></dropdown-item>
-                        <dropdown-item></dropdown-item>
-                    </dropdown-menu>
+                    
                </div>
                 </li>
-                <li class="menu-li"><i></i><span>业务系统</span></li>
+                <li class="menu-li" style="margin-right:20px;"><i></i><span>业务系统</span></li>
                 <li class="menu-li"><i></i><span>监控系统</span></li>
                 <li  class="menu-li"><i></i><span>报表系统</span></li>
             </ul>
@@ -28,10 +29,8 @@
     </div>
 </template>
 <script>
-    import {
-        dropdown,
-        dropdownMenu
-    } from './ui/dropdown/dropdown';
+    import  dropdown from './ui/dropdown/dropdown';
+    console.log(dropdown);
     export default {
         props: {
             theme: {
@@ -64,7 +63,7 @@
         min-height: 45px;
         &.ace {
             background: #438EB9;
-            padding-top: 5px;
+            padding: 5px 0 ;
         }
         & .sys-info {
             line-height: 1.5;
@@ -86,6 +85,9 @@
             & .dropdown-div {
                 display: inline-block;
             }
+            & .user-li{
+                float:right;
+            }
             & .menu-li {
                 float: right;
                 line-height: 45px;
@@ -94,9 +96,13 @@
                 padding: 0;
                 position: relative;
                 background-color: #555;
+                padding:0 10px;
             }
             & .menu-li:last-child {
                 border-width: 0;
+            }
+            & .menu-li:first-of-type{
+                margin-right:10px;
             }
             & .user-li i {
                 position: relative;

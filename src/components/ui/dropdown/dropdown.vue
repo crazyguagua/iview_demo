@@ -7,6 +7,7 @@
     </div>
 </template>
 <script>
+    import dropdownMenu from './dropdown-menu';
     export default {
         methods: {
             handleClick: function() {

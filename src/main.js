@@ -5,16 +5,15 @@ import App from './App'
 import routes from './router'
 import VueRouter from 'vue-router'
 
-//import iview from 'iview'
-import 'iview/dist/styles/iview.css'// 使用 CSS
-/* eslint-disable no-new */
+import iView from 'iview';
+import 'iview/dist/styles/iview.css'; // 使用 CSS
+
 Vue.use(VueRouter);
-//Vue.use(iview);
-console.log(routes);
+Vue.use(iView);
 const router = new VueRouter({
-    mode:'history',
-    routes  //等于 routes:routes
- })
+    mode: 'history',
+    routes //等于 routes:routes
+})
 
 const app = new Vue({
     router: router

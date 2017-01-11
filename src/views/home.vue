@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NavHeader></NavHeader>
+        <NavHeader :sys-name="sysName"></NavHeader>
         <Menu :theme="theme2">
                 <Submenu key="1">
                     <template slot="title">
@@ -37,13 +37,17 @@
 </Menu>
 </div>
 </template>
-<script type="text/ecmascript-6">
+<script>
     import NavHeader from '../components/NavHeader'
     export default {
         data() {
             return {
-                theme2: 'light'
+                theme2: 'light',
+                sysName: '后台管理系统'
             }
+        },
+        components: {
+            NavHeader
         }
     }
 </script>

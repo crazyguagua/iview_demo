@@ -39,3 +39,13 @@
     content: "\e618";
     font-size: 16px;
 }
+
+.iconfont.logout:before {
+    content: "\e6b0";
+    font-size: 16px;
+}
+
+.iconfont.setting:before {
+    content: "\e69b";
+    font-size: 16px;
+}

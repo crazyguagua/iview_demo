@@ -1,26 +1,41 @@
 <template>
     <div>
-        <div @click="handleClick"><slot ></slot></div>
-        <div v-show="hasClick==true">
+        <div v-clickoutside="handleClose" @click="handleClick"><slot ></slot></div>
+        <div v-show="hasClick==true" class="my-dropdown-select">
             <slot name="list"></slot>
         </div>
     </div>
 </template>
 <script>
     import dropdownMenu from './dropdown-menu';
+    import clickoutside from '../../../directives/clickoutside';
     export default {
+        directives: {
+            clickoutside
+        },
         methods: {
             handleClick: function() {
-
+                this.hasClick = !this.hasClick;
             }
         },
         data: function() {
             return {
-                hasClick: false
+                hasClick: false,
+                handleClose: function() {
+                    this.hasClick = false;
+                }
             }
         }
     }
 </script>
 <style lang="less">
-
+    .my-dropdown-select {
+        position: absolute;
+        right: 6px;
+        top: 56px;
+        background: #fff;
+        z-index: 900;
+        max-height: 200px;
+        transform-origin: center top 0px;
+    }
 </style>

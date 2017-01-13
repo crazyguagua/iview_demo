@@ -11,11 +11,10 @@
                 <li class="user-li"><i class="iconfont avatar"></i><span class="user-info"><small>欢迎你，</small>zhangxiaodong</span>
                <div class="dropdown-div">
                    <dropdown>
-                        <a href="javascript:void(0)"><i class="iconfont arrow-down"></i></a>
+                        <a href="javascript:void(0)"><i class="iconfont arrow-down" ></i></a>
                         <dropdown-menu slot="list">
-                            <dropdown-item></dropdown-item>
-                            <dropdown-item></dropdown-item>
-                            <dropdown-item></dropdown-item>
+                            <dropdown-item v-for="dropdownBtn in dropdownBtns " :text="dropdownBtn.text" :icon="dropdownBtn.icon" ></dropdown-item>
+                           
                         </dropdown-menu>
                     </dropdown>
                     
@@ -29,9 +28,11 @@
     </div>
 </template>
 <script>
-    import  dropdown from './ui/dropdown/dropdown';
-    console.log(dropdown);
+    import dropdown from './ui/dropdown/dropdown';
+    import dropdownItem from './ui/dropdown/dropdown-item';
+    import dropdownMenu from './ui/dropdown/dropdown-menu';
     export default {
+        name: 'navHeader',
         props: {
             theme: {
                 type: String,
@@ -44,8 +45,23 @@
                 type: String
             }
         },
+        data: function() {
+            return {
+                dropdownBtns: [{
+                    icon: 'setting',
+                    text: '设置',
+                    handler: this.setting
+                }, {
+                    icon: 'logout',
+                    text: '退出',
+                    handler: this.logout
+                }]
+            }
+        },
         components: {
-            dropdown
+            dropdown,
+            dropdownMenu,
+            dropdownItem
         },
         computed: {
             headerCls() {
@@ -63,7 +79,7 @@
         min-height: 45px;
         &.ace {
             background: #438EB9;
-            padding: 5px 0 ;
+            padding: 5px 0;
         }
         & .sys-info {
             line-height: 1.5;
@@ -76,6 +92,10 @@
         }
     }
     
+    .dropdown-div .arrow-down {
+        color: #fff;
+    }
+    
     .nav-header-btns {
         float: right;
         height: 45px;
@@ -85,8 +105,8 @@
             & .dropdown-div {
                 display: inline-block;
             }
-            & .user-li{
-                float:right;
+            & .user-li {
+                float: right;
             }
             & .menu-li {
                 float: right;
@@ -96,15 +116,15 @@
                 padding: 0;
                 position: relative;
                 background-color: #555;
-                padding:0 10px;
+                padding: 0 10px;
             }
             & .menu-li:last-child {
                 border-width: 0;
             }
-            & .menu-li:first-of-type{
-                margin-right:10px;
+            & .menu-li:first-of-type {
+                margin-right: 10px;
             }
-            & .user-li i {
+            & .user-li i.avatar {
                 position: relative;
                 top: -20px;
                 right: 5px;

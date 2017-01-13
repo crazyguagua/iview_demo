@@ -6,3 +6,8 @@
 <script>
     export default {}
 </script>
+<style lang="">
+    .my-dropdown-menu {
+        min-width: 100px;
+    }
+</style>

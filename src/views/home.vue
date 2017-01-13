@@ -1,29 +1,30 @@
 <template>
-    <div>
-        <NavHeader :sys-name="sysName"></NavHeader>
-        <Menu :theme="theme2">
-                <Submenu key="1">
-                    <template slot="title">
-                        <Icon type="ios-paper"></Icon>
-                        内容管理
-                    </template>
+	<div>
+		<NavHeader :sys-name="sysName"></NavHeader>
+		<div class="menu">
+			<Menu :theme="theme2">
+				<Submenu key="1">
+					<template slot="title">
+						<Icon type="ios-paper"></Icon>
+						内容管理
+					</template>
 <Menu-item key="1-1">文章管理</Menu-item>
 <Menu-item key="1-2">评论管理</Menu-item>
 <Menu-item key="1-3">举报管理</Menu-item>
 </Submenu>
 <Submenu key="2">
     <template slot="title">
-                        <Icon type="ios-people"></Icon>
-                        用户管理
-                    </template>
+						<Icon type="ios-people"></Icon>
+						用户管理
+					</template>
     <Menu-item key="2-1">新增用户</Menu-item>
     <Menu-item key="2-2">活跃用户</Menu-item>
 </Submenu>
 <Submenu key="3">
     <template slot="title">
-                        <Icon type="stats-bars"></Icon>
-                        统计分析
-                    </template>
+						<Icon type="stats-bars"></Icon>
+						统计分析
+					</template>
     <Menu-group title="使用">
         <Menu-item key="3-1">新增和启动</Menu-item>
         <Menu-item key="3-2">活跃分析</Menu-item>
@@ -35,6 +36,7 @@
     </Menu-group>
 </Submenu>
 </Menu>
+</div>
 </div>
 </template>
 <script>
@@ -51,3 +53,11 @@
         }
     }
 </script>
+<style lang="">
+    .menu {
+        position: absolute;
+        top: 55px;
+        bottom: 0;
+        background: #fff;
+    }
+</style>

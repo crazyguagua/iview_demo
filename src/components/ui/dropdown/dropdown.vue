@@ -18,6 +18,12 @@
                 this.hasClick = !this.hasClick;
             }
         },
+        events:{
+            'dropdown-item-click'(key){
+                const parent = this.$parent;
+                if(parent) this.$emit('dropdown-item-click',key);
+            }
+        },
         data: function() {
             return {
                 hasClick: false,

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<NavHeader :sys-name="sysName"></NavHeader>
-		<div class="menu">
+		<!--<div class="menu">
 			<Menu :theme="theme2">
 				<Submenu key="1">
 					<template slot="title">
@@ -35,7 +35,7 @@
         <Menu-item key="3-5">流失用户</Menu-item>
     </Menu-group>
 </Submenu>
-</Menu>
+</Menu>-->
 </div>
 </div>
 </template>

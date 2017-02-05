@@ -13,7 +13,7 @@
                    <dropdown>
                         <a href="javascript:void(0)"><i class="iconfont arrow-down" ></i></a>
                         <dropdown-menu slot="list">
-                            <dropdown-item v-for="dropdownBtn in dropdownBtns " :text="dropdownBtn.text" :icon="dropdownBtn.icon" :clickKey="dropdownBtn.clickKey"></dropdown-item>
+                            <dropdown-item v-for="dropdownBtn in dropdownBtns " :text="dropdownBtn.text" :icon="dropdownBtn.icon" :click="dropdownBtn.handler" :clickKey="dropdownBtn.clickKey"></dropdown-item>
                            
                         </dropdown-menu>
                     </dropdown>
@@ -51,12 +51,16 @@
                     icon: 'setting',
                     text: '设置',
                     clickKey:'setting',
-                    handler: this.setting
+                    handler: function(){
+                        alert(1);
+                    }
                 }, {
                     icon: 'logout',
                     text: '退出',
                     clickKey:'logout',
-                    handler: this.logout
+                    handler: function(){
+                        alert(2);
+                    }
                 }]
             }
         },

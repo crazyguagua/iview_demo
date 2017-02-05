@@ -1,6 +1,7 @@
 <template>
-	<div>
+	<div class="home-container"> 
 		<NavHeader :sys-name="sysName"></NavHeader>
+        <SideMenu></SideMenu>
 		<!--<div class="menu">
 			<Menu :theme="theme2">
 				<Submenu key="1">
@@ -41,6 +42,7 @@
 </template>
 <script>
     import NavHeader from '../components/NavHeader'
+    import SideMenu from '../components/SideMenu';
     export default {
         data() {
             return {
@@ -49,15 +51,13 @@
             }
         },
         components: {
-            NavHeader
+            NavHeader,
+            SideMenu
         }
     }
 </script>
-<style lang="">
-    .menu {
-        position: absolute;
-        top: 55px;
-        bottom: 0;
-        background: #fff;
+<style lang="" scoped>
+    .home-container{
+        position:relative;
     }
 </style>

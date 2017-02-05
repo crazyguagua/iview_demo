@@ -1,6 +1,5 @@
 export default {
     bind(el, binding, vnode) {
-        console.log(arguments);
         binding.documentHandler = (e) => {
             if (el.contains(e.target)) {
                 return false;

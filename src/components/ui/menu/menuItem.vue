@@ -1,5 +1,5 @@
 <template>
-    <li><a href=""><span><i></i></span><{{}}/a></li>
+    <li><a href=""><span><i></i></span></a></li>
 </template>
 <script>
     export default{
@@ -10,6 +10,6 @@
         }
     }
 </script>
-<style lang="">
+<style >
     
 </style>

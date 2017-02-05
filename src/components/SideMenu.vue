@@ -1,19 +1,20 @@
 <template>
     <div class="nav-menu "> 
         <NavMenu>
-            <MenuItem>
-            </MenuItem>
+            <NavMenuItem>
+            </NavMenuItem>
         </NavMenu>
     </div>
 </template>
 <script>
     import {
         NavMenu,
-        MenuItem} from './ui/menu'
+        NavMenuItem} from './ui/menu'
+    console.log(NavMenu);
     export default{
         components:{
             NavMenu,
-            MenuItem
+            NavMenuItem
         }
     }
 </script>

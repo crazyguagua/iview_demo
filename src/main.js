@@ -5,12 +5,12 @@ import App from './App'
 import routes from './router'
 import VueRouter from 'vue-router'
 
-import iView from 'iview';
-import 'iview/dist/styles/iview.css'; // 使用 CSS
+// import iView from 'iview';
+// import 'iview/dist/styles/iview.css'; // 使用 CSS
 import './assets/main.css'
 
 Vue.use(VueRouter);
-Vue.use(iView);
+// Vue.use(iView);
 const router = new VueRouter({
     mode: 'history',
     routes //等于 routes:routes

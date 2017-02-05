@@ -1,6 +1,8 @@
 import NavMenu from './menu'
-import MenuItem from './menuItem'
-export default{
+import NavMenuItem from './menuItem'
+console.log(NavMenu);
+console.log(NavMenuItem);
+export {
     NavMenu,
-    MenuItem
+    NavMenuItem
 }

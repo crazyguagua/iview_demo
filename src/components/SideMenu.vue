@@ -1,20 +1,51 @@
 <template>
     <div class="nav-menu "> 
-        <NavMenu>
-            <NavMenuItem>
-            </NavMenuItem>
+        <NavMenu theme="dark">
+          <MenuGroup v-for="menu in menus" slot="menuList" :title="menu.title" :collapsed='menu.collapsed'>
+                <NavMenuItem v-for="sub in menu.subMenu" v-if="menu.subMenu" :title="sub.title"></NavMenuItem>
+            </MenuGroup>
         </NavMenu>
     </div>
 </template>
 <script>
     import {
         NavMenu,
-        NavMenuItem} from './ui/menu'
-    console.log(NavMenu);
+        NavMenuItem,MenuGroup} from './ui/menu'
     export default{
         components:{
-            NavMenu,
-            NavMenuItem
+            NavMenu,NavMenuItem,MenuGroup
+        },
+        data(){
+            return{
+                 menus:[{
+                   title:'系统管理',
+                   collapsed:false,
+                   subMenu:[{
+                       title:'用户管理',
+                       url:'user/list'
+                   },{
+                        title:'角色管理',
+                       url:'role/list'
+                   }
+                   ,{
+                        title:'菜单管理',
+                       url:'role/list'
+                   }]
+                  
+               },
+               {
+                   title:'统计分析',
+                   subMenu:[{
+                       title:'用户留存',
+                       url:'user/list'
+                   },{
+                        title:'流失用户',
+                       url:'role/list'
+                   }
+                   ]
+                  
+               }]
+            }
         }
     }
 </script>

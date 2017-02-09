@@ -8,6 +8,39 @@ body{font-family:"Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Mi
 ul,li{
     list-style: none;
 }
+a {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+a {
+    color: #3399ff;
+    background: transparent;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    transition: color .2s ease;
+}
+ a:hover {
+        color: #3399ff;
+    }
+
+    a:active {
+        color: #3399ff;
+    }
+ a:active,
+    a:hover {
+        outline: 0;
+        text-decoration: none;
+    }
+a[disabled] {
+        color: #ccc;
+        cursor: not-allowed;
+        pointer-events: none;
+}
 @font-face {
     font-family: 'iconfont';
     /* project id 219192 */

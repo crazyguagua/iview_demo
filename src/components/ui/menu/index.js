@@ -1,8 +1,9 @@
 import NavMenu from './menu'
 import NavMenuItem from './menuItem'
-console.log(NavMenu);
-console.log(NavMenuItem);
+import MenuGroup from './menuGroup'
+
 export {
     NavMenu,
-    NavMenuItem
+    NavMenuItem,
+    MenuGroup
 }

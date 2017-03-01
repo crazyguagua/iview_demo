@@ -22,7 +22,7 @@
         methods: {
             doLogin: function() {
                 this.$router.push({
-                    path: '/home'
+                    path: '/home/dashboard'
                 });
             }
         }
@@ -30,4 +30,5 @@
 </script>
 
 <style>
+
 </style>

@@ -2,6 +2,7 @@
 	<div class="home-container"> 
 		<NavHeader :sys-name="sysName"></NavHeader>
         <SideMenu></SideMenu>
+        <MainContent></MainContent>
 		<!--<div class="menu">
 			<Menu :theme="theme2">
 				<Submenu key="1">
@@ -43,6 +44,7 @@
 <script>
     import NavHeader from '../components/NavHeader'
     import SideMenu from '../components/SideMenu';
+    import MainContent from '../components/MainContent';
     export default {
         data() {
             return {
@@ -52,12 +54,13 @@
         },
         components: {
             NavHeader,
-            SideMenu
+            SideMenu,
+            MainContent
         }
     }
 </script>
 <style lang="" scoped>
-    .home-container{
-        position:relative;
+    .home-container {
+        /*position: relative;*/
     }
 </style>

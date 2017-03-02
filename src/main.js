@@ -8,6 +8,9 @@ import VueRouter from 'vue-router'
 // import iView from 'iview';
 // import 'iview/dist/styles/iview.css'; // 使用 CSS
 import './assets/main.css'
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:3000/';
+Vue.prototype.$http = axios;
 
 Vue.use(VueRouter);
 // Vue.use(iView);

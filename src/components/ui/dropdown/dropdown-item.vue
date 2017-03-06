@@ -6,12 +6,12 @@
         props: {
             text: String,
             icon: String,
-            clickKey:[String,Number],
-            click:{
-                type:Function
+            clickKey: [String, Number],
+            click: {
+                type: Function
             }
         },
-        methods:{
+        methods: {
             // itemClick:function(){
             //     debugger;
             //     var parent = this.$parent.$parent;
@@ -24,9 +24,14 @@
     .my-dropdown-item {
         margin: 0;
         padding: 2px 16px;
-        color: #657180;
         font-size: 12px!important;
         cursor: pointer;
+        & a {
+            color: #fff;
+            &:hover {
+                color: #b0eaa6;
+            }
+        }
         & span {
             padding: 0 10px;
             vertical-align: middle;

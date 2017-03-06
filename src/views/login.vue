@@ -11,14 +11,14 @@
                     <input type="text" class="form-control" placeholder="请输入验证码">
                 </div>-->
                 <div class="loginbar">
-                    <label for=""><input type="checkbox"><span>记住我</span></label>
-                    <button class="btn btn-login" @click="doLogin"><span>登陆</span></button>
+                    <!--<label for=""><input type="checkbox"><span>记住我</span></label>-->
+                    <button class="btn btn-login" @click="doLogin()"><span>登陆</span></button>
                 </div>
                 
             </div>
            
         </div>
-         <Alert :message="errorMsg"></Alert>
+         <Alert :message="errorMsg" :type="type" v-if="errorMsg"></Alert>
     </div>
 </template>
 <script>
@@ -34,16 +34,26 @@
         data() {
             return {
                 formData: {},
-                errorMsg: "用户名或密码错误"
+                errorMsg: "",
+                type: 'danger'
+
             }
         },
         methods: {
             doLogin: function() {
-                this.$http.post('login', this.formData).then(m => console.log(m.data));
-
-                // this.$router.push({
-                //     path: '/home/dashboard'
-                // });
+                let _this = this;
+                this.$http.post('login', this.formData).then(function(m) {
+                    let data = m.data;
+                    if (data.retCode == 0) {
+                        _this.errorMsg = data.retMsg;
+                        _this.type = 'warning'
+                    } else {
+                        _this.$router.push('/dashboard');
+                    }
+                }).catch(function(error) {
+                    console.error(error);
+                    _this.errorMsg = "网络异常，登陆失败！"
+                })
             }
         }
     }

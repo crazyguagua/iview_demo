@@ -3,90 +3,99 @@
         <div class="menu-header menu-title" v-on:click="toggle()">
             <i class="" ></i>
                 {{title}}
-            <i class="iconfont collapse" :class="[collapsed ? 'arrow-down':'arrow-up']" ></i>
+            <i v-if="hasChild" class="iconfont collapse" :class="[collapsed ? 'arrow-down':'arrow-up']" ></i>
         </div>
-        <ul  class="subMenu" :class="[collapsed?'collapsed':'']">
+        
+        <ul  class="subMenu"  :class="[collapsed?'collapsed':'']">
             <slot ></slot>
         </ul>
     </li>
 </template>
 <script>
-    export default{
-         props:{
-            title:{
-                type:String
+    export default {
+        props: {
+            title: {
+                type: String
             },
-            icon:{
-                type:String
+            icon: {
+                type: String
             },
-            collapsed:{
-                type:Boolean,
-                default:true
+            hasChild: {
+                type: Boolean,
+                default: false
+            },
+            path: {
+                type: String
+            },
+            isCollapsed: {
+                type: Boolean,
+                default: true
             }
         },
-        data(){
-            return{
-                
+        data() {
+            return {
+                collapsed: this.isCollapsed ? this.isCollapsed : true
             }
         },
-        computed:{
-            arrowClasses(){
+        computed: {
+            arrowClasses() {
 
-                
-            }
+
+            },
+
         },
-        methods:{
-            toggle(){
-                this.collapsed = !this.collapsed;
+        methods: {
+            toggle() {
+                if (!this.hasChild && this.path) {
+                    this.$router.push(this.path);
+                } else {
+                    this.collapsed = !this.collapsed;
+                }
+
             }
         }
     }
-    
 </script>
-<style lang="less" >
-    .menu-header{
-        padding:14px 24px;
-        cursor:pointer;
-        position:relative;
-         & .collapse{
-            position:absolute;
+<style lang="less">
+    .menu-header {
+        padding: 14px 24px;
+        cursor: pointer;
+        position: relative;
+        & .collapse {
+            position: absolute;
             right: 10px;
             top: 1px;
         }
-        & > i{
+        &>i {
             margin-right: 8px;
         }
-       
     }
-    .menu-light{
-        
-         & .menu-header:hover{
-             background:#f3f3f3;
+    
+    .menu-light {
+        & .menu-header:hover {
+            background: #f3f3f3;
         }
-       
-    } 
-    .menu-dark{
-        & .menu-header{
+    }
+    
+    .menu-dark {
+        & .menu-header {
             color: #9ea7b4;
-            position:relative;
-            
-           
+            position: relative;
         }
-        & .menu-header.menu-title{
-            background:#464c5b;
+        & .menu-header.menu-title {
+            background: #464c5b;
         }
-         & .menu-header:hover{
-             color: #fff;
-       
+        & .menu-header:hover {
+            color: #fff;
         }
     }
-    .subMenu{
-        transition:all .3s;
+    
+    .subMenu {
+        transition: all .3s;
         overflow: hidden;
-        height:auto;
-        &.collapsed{
-            height:0;
+        height: auto;
+        &.collapsed {
+            height: 0;
         }
-     
     }
 </style>

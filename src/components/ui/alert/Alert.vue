@@ -1,11 +1,14 @@
 <template>
-    <div class="alert" :class="[typeCls]"><button class="close"><span>X</span></button><strong></strong>{{message}}</div>
+    <transition name="fade">
+        <div class="alert" v-show="visible" :class="[typeCls]"><button class="close" @click="close()"><span>X</span></button><strong></strong>{{message}}</div>
+    </transition>
+    
 </template>
 <script>
     export default {
         data() {
             return {
-
+                visible: true
             }
         },
         props: {
@@ -20,6 +23,12 @@
         computed: {
             typeCls() {
                 return `alert-${ this.type }`
+            }
+        },
+        methods: {
+            close: function() {
+                this.visible = false;
+                this.$emit('close');
             }
         }
     }

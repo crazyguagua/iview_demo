@@ -50,17 +50,15 @@
                 dropdownBtns: [{
                     icon: 'setting',
                     text: '设置',
-                    clickKey:'setting',
-                    handler: function(){
-                        alert(1);
+                    clickKey: 'setting',
+                    handler: function() {
+                        alert('settings');
                     }
                 }, {
                     icon: 'logout',
                     text: '退出',
-                    clickKey:'logout',
-                    handler: function(){
-                        alert(2);
-                    }
+                    clickKey: 'logout',
+                    handler: this.logout
                 }]
             }
         },
@@ -68,6 +66,12 @@
             dropdown,
             dropdownMenu,
             dropdownItem
+        },
+        methods: {
+            logout() {
+                debugger;
+                this.$router.push('/login')
+            }
         },
         computed: {
             headerCls() {

@@ -1,9 +1,9 @@
 <template>
     <div class="nav-menu "> 
         <NavMenu theme="dark">
-          <MenuGroup v-for="menu in menus" slot="menuList" :title="menu.title" :collapsed='menu.collapsed'>
-                <NavMenuItem v-for="sub in menu.subMenu" v-if="menu.subMenu" :title="sub.title" :path="sub.path"></NavMenuItem>
-            </MenuGroup>
+          <MenuGroup v-for="menu in menus" :hasChild="menu.subMenu && menu.subMenu.length>0" :path="menu.path" slot="menuList" :title="menu.title" :collapsed='menu.collapsed'>
+                <NavMenuItem  v-for="sub in menu.subMenu" v-if="menu.subMenu" :title="sub.title" :path="sub.path"></NavMenuItem>
+          </MenuGroup>
         </NavMenu>
     </div>
 </template>
@@ -22,27 +22,30 @@
         data() {
             return {
                 menus: [{
+                    title: '我的工作台',
+                    path: 'dashboard'
+                }, {
                     title: '系统管理',
                     collapsed: false,
                     subMenu: [{
                         title: '用户管理',
-                        url: '/home/userManage'
+                        path: 'userManage'
                     }, {
                         title: '角色管理',
-                        url: 'role/list'
+                        path: 'role/list'
                     }, {
                         title: '菜单管理',
-                        url: 'role/list'
+                        path: 'role/list'
                     }]
 
                 }, {
                     title: '统计分析',
                     subMenu: [{
                         title: '用户留存',
-                        url: 'user/list'
+                        path: 'user/list'
                     }, {
                         title: '流失用户',
-                        url: 'role/list'
+                        path: 'role/list'
                     }]
 
                 }]

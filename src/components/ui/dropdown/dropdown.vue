@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-clickoutside="handleClose" @click="handleClick"><slot ></slot></div>
+        <div  @click="handleClick"><slot ></slot></div>
         <div v-show="hasClick==true" class="my-dropdown-select">
             <slot name="list"></slot>
         </div>
@@ -10,18 +10,18 @@
     import dropdownMenu from './dropdown-menu';
     import clickoutside from '../../../directives/clickoutside';
     export default {
-        directives: {
-            clickoutside
-        },
+        // directives: {
+        //     clickoutside
+        // },
         methods: {
             handleClick: function() {
                 this.hasClick = !this.hasClick;
             }
         },
-        events:{
-            'dropdown-item-click'(key){
+        events: {
+            'dropdown-item-click' (key) {
                 const parent = this.$parent;
-                if(parent) this.$emit('dropdown-item-click',key);
+                if (parent) this.$emit('dropdown-item-click', key);
             }
         },
         data: function() {
@@ -37,9 +37,9 @@
 <style lang="less">
     .my-dropdown-select {
         position: absolute;
-        right: 6px;
-        top: 56px;
-        background: #fff;
+        right: 0px;
+        top: 55px;
+        background: #438EB9;
         z-index: 900;
         max-height: 200px;
         transform-origin: center top 0px;

@@ -1,5 +1,5 @@
 <template>
-    <li class="menu-header menu-item"><a href="" @click="goMenu(path)"><span><i></i></span>{{title}}</a></li>
+    <li class="menu-header menu-item"><a href="javascript:void(0)" @click="goMenu(path)"><span><i></i></span>{{title}}</a></li>
 </template>
 <script>
     export default {
@@ -13,6 +13,8 @@
         },
         methods: {
             goMenu: function(route) {
+                debugger;
+                console.log(this.$router.matched);
                 try {
                     this.$router.push({
                         path: route

@@ -44,5 +44,9 @@ var router = new VueRouter({
     // mode: 'history',
     routes //等于 routes:routes
 })
-
+router.beforeEach((to, from, next) => {
+    // ...
+    console.log(from);
+    next();
+})
 export default router

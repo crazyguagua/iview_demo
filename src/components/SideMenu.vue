@@ -23,13 +23,13 @@
             return {
                 menus: [{
                     title: '我的工作台',
-                    path: 'dashboard'
+                    path: '/dashboard'
                 }, {
                     title: '系统管理',
                     collapsed: false,
                     subMenu: [{
                         title: '用户管理',
-                        path: 'userManage'
+                        path: '/userManage'
                     }, {
                         title: '角色管理',
                         path: 'role/list'

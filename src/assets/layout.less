@@ -36,34 +36,39 @@
 }
 
 .setByDevice(@device;
-@index: 1) when ( @device='pc')and (@index<=@iterations ) {
-    @width-item: col-@{index};
-    @offset-item: col-offset-@{index};
-    @pull-item: col-pull-@{index};
-    @push-item: col-push-@{index};
-    .grid-setting(@index;
-    pull;
-    @pull-item);
-    .grid-setting(@index;
-    push;
-    @push-item);
-    .grid-setting(@index;
-    offset;
-    @offset-item);
-    .grid-setting(@index;
-    width;
-    @width-item);
+@index: 1) when ( @device=pc)and (@index<=@iterations ) {
+    @width-item: ~".col-@{index}";
+    @offset-item: ~".col-offset-@{index}";
+    @pull-item: ~".col-pull-@{index}";
+    @push-item: ~".col-push-@{index}";
+    .setAll(@index;@width-item;@offset-item;@pull-item;@push-item);
     .setByDevice(@device;
     (@index+1))
 }
 
 .setByDevice(@device;
-@index: 1) when ( @device='xs')and (@index<=@iterations ) {
-    @width-item: col-@{index};
-    @offset-item: col-offset-@{index};
-    @pull-item: col-pull-@{index};
-    @push-item: col-push-@{index};
-    .grid-setting(@index;
+@index: 1) when ( @device=xs)and (@index<=@iterations ) {
+    @width-item: ~".col-@{index}";
+    @offset-item: ~".col-offset-@{index}";
+    @pull-item: ~".col-pull-@{index}";
+    @push-item: ~".col-push-@{index}";
+   .setAll(@index;@width-item;@offset-item;@pull-item;@push-item);
+    .setByDevice(@device;
+    (@index+1))
+}
+.setByDevice(@device;
+@index: 1) when ( @device=xs)and (@index<=@iterations ) {
+    @width-item: ~".col-@{index}";
+    @offset-item: ~".col-offset-@{index}";
+    @pull-item: ~".col-pull-@{index}";
+    @push-item: ~".col-push-@{index}";
+   .setAll(@index;@width-item;@offset-item;@pull-item;@push-item);
+    .setByDevice(@device;
+    (@index+1))
+}
+
+.setAll(@index;@width-item;@offset-item;@pull-item;@push-item){
+	 .grid-setting(@index;
     pull;
     @pull-item);
     .grid-setting(@index;
@@ -75,11 +80,20 @@
     .grid-setting(@index;
     width;
     @width-item);
-    .setByDevice(@device;
-    (@index+1))
 }
 
-.setByDevice('pc');
+.setByDevice(pc);
 @media (max-width: @screen-xs) {
-    .setByDevice('xs');
-}    
+    .setByDevice(xs);
+}
+@media (max-width: @screen-sm) {
+    .setByDevice(sm);
+}  
+
+@media (max-width: @screen-md) {
+    .setByDevice(md);
+}  
+
+@media (max-width: @screen-lg) {
+    .setByDevice(lg);
+}  

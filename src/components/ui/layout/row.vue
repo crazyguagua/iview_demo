@@ -48,101 +48,97 @@
         width: 100%;
         position: relative;
     }
-    
     @iterations: 24;
-    @screen-xs: 480px;
-    @screen-sm: 768px;
-    @screen-md: 992px;
-    @screen-lg: 1200px;
-    .grid-width(@range;
-    @columns;
-    @index: 1) when(@index<=@columns) {
-        .my-col-@{range}-@{index} {
-            width: @index*(100%/@columns);
-        }
-        .grid-width(@range;
-        @columns;
-        (@index+1));
+@screen-xs: 480px;
+@screen-sm: 768px;
+@screen-md: 992px;
+@screen-lg: 1200px;
+.grid-setting(@index;
+@type;
+@item) when( @type=pull) and ( @index< @iterations) {
+    @{item} {
+        right: (@index/@iterations)*100%
     }
-    
-    .grid-width-norange(@columns;
-    @index: 1) when(@index<=@columns) {
-        .my-col-@{index} {
-            width: @index*(100%/@columns);
-        }
-        .grid-width-norange(@columns;
-        (@index+1));
+}
+
+.grid-setting(@index;
+@type;
+@item) when( @type =push) and ( @index< @iterations) {
+    @{item} {
+        left: (@index/@iterations)*100%
     }
-    
-    @media(max-width:@screen-xs) {
-        .grid-width(xs;
-        @iterations)
+}
+
+.grid-setting(@index;
+@type;
+@item) when( @type =width) {
+    @{item} {
+        width: (@index/@iterations)*100%
     }
-    
-    @media(max-width:@screen-sm) {
-        .grid-width(sm;
-        @iterations)
+}
+
+.grid-setting(@index;
+@type;
+@item) when( @type =offset)and ( @index< @iterations) {
+    @{item} {
+        margin-left: (@index/@iterations)*100%
     }
-    
-    @media(max-width:@screen-md) {
-        .grid-width(md;
-        @iterations)
-    }
-    
-    @media(max-width:@screen-lg) {
-        .grid-width(lg;
-        @iterations)
-    }
-    
-    .my-row {
-        .grid-width-norange(@iterations)
-    }
-    
-    .grid-offset(@columns;
-    @index: 1) when(@index<@columns) {
-        .my-col-offset-@{index} {
-            margin-left: @index*(100%/@columns);
-        }
-        .grid-offset(@columns;
-        (@index+1));
-    }
-    
-    .my-row {
-        .grid-offset(@iterations)
-    }
-    /*推拉设置*/
-    
+}
+
+.setByDevice(@device;
+@index: 1) when ( @device=pc)and (@index<=@iterations ) {
+    @width-item: ~".col-@{index}";
+    @offset-item: ~".col-offset-@{index}";
+    @pull-item: ~".col-pull-@{index}";
+    @push-item: ~".col-push-@{index}";
+    .setAll(@index;@width-item;@offset-item;@pull-item;@push-item);
+    .setByDevice(@device;
+    (@index+1))
+}
+
+.setByDevice(@device;
+@index: 1) when not( @device=pc) and (@index<=@iterations ) {
+    @width-item: ~".col-@{device}-@{index}";
+    @offset-item: ~".col--@{device}-offset-@{index}";
+    @pull-item: ~".col--@{device}-pull-@{index}";
+    @push-item: ~".col--@{device}-push-@{index}";
+   .setAll(@index;@width-item;@offset-item;@pull-item;@push-item);
+    .setByDevice(@device;
+    (@index+1))
+}
+
+
+.setAll(@index;@width-item;@offset-item;@pull-item;@push-item){
+	 .grid-setting(@index;
+    pull;
+    @pull-item);
     .grid-setting(@index;
-    @class;
-    @type) when(@type=pull) {
-        .my-col-@{class}-@{type} {
-            right: (@index/@iterations)*100%
-        }
-    }
-    
+    push;
+    @push-item);
     .grid-setting(@index;
-    @class;
-    @type) when(@type=push) {
-        .my-col-@{class}-@{type} {
-            left: (@index/@iterations)*100%
-        }
-    }
+    offset;
+    @offset-item);
+    .grid-setting(@index;
+    width;
+    @width-item);
+}
+
+.setByDevice(pc);
+@media (max-width: @screen-xs) {
+    .setByDevice(xs);
+}
+@media (max-width: @screen-sm) {
+    .setByDevice(sm);
+}  
+
+@media (max-width: @screen-md) {
+    .setByDevice(md);
+}  
+
+@media (max-width: @screen-lg) {
+    .setByDevice(lg);
+}  
     
-    .loop-grid(@index;
-    @class;
-    @type) when(@index>0) {
-        .loop-grid((@index -1);
-        @index;
-        @class;
-        @type)
-    }
     
-    .my-row {
-        .loop-grid(@iterations -1;
-        lg;
-        push);
-        .loop-grid(@iterations -1;
-        lg;
-        pull);
-    }
+    
 </style>

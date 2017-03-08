@@ -12,19 +12,19 @@
               <my-col :span="8"><div class="grid">1</div></my-col>
                <my-col :span="8"><div class="grid">1</div></my-col>
             </my-row>
-            <my-row :gutter="50">
+            <my-row :gutter="20">
              <my-col :span="8"><div class="grid">8</div></my-col>
               <my-col :span="8"><div class="grid">8</div></my-col>
                <my-col :span="4"><div class="grid">4</div></my-col>
                <my-col :span="4"><div class="grid">4</div></my-col>
             </my-row>
-             <my-row :gutter="50">
+             <my-row :gutter="20">
              <my-col :span="6" :offset="6" ><div class="grid">6 offset6</div></my-col>
              <my-col :span="6" :offset="6"><div class="grid">6 offset6</div></my-col>
             </my-row>
               <my-row >
-             <my-col :span="12" :pull="2" :push="1" ><div class="grid">6 pull2 push1</div></my-col>
-             <my-col :span="12" :pull="1" :push="2" ><div class="grid">6 pull1 push2</div></my-col>
+             <my-col :span="3" :pull="2" :push="1" ><div class="grid">6 pull2 push1</div></my-col>
+             <my-col :span="3" :pull="1" :push="2" ><div class="grid">6 pull1 push2</div></my-col>
             </my-row>
        </div>
            

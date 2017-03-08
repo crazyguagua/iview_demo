@@ -6,13 +6,29 @@
                 <BreadCrumbItem>我的工作台</BreadCrumbItem>
             </BreadCrumb>
         </ContentHeader>
-        <div>
-            <my-row>
-             <my-col>1</my-col>
-              <my-col>2</my-col>
-               <my-col>3</my-col>
+       <div class="container">
+             <my-row :gutter="20">
+             <my-col :span="8"><div class="grid">1</div></my-col>
+              <my-col :span="8"><div class="grid">1</div></my-col>
+               <my-col :span="8"><div class="grid">1</div></my-col>
             </my-row>
-        </div>
+            <my-row :gutter="50">
+             <my-col :span="8"><div class="grid">8</div></my-col>
+              <my-col :span="8"><div class="grid">8</div></my-col>
+               <my-col :span="4"><div class="grid">4</div></my-col>
+               <my-col :span="4"><div class="grid">4</div></my-col>
+            </my-row>
+             <my-row :gutter="50">
+             <my-col :span="6" :offset="6" ><div class="grid">6 offset6</div></my-col>
+             <my-col :span="6" :offset="6"><div class="grid">6 offset6</div></my-col>
+            </my-row>
+              <my-row >
+             <my-col :span="12" :pull="2" :push="1" ><div class="grid">6 pull2 push1</div></my-col>
+             <my-col :span="12" :pull="1" :push="2" ><div class="grid">6 pull1 push2</div></my-col>
+            </my-row>
+       </div>
+           
+        
     </div>
 </template>
 <script>
@@ -41,5 +57,9 @@
     }
 </script>
 <style lang="less">
-
+    .grid {
+        min-height: 34px;
+        background: lightskyblue;
+        text-align: center;
+    }
 </style>

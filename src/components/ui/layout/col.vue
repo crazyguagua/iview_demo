@@ -1,5 +1,5 @@
 <template>
-    <div class="my-col" :style="style" :class="classList">
+    <div class="col" :style="style" :class="classList">
         <slot></slot>
     </div>
 </template>
@@ -22,11 +22,13 @@
             classList() {
                 let classList = [];
                 let This = this;
-                ['span', 'offset', 'pull', 'right'].forEach(prop => {
+                ['span', 'offset', 'pull', 'push'].forEach(prop => {
+
                     if (This[prop]) {
-                        This[prop] === 'span' ? classList.push(`my-col-${ This[prop]}`) : classList.push(`my-col-${ prop }-${ This[prop]}`)
+                        prop === 'span' ? classList.push(`col-${ This[prop]}`) : classList.push(`col-${ prop }-${ This[prop]}`)
                     }
                 })
+                return classList;
             },
             style() {
                 let padding = `${ this.gutter/2 }px`;

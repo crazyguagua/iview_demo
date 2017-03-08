@@ -1,0 +1,85 @@
+@iterations: 24;
+@screen-xs: 480px;
+@screen-sm: 768px;
+@screen-md: 992px;
+@screen-lg: 1200px;
+.grid-setting(@index;
+@type;
+@item) when( @type=pull) and ( @index< @iterations) {
+    @{item} {
+        right: (@index/@iterations)*100%
+    }
+}
+
+.grid-setting(@index;
+@type;
+@item) when( @type =push) and ( @index< @iterations) {
+    @{item} {
+        left: (@index/@iterations)*100%
+    }
+}
+
+.grid-setting(@index;
+@type;
+@item) when( @type =width) {
+    @{item} {
+        width: (@index/@iterations)*100%
+    }
+}
+
+.grid-setting(@index;
+@type;
+@item) when( @type =offset)and ( @index< @iterations) {
+    @{item} {
+        margin-left: (@index/@iterations)*100%
+    }
+}
+
+.setByDevice(@device;
+@index: 1) when ( @device='pc')and (@index<=@iterations ) {
+    @width-item: col-@{index};
+    @offset-item: col-offset-@{index};
+    @pull-item: col-pull-@{index};
+    @push-item: col-push-@{index};
+    .grid-setting(@index;
+    pull;
+    @pull-item);
+    .grid-setting(@index;
+    push;
+    @push-item);
+    .grid-setting(@index;
+    offset;
+    @offset-item);
+    .grid-setting(@index;
+    width;
+    @width-item);
+    .setByDevice(@device;
+    (@index+1))
+}
+
+.setByDevice(@device;
+@index: 1) when ( @device='xs')and (@index<=@iterations ) {
+    @width-item: col-@{index};
+    @offset-item: col-offset-@{index};
+    @pull-item: col-pull-@{index};
+    @push-item: col-push-@{index};
+    .grid-setting(@index;
+    pull;
+    @pull-item);
+    .grid-setting(@index;
+    push;
+    @push-item);
+    .grid-setting(@index;
+    offset;
+    @offset-item);
+    .grid-setting(@index;
+    width;
+    @width-item);
+    .setByDevice(@device;
+    (@index+1))
+}
+
+.setByDevice('pc');
+@media (max-width: @screen-xs) {
+    .setByDevice('xs');
+}    

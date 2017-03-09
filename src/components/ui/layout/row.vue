@@ -42,12 +42,12 @@
         clear: both;
     }
     
-    [class*=col] {
+    /*[class*=col] {
         float: left;
         box-sizing: border-box;
         width: 100%;
         position: relative;
-    }
+    }*/
     @iterations: 24;
 @screen-xs: 480px;
 @screen-sm: 768px;
@@ -139,6 +139,20 @@
     .setByDevice(lg);
 }  
     
-    
-    
+.col(@index) when (@index = 1) { 
+    @item: ~".col-@{index},.col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
+    .col((@index + 1), @item);
+  }
+  .col(@index, @list) when (@index =< @iterations) { 
+    @item: ~".col-@{index},.col-xs-@{index}, .col-sm-@{index}, .col-md-@{index}, .col-lg-@{index}";
+    .col((@index + 1), ~"@{list}, @{item}");
+  }
+  .col(@index,@list) when (@index>@iterations){
+      @{list}{
+            float: left;
+            box-sizing: border-box;
+            position: relative;
+      }
+  }
+  .col(1);
 </style>

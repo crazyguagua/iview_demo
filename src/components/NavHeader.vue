@@ -8,10 +8,10 @@
         </div>
         <div class="nav-header-btns clearfix">
             <ul class="nav clearfix">
-                <li class="user-li"><i class="iconfont avatar"></i><span class="user-info"><small>欢迎你，</small>zhangxiaodong</span>
+                <li class="user-li"><i class="iconfont icon-avatar"></i><span class="user-info"><small>欢迎你，</small>zhangxiaodong</span>
                <div class="dropdown-div">
                    <dropdown>
-                        <a href="javascript:void(0)"><i class="iconfont arrow-down" ></i></a>
+                        <a href="javascript:void(0)"><i class="iconfont icon-arrow_down" ></i></a>
                         <dropdown-menu slot="list">
                             <dropdown-item v-for="dropdownBtn in dropdownBtns " :text="dropdownBtn.text" :icon="dropdownBtn.icon" :click="dropdownBtn.handler" :clickKey="dropdownBtn.clickKey"></dropdown-item>
                            
@@ -69,7 +69,6 @@
         },
         methods: {
             logout() {
-                debugger;
                 this.$router.push('/login')
             }
         },
@@ -102,7 +101,7 @@
         }
     }
     
-    .dropdown-div .arrow-down {
+    .dropdown-div .icon-arrow_down {
         color: #fff;
     }
     
@@ -134,11 +133,12 @@
             & .menu-li:first-of-type {
                 margin-right: 10px;
             }
-            & .user-li i.avatar {
+            & .user-li i.icon-avatar {
                 position: relative;
                 top: -20px;
                 right: 5px;
                 color: #ccc;
+                font-size:28px;
             }
             & .user-info {
                 min-width: 100px;

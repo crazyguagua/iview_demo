@@ -3,7 +3,7 @@
         <div class="menu-header menu-title" v-on:click="toggle()">
             <i class="" ></i>
                 {{title}}
-            <i v-if="hasChild" class="iconfont collapse" :class="[collapsed ? 'arrow-down':'arrow-up']" ></i>
+            <i v-if="hasChild" class="iconfont collapse" :class="[collapsed ? 'icon-arrow_down':'icon-arrow_up']" ></i>
         </div>
         
         <ul  class="subMenu"  :class="[collapsed?'collapsed':'']">
@@ -64,7 +64,7 @@
         & .collapse {
             position: absolute;
             right: 10px;
-            top: 1px;
+            top: 12px;
         }
         &>i {
             margin-right: 8px;

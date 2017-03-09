@@ -9,5 +9,6 @@
 <style lang="">
     .my-dropdown-menu {
         min-width: 100px;
+            padding: 5px;
     }
 </style>

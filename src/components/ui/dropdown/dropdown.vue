@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-clickoutside="handleClose">
         <div  @click="handleClick"><slot ></slot></div>
         <div v-show="hasClick==true" class="my-dropdown-select">
             <slot name="list"></slot>
@@ -10,12 +10,15 @@
     import dropdownMenu from './dropdown-menu';
     import clickoutside from '../../../directives/clickoutside';
     export default {
-        // directives: {
-        //     clickoutside
-        // },
+        directives: {
+            clickoutside
+        },
         methods: {
             handleClick: function() {
                 this.hasClick = !this.hasClick;
+            },
+            handleClose: function () {
+                this.hasClick = false;
             }
         },
         events: {
@@ -26,10 +29,7 @@
         },
         data: function() {
             return {
-                hasClick: false,
-                handleClose: function() {
-                    this.hasClick = false;
-                }
+                hasClick: false
             }
         }
     }

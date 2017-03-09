@@ -126,6 +126,9 @@
 .setByDevice(pc);
 @media (max-width: @screen-xs) {
     .setByDevice(xs);
+    .xs-hide{
+        display: none;
+    }
 }
 @media (max-width: @screen-sm) {
     .setByDevice(sm);
@@ -155,4 +158,5 @@
       }
   }
   .col(1);
+
 </style>

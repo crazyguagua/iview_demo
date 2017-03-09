@@ -1,12 +1,12 @@
 <template>
-    <div class="nav-bar-header clearfix" :class="headerCls">
+    <div class="nav-bar-header clearfix " :class="headerCls">
         <div class="sys-info">
             <a class="brand">
                 <i class="iconfont" :class="logoCls"></i>
                 <span class="sys-name">{{sysName}}</span>
             </a>
         </div>
-        <div class="nav-header-btns clearfix">
+        <div class="nav-header-btns xs-hide clearfix">
             <ul class="nav clearfix">
                 <li class="user-li"><i class="iconfont icon-avatar"></i><span class="user-info"><small>欢迎你，</small>zhangxiaodong</span>
                <div class="dropdown-div">

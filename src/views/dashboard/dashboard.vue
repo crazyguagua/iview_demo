@@ -26,6 +26,19 @@
              <my-col :span="3" :pull="2" :push="1" ><div class="grid">6 pull2 push1</div></my-col>
              <my-col :span="3" :pull="1" :push="2" ><div class="grid">6 pull1 push2</div></my-col>
             </my-row>
+            <my-row>
+                <my-col  :span="3" :xs="{span:24}">
+                    <div class="grid">xs 12</div>
+                </my-col>
+            </my-row>
+            <my-row>
+
+                <my-col :span="8">
+                    <panel title="我的消息"></panel>
+                </my-col>
+                 <my-col :span="8"></my-col>
+                  <my-col :span="8"></my-col>
+            </my-row>
        </div>
            
         
@@ -41,6 +54,9 @@
         BreadCrumb,
         BreadCrumbItem,
     } from '../../components/ui/breadcrumb'
+    import {
+        panel
+    } from '../../components/ui/panel'
     export default {
         data() {
             return {
@@ -52,7 +68,9 @@
             BreadCrumb,
             BreadCrumbItem,
             myRow,
-            myCol
+            myCol,
+            panel
+            
         }
     }
 </script>

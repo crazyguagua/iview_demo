@@ -118,3 +118,10 @@ a[disabled] {
 .fade-leave-active {
     opacity: 0;
 }
+
+/*移动端*/
+@media (max-width: 600px) {
+    .xs-hide{
+        display: none;
+    }
+}

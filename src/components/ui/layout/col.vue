@@ -13,6 +13,10 @@
             offset: Number,
             pull: Number,
             push: Number,
+            xs:Object,
+            sm:Object,
+            md:Object,
+            lg:Object
 
         },
         computed: {
@@ -27,7 +31,26 @@
                     if (This[prop]) {
                         prop === 'span' ? classList.push(`col-${ This[prop]}`) : classList.push(`col-${ prop }-${ This[prop]}`)
                     }
-                })
+                });
+                ['xs','sm','md','lg'].forEach(size => {
+               
+                     let sizeObj =This[size];
+                    
+                    if(typeof sizeObj == 'number'){
+                       
+                        classList.push(`col-${size}-${sizeObj}`);
+                    }else if(typeof sizeObj =='object'){
+                        
+                        ['offset','pull','push','span'].forEach(type=>{
+                            if(sizeObj[type]){
+                                let number = sizeObj[type];
+                                let cls=type==='span'?`col-${size}-${number}`:`col-${size}-${type}-${number}`
+                                classList.push(cls)
+                            }
+
+                        });
+                    }
+                });
                 return classList;
             },
             style() {

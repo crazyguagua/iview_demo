@@ -12,7 +12,7 @@
                 </ul>
             </div>
         </div>
-        <div class="body">
+        <div class="panel-body">
             
         </div>
     </div>
@@ -34,7 +34,9 @@
         margin-bottom: 20px;
         & .header{
                 padding: 10px 15px;
+                background-color: #fff;
                 border-bottom: 1px solid transparent;
+                border-color: #e4e5e7;
                 border-top-left-radius: 3px;
                 border-top-right-radius: 3px;
                 position:relative;
@@ -48,6 +50,10 @@
                     border-left:5px solid #37a000;
                     
                 }
+        }
+        & .panel-body{
+            padding: 15px;
+
         }
     }
 </style>

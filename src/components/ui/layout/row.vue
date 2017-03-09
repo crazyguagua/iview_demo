@@ -25,9 +25,7 @@
     }
 </script>
 <style lang="less">
-    .container {
-        padding: 0 20px;
-    }
+    
     
     .row {
         position: relative;

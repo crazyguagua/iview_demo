@@ -33,11 +33,11 @@
             </my-row>
             <my-row>
 
-                <my-col :span="8">
-                    <panel title="我的消息"></panel>
+                <my-col :span="12">
+                    <panel title="合同管理"></panel>
                 </my-col>
-                 <my-col :span="8"></my-col>
-                  <my-col :span="8"></my-col>
+                 <my-col :span="12"></my-col>
+                 
             </my-row>
        </div>
            
@@ -74,7 +74,7 @@
         }
     }
 </script>
-<style lang="less">
+<style lang="less" scoped>
     .grid {
         min-height: 34px;
         background: lightskyblue;

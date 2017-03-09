@@ -6,11 +6,22 @@
                 <BreadCrumbItem>用户管理</BreadCrumbItem>
             </BreadCrumb>
         </ContentHeader>
+        <div class="container">
+            <Grid>
+                <div class="fixed-toolbar clearfix" slot="toolbar">
+                    <div class="pull-left search">
+                    <input  class="form-control"type="text" placeholder="用户名"/>
+                    </div>
+                </div>
+            </Grid>
+        </div>
        
     </div>
 </template>
 <script>
     import ContentHeader from '../../components/ContentHeader';
+    import {Grid} from '../../components/ui/grid';
+
     import {
         BreadCrumb,
         BreadCrumbItem
@@ -24,7 +35,8 @@
         components: {
             ContentHeader,
             BreadCrumb,
-            BreadCrumbItem
+            BreadCrumbItem,
+            Grid
         }
     }
 </script>

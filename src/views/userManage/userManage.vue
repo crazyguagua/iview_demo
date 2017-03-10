@@ -11,6 +11,7 @@
                 <div class="fixed-toolbar clearfix" slot="toolbar">
                     <div class="pull-left search">
                     <input  class="form-control"type="text" placeholder="用户名"/>
+                    <my-button @click.native="btnClk" type="default">查询</my-button>
                     </div>
                 </div>
             </Grid>
@@ -21,7 +22,7 @@
 <script>
     import ContentHeader from '../../components/ContentHeader';
     import {Grid} from '../../components/ui/grid';
-
+    import {myButton} from '../../components/ui/button';
     import {
         BreadCrumb,
         BreadCrumbItem
@@ -36,7 +37,13 @@
             ContentHeader,
             BreadCrumb,
             BreadCrumbItem,
-            Grid
+            Grid,
+            myButton
+        },
+        methods:{
+            btnClk:function(){
+               
+            }
         }
     }
 </script>

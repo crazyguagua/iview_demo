@@ -7,7 +7,7 @@
             </BreadCrumb>
         </ContentHeader>
         <div class="container">
-            <Grid>
+            <Grid :columns="columns"  :height="300">
                 <div class="fixed-toolbar clearfix" slot="toolbar">
                     <div class="pull-left search">
                     <input  class="form-control"type="text" placeholder="用户名"/>
@@ -30,7 +30,24 @@
     export default {
         data() {
             return {
-                title: '用户管理'
+                title: '用户管理',
+                columns:[{
+                    title:'用户名',
+                    key:'userName'
+                },{
+                    title:'中文名',
+                    key:'realName'
+                },{
+                    title:'性别',
+                    key:'gender'
+                },{
+                    title:'邮箱',
+                    key:'email'
+                },
+                {
+                    title:'生日',
+                    key:'birth'
+                }]
             }
         },
         components: {

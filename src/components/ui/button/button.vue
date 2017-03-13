@@ -33,6 +33,10 @@ import {oneOf} from '../../util/uiTool';
                     return oneOf(value,['button','submit','reset'])
                 }
             },
+            disabled:{
+                type:Boolean,
+                default:false
+            }
         },
         data(){
             return {

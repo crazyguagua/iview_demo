@@ -186,4 +186,15 @@
             left:0;
             bottom:0;
         }
+        .grid:after{
+            width:1px;
+            height:100%;
+            position:absolute;
+            right:0;
+            top:0;
+        }
+        .grid:before,.grid:after{
+            background-color: #d7dde4;
+             content:'';
+        }
 </style>

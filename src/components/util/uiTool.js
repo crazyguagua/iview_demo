@@ -53,3 +53,16 @@ export function getScrollBarSize(fresh){
     }
     return cached;
 }
+
+export function deepCopy(src){
+    var ret =src instanceof Array?[]:{};
+    for(var key in src){
+        var val = src[key];
+        if(typeof val =="object"|| val instanceof Array){
+           ret[key] =  deepCopy(val)
+        }else{
+            ret[key] = val;
+        }
+    }
+    return ret;
+}

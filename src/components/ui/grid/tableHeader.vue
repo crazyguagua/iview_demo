@@ -18,9 +18,9 @@
             prefix:String
         },
         methods:{
-            renderHtml(column){
-                if(column.render){
-                    return column.render(column,index,this.columns);
+            renderHtml(column,index){
+                if('renderHeader' in column){
+                    return column.renderHeader(column,index,this.columns);
                 }else{
                     return column.title||'#';
                 }
@@ -49,15 +49,7 @@
             overflow: hidden;
             background-color: #f5f7f9;
     }
-    .grid-header th,.grid-header td{
-        min-width: 0;
-        height: 48px;
-        box-sizing: border-box;
-        text-align: left;
-        text-overflow: ellipsis;
-        vertical-align: middle;
-        border-bottom: 1px solid #e3e8ee;
-    }
+   
     .grid-header-cell{
         padding-left: 18px;
         padding-right: 18px;

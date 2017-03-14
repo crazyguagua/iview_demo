@@ -5,12 +5,22 @@
              <slot name="toolbar"></slot>
          </div>
         <div :class="headerCls" ref="header">
-                <TableHeader :columns="columns" v-if="showHeader"  :styleObj="tableStyle" :prefix="prefix">
+                <TableHeader :columns="clonedColumns" v-if="showHeader"  :styleObj="tableStyle" :prefix="prefix">
                 </TableHeader>
         </div>
-        <div :class="[prefix+'-body']" :style="bodyStyle" ref="body">
-            <TableBody>
+        <div :class="[prefix+'-body']" :style="bodyStyle" ref="body" v-if="!((nodataText && data.length==0) ||(noFilteredDataText&& rebuildData.length==0))">
+            <TableBody :styleObj="tableStyle" :prefix="prefix" :data="data" :columns="clonedColumns">
             </TableBody>
+        </div>
+        <div :class="[prefix+'-nodata']" v-if="((nodataText && data.length==0) ||(noFilteredDataText&& rebuildData.length==0))">
+            <table cellspacing="0" cellpadding="0" border="0">
+             <tr>
+                 <td :style="{'height':bodyStyle.height}">
+                    <span v-html="nodataText" v-if="data.length==0"></span>
+                     <span v-html="noFilteredDataText" v-if="data.length>0&&rebuildData.length==0"></span>
+                 </td>
+             </tr>
+            </table>
         </div>
      </div>
       
@@ -21,13 +31,15 @@
 <script>
     import TableHeader from './tableHeader'
      import TableBody from './tableBody'
-    import {oneOf,getStyle,getScrollBarSize} from '../../util/uiTool'
+    import {oneOf,getStyle,getScrollBarSize,deepCopy} from '../../util/uiTool'
     const  prefix= 'grid'
     export default{
         props:{
             data:{
-                type:Array
-               
+                type:Array,
+               default(){
+                   return [];
+               }
             },
             
             showHeader:{
@@ -41,7 +53,19 @@
             },
             width:{
                 type:[Number,String]
-            }
+            },
+           
+            //没有数据时候的文字或html
+            nodataText:{
+                type:String,
+                default:'未查询到数据'
+            },
+            noFilteredDataText :{
+                 type:String,
+                default:'暂无筛选结果'
+            },
+            //column render 上下文
+            content:Object
         },
         components:{
             TableHeader,TableBody
@@ -53,6 +77,9 @@
                 bodyRealHeight: 0,
                 prefix:prefix,
                 scrollBarWidth: getScrollBarSize(),
+                 //排序和过滤用到的
+                rebuildData :[],
+                clonedColumns:this.copyColumns()
 
             }
             
@@ -86,7 +113,6 @@
                
                  let style = {};
                 if (this.tableWidth !== 0) {
-                    debugger;
                     let width = '';
                     if (this.bodyHeight === 0) {
                         width = this.tableWidth;
@@ -110,20 +136,23 @@
                     style.height = `${height}px`
                 }
                 return style;
+            },
+            currentContent(){
+                return this.content?this.content:this.$parent;
             }
         },
         //挂载后设置表格宽度
         mounted(){
             this.handleResize();
             this.fixHeader();
-            window.addEventListener('resize',this.handleResize,false)
+            window.addEventListener('resize',this.handleResize,false);
+            this.copyData();
         },
         beforeDestroy(){
             window.removeEventListener('resize',this.handleResize,false)
         },
         methods:{
             handleResize(){
-                console.log('resize');
                 this.$nextTick(()=>{
                    const allWidth =  !this.columns.some(cell => !cell.width);
                    //如果每列设置宽度
@@ -145,6 +174,22 @@
                 }else{
                     this.bodyHeight =0;
                 }
+            },
+            copyData(){ 
+               this.rebuildData =  deepCopy(this.data); 
+            },
+            copyColumns(){
+                let clonedColumns = deepCopy(this.columns);
+                clonedColumns.forEach((column,index)=>{
+                    column._index = index;
+                    column.index = index;
+                    column._width = column.width?column.width:'';
+                    column.sortType='normal';
+                    column.filterVisible = false;
+                    column.filtered = false;
+                    column.filterChecked=[]
+                })
+                return clonedColumns;
             }
         },
         watch:{
@@ -177,6 +222,21 @@
                 & table{
                         table-layout: fixed;
                 }
+                &-nodata td{
+                    text-align:center;
+                }
+                &-nodata table{
+                    width:100%;
+                }
+                & th,& td{
+                     min-width: 0;
+                    height: 48px;
+                    box-sizing: border-box;
+                    text-align: left;
+                    text-overflow: ellipsis;
+                    vertical-align: middle;
+                    border-bottom: 1px solid #e3e8ee;
+                }
                
         }
         .grid:before{
@@ -197,4 +257,5 @@
             background-color: #d7dde4;
              content:'';
         }
+       
 </style>

@@ -96,7 +96,7 @@ import Vue from 'vue';
     }
 </script>
 <style lang="less">
-    .grid-cell{
+    .table-cell{
         padding-left: 18px;
         padding-right: 18px;
         overflow: hidden;

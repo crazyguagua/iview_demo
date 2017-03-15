@@ -32,7 +32,7 @@
     import TableHeader from './tableHeader'
      import TableBody from './tableBody'
     import {oneOf,getStyle,getScrollBarSize,deepCopy} from '../../util/uiTool'
-    const  prefix= 'grid'
+    const  prefix= 'table'
     export default{
         props:{
             data:{
@@ -289,13 +289,13 @@
     }
 </script>
 <style lang="less">
-        .grid-wrapper{
+        .table-wrapper{
                 position: relative;
                 border: 1px solid #d7dde4;
                 border-bottom: 0;
                 border-right: 0;
         }
-        .grid{
+        .table{
                 width: inherit;
                 height: 100%;
                 max-width: 100%;
@@ -332,25 +332,25 @@
                 
                
         }
-        .grid:before{
+        .table:before{
             height:1px;
             width:100%;
             position:absolute;
             left:0;
             bottom:0;
         }
-        .grid:after{
+        .table:after{
             width:1px;
             height:100%;
             position:absolute;
             right:0;
             top:0;
         }
-        .grid:before,.grid:after{
+        .table:before,.table:after{
             background-color: #d7dde4;
              content:'';
         }
-       .grid-nodata td{
+       .table-nodata td{
            text-align:center;
        }
 </style>

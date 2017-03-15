@@ -62,7 +62,7 @@
     }
 </script>
 <style lang="less">
-    .grid-row-highlight td, .grid-stripe .grid-tbody tr:nth-child(2n) td,.grid-stripe .grid-row-highlight:nth-child(2n) td,  tr.grid-row-highlight.grid-row-hover td, tr.grid-row-hover td {
+    .table-row-highlight td, .table-stripe .table-tbody tr:nth-child(2n) td,.tablegrid-stripe .table-row-highlight:nth-child(2n) td,  tr.table-row-highlight.table-row-hover td, tr.table-row-hover td {
         background-color: rgb(235, 247, 255);
     }
 </style>

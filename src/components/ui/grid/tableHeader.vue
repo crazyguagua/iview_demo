@@ -53,7 +53,7 @@ import mixin from './mixin'
     }
 </script>
 <style lang="less">
-    .grid-header th{
+    .table-header th{
             height: 40px;
             white-space: nowrap;
             overflow: hidden;
@@ -61,7 +61,7 @@ import mixin from './mixin'
             // box-sizing:border-box;
     }
    
-    .grid-header-cell{
+    .table-header-cell{
         padding-left: 18px;
         padding-right: 18px;
         overflow: hidden;
@@ -70,7 +70,7 @@ import mixin from './mixin'
         word-break: break-all;
         box-sizing: border-box;   
     }
-    th .grid-header-cell{
+    th .table-header-cell{
             display: inline-block;
             vertical-align: middle;
     }

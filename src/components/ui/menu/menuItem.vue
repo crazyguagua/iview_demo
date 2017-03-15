@@ -13,8 +13,7 @@
         },
         methods: {
             goMenu: function(route) {
-                debugger;
-                console.log(this.$router.matched);
+            
                 try {
                     this.$router.push({
                         path: route

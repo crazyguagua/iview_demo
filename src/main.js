@@ -13,7 +13,11 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000/';
 Vue.prototype.$http = axios;
 
-
+Vue.filter('dateformat', function (value,format) {
+  // 返回处理后的值
+   let newValue = value.replace(/(\d{4})-(\d{1,2})-(\d{1,2}).+(\d{2}):(\d{2}):(\d{2}).+/mg, '$1-$2-$3 $4:$5:$6'); 
+   return newValue;
+})
 
 const app = new Vue({
     router: router

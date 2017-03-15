@@ -1,21 +1,31 @@
 <template>
-    <table cellspaceing="0" cellpadding="0" :style="styles">
-    <tr>
+    <table cellspacing="0" cellpadding="0" border="0" :style="styles">
+   <colgroup>
+        <col v-for="(column, index) in columns" :width="setCellWidth(column, index, true)">
+    </colgroup>
+    <thead>
+        <tr>
         <th v-for="(column ,index ) in columns">
             <div :class="cellClasses">
                 <span v-html="renderHtml(column,index)"></span>
             </div>
         </th>
     </tr>
+    </thead>
+    
     </table>
 </template>
 <script>
+import mixin from './mixin'
 
     export default{
+        mixins:[mixin],
         props:{
             columns:Array,
             styleObj: Object,
-            prefix:String
+            prefix:String,
+            columnsWidth: Object,
+            objData:Object
         },
         methods:{
             renderHtml(column,index){
@@ -48,6 +58,7 @@
             white-space: nowrap;
             overflow: hidden;
             background-color: #f5f7f9;
+            // box-sizing:border-box;
     }
    
     .grid-header-cell{

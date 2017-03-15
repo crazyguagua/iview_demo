@@ -18,7 +18,6 @@
             padding: 12px 30px;
             background-color: #fff;
             border-bottom: 1px solid #e1e6ef;
-            margin-bottom: 20px;
         }
     }
 </style>

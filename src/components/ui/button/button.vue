@@ -1,5 +1,5 @@
 <template>
-    <button :class="classes" :type="btnType" :disabled="disabled">
+    <button :class="classes" :type="btnType" :disabled="disabled" @click="handleClick">
         <span v-if="showSlot" ref="slot"><slot></slot></span>
     </button>
 </template>
@@ -56,6 +56,11 @@ import {oneOf} from '../../util/uiTool';
         },
         mounted() {
             this.showSlot = this.$refs.slot.innerHTML.replace(/\n/g, '').replace(/<!--[\w\W\r\n]*?-->/gmi, '') !== '';
+        },
+        methods:{
+            handleClick(evt){
+                this.$emit('click',evt);
+            }
         }
     }
 </script>

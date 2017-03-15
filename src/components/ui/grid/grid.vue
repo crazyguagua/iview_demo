@@ -5,11 +5,11 @@
              <slot name="toolbar"></slot>
          </div>
         <div :class="headerCls" ref="header">
-                <TableHeader :columns="clonedColumns" v-if="showHeader"  :styleObj="tableStyle" :prefix="prefix">
+                <TableHeader :obj-data="objData" :columns="clonedColumns" :columns-width="columnsWidth" v-if="showHeader"  :styleObj="tableStyle" :prefix="prefix" :columnsWidth="columnsWidth">
                 </TableHeader>
         </div>
         <div :class="[prefix+'-body']" :style="bodyStyle" ref="body" v-if="!((nodataText && data.length==0) ||(noFilteredDataText&& rebuildData.length==0))">
-            <TableBody :styleObj="tableStyle" :prefix="prefix" :data="data" :columns="clonedColumns">
+            <TableBody :obj-data="objData" :columns-width="columnsWidth" :styleObj="tableStyle" :prefix="prefix" :data="rebuildData" :columns="clonedColumns">
             </TableBody>
         </div>
         <div :class="[prefix+'-nodata']" v-if="((nodataText && data.length==0) ||(noFilteredDataText&& rebuildData.length==0))">
@@ -65,7 +65,18 @@
                 default:'暂无筛选结果'
             },
             //column render 上下文
-            content:Object
+            content:Object,
+            //td,th默认不显示右边框
+            border:{
+                type:Boolean,
+                default:false
+            },
+            //是否默认隔行变色
+            stripe:{
+                type:Boolean,
+                default:false
+            }
+           
         },
         components:{
             TableHeader,TableBody
@@ -79,7 +90,9 @@
                 scrollBarWidth: getScrollBarSize(),
                  //排序和过滤用到的
                 rebuildData :[],
-                clonedColumns:this.copyColumns()
+                clonedColumns:this.copyColumns(),
+                 columnsWidth:{},
+                 objData:{}
 
             }
             
@@ -97,7 +110,10 @@
                 return [`${prefix}-header`]
             },
             gridCls(){
-                return [`${prefix}`]
+                return [`${prefix}`,{
+                    [`${prefix}-border`]:this.border,
+                    [`${prefix}-stripe`]:this.stripe
+                }]
             },
             styles(){
 
@@ -117,6 +133,7 @@
                     if (this.bodyHeight === 0) {
                         width = this.tableWidth;
                     } else {
+
                         if (this.bodyHeight > this.bodyRealHeight) {
                             width = this.tableWidth;
                         } else {
@@ -161,6 +178,31 @@
                    }else{
                        this.tableWidth = parseInt(getStyle(this.$el,'width'))-1
                    }
+
+                   //设置每一列的宽度
+                   this.$nextTick(()=>{
+                       let columnsWidth ={};
+                       let autoWidthIndex=-1;//默认都是自动宽度
+                       if(allWidth) autoWidthIndex = this.clonedColumns.findIndex(column=> !column.width)
+                       if(this.data.length>0){
+                           const $td = this.$refs.body.querySelectorAll('tbody tr')[0].querySelectorAll('td');
+                           for (let i = 0; i < $td.length; i++) {    // can not use forEach in Firefox
+                                const column = this.clonedColumns[i];
+                                let width = parseInt(getStyle($td[i], 'width'));
+                                if (i === autoWidthIndex) {
+                                    width = parseInt(getStyle($td[i], 'width')) - 1;
+                                }
+                                if (column.width) width = column.width;
+                                this.clonedColumns[i]._width = width;
+                                columnsWidth[column._index] = {
+                                    width: width
+                                };
+                            }
+                            this.columnsWidth = columnsWidth;
+                       }
+                   })
+                   // get table real height,for fixed when set height prop,but height < table's height,show scrollBarWidth
+                    this.bodyRealHeight = parseInt(getStyle(this.$refs.body, 'height'));
                 })
             },
             //设置table body的高度
@@ -176,7 +218,9 @@
                 }
             },
             copyData(){ 
-               this.rebuildData =  deepCopy(this.data); 
+                let data =  deepCopy(this.data); 
+                data.forEach((row,index)=>row._index = index);
+                this.rebuildData = data;
             },
             copyColumns(){
                 let clonedColumns = deepCopy(this.columns);
@@ -190,11 +234,55 @@
                     column.filterChecked=[]
                 })
                 return clonedColumns;
+            },
+            //用于hover 选中，禁用，高亮
+            makeObjData(){
+
+                let data = {};
+                this.data.forEach((row, index) => {
+                    const newRow = deepCopy(row);// todo 直接替换
+                    newRow._isHover = false;
+                    if(newRow._disabled){
+                        newRow._isDisabled = newRow._disabled;
+                    }else{
+                        newRow._isDisabled = false;
+                    }
+                    if (newRow._checked) {
+                        newRow._isChecked = newRow._checked;
+                    } else {
+                        newRow._isChecked = false;
+                    }
+                    if (newRow._highlight) {
+                        newRow._isHighlight = newRow._highlight;
+                    } else {
+                        newRow._isHighlight = false;
+                    }
+                    data[index] = newRow;
+                });
+                return data;
+            },
+
+            //移入移出
+            handleMouseIn(_index){
+                if(this.objData[_index]._isHover) return
+                this.objData[_index]._isHover = true;
+            },
+            handleMouseOut(_index){
+                if(!this.objData[_index]._isHover) return
+                this.objData[_index]._isHover = false;
             }
         },
         watch:{
             height(){
                 this.fixHeader();
+            },
+            data:{
+                handler(){
+                    this.copyData();
+                    this.handleResize();
+                    this.objData = this.makeObjData();
+                },
+                deep:true
             }
         }
 
@@ -221,6 +309,7 @@
                 }
                 & table{
                         table-layout: fixed;
+                        box-sizing:border-box;
                 }
                 &-nodata td{
                     text-align:center;
@@ -237,6 +326,10 @@
                     vertical-align: middle;
                     border-bottom: 1px solid #e3e8ee;
                 }
+                &-border th,&-border td{
+                    border-right: 1px solid rgb(227, 232, 238);
+                }
+                
                
         }
         .grid:before{
@@ -257,5 +350,7 @@
             background-color: #d7dde4;
              content:'';
         }
-       
+       .grid-nodata td{
+           text-align:center;
+       }
 </style>

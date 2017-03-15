@@ -50,6 +50,7 @@ import Vue from 'vue';
         methods:{
             compile(){
                //编译自定义cell
+               let self = this;
                 if(this.column.render){
                     //编译上下文
                     const $parent = this.content;
@@ -70,7 +71,13 @@ import Vue from 'vue';
                    const component =  new Vue({
                         render:res.render,
                         staticRenderFns:res.staticRenderFns,
-                        methods:methods
+                        methods:methods,
+                        data(){
+                            return{
+                                column:self.column,
+                                row:self.row
+                            }
+                        }
                     })
                    
                     console.log('===================');

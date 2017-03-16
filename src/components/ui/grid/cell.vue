@@ -1,7 +1,8 @@
 <template>
     <div :class="classes" ref="cell">
-       <span v-html="row[column.key]"></span>
-        <template >
+       <span v-html="row[column.key]" v-if="renderType==='normal'"></span>
+        <template v-if="renderType==='index'">
+            <span>{{row._index+1}}</span>
         </template>
     </div>
 </template>
@@ -79,8 +80,6 @@ import Vue from 'vue';
                             }
                         }
                     })
-                   
-                    console.log('===================');
                     
                     const cell = component.$mount();
                     console.log(cell)

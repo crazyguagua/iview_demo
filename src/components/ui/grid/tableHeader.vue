@@ -24,7 +24,9 @@ import mixin from './mixin'
             columns:Array,
             styleObj: Object,
             prefix:String,
-            columnsWidth: Object,
+            columnsWidth: {
+                type:Object
+            },
             objData:Object
         },
         methods:{

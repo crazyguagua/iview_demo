@@ -4,7 +4,7 @@
            <col v-for="(column, index) in columns" :width="setCellWidth(column, index, false)">
         </colgroup>
     <tbody :class="[prefix+'-tbody']">
-        <tr v-for="(row ,index) in data" @mouseenter.stop="handleMouseIn(row._index)" @mouseleave.stop="handleMouseOut(row._index)" :class="rowClasses(row._index)">
+        <tr v-for="(row ,index) in data" @click.stop="handleClick(row._index)" @mouseenter.stop="handleMouseIn(row._index)" @mouseleave.stop="handleMouseOut(row._index)" :class="rowClasses(row._index)">
             <td v-for="(column,index) in columns">
                 <Cell :column="column" :prefix="prefix" :row="row" :index="column._index" :naturalIndex="column.index"></Cell>
             </td>
@@ -33,6 +33,7 @@
             },
             columnsWidth: Object,
             objData:Object
+          
         },
         data(){
             return{
@@ -48,6 +49,10 @@
             },
             handleMouseOut(index){
                 this.$parent.handleMouseOut(index);
+            },
+            //开启单击选中
+            handleClick(index){
+                this.$parent.handleClick(index)
             },
             rowClasses(_index){
                 return [`${this.prefix}-row`,

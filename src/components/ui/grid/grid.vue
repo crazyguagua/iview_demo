@@ -75,6 +75,11 @@
             stripe:{
                 type:Boolean,
                 default:false
+            },
+              //选中是否高亮
+            highlightRow:{
+                type:Boolean,
+                default:false
             }
            
         },
@@ -270,6 +275,24 @@
             handleMouseOut(_index){
                 if(!this.objData[_index]._isHover) return
                 this.objData[_index]._isHover = false;
+            },
+            //单击选中，其他不选中
+            handleClick(_index){
+                if(!this.highlightRow||this.objData[_index]._isHighlight){
+                    return;
+                }
+                let oldIndex = -1;
+                for(var key in this.objData){
+                    if( this.objData[_index]._isHighlight === true){
+                        oldIndex = key;
+                    }
+                    this.objData[key]._isHighlight = false;
+                }
+                this.objData[_index]._isHighlight = true;
+                var oldObj = oldIndex<0?null:this.rebuildData[oldIndex];
+                //触发自定义事件，返回上一次选中的列，和这次选中的列
+                this.$emit('on-select-change',this.rebuildData[_index],oldObj)
+
             }
         },
         watch:{

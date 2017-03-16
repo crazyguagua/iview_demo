@@ -6,8 +6,10 @@
 </template>
 <script>
     export default{
-
-
+        name:'checkboxGroup',
+        props:{
+            value:{}
+        }
     }
 </script>
 <style lang="less">

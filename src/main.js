@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueRouter from 'vue-router'
+// import ElementUI from 'element-ui'
+// Vue.use(ElementUI)
 
 // import iView from 'iview';
 // import 'iview/dist/styles/iview.css'; // 使用 CSS

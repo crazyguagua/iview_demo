@@ -13,8 +13,17 @@
                     <input  class="form-control"type="text" placeholder="用户名"/>
                     <my-button @click="btnClk(2)" type="primary" size="large">查询</my-button>
                     </div>
+                    <div class="pull-left search">
+                   <CheckBoxGroup v-model="checked">
+                        <CheckBox val="0">启用</CheckBox> 
+                        <CheckBox val="1">禁用</CheckBox> 
+                        <CheckBox  val="2" >disabled</CheckBox>
+                   </CheckBoxGroup>
+                          
+                    </div>
+                   
                 </div>
-            <Grid :columns="columns" border  :data="data1" stripe>
+            <Grid :columns="columns" border  :data="data1" highlightRow>
                 
             </Grid>
         </div>
@@ -29,12 +38,17 @@
         BreadCrumb,
         BreadCrumbItem
     } from '../../components/ui/breadcrumb'
+    import {CheckBoxGroup,CheckBox} from '../../components/ui/checkbox'
     export default {
         data() {
             return {
                 title: '用户管理',
                 data1:[],
+                checked:['0','1'],
                 columns:[{
+                    type:'index',
+                    width:60,
+                },{
                     title:'用户名',
                     key:'userName'
                 },{
@@ -69,7 +83,9 @@
             BreadCrumb,
             BreadCrumbItem,
             Grid,
-            myButton
+            myButton,
+            CheckBoxGroup,
+            CheckBox
         },
         methods:{
             btnClk:function(index){

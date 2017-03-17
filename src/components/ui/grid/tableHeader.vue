@@ -7,7 +7,13 @@
         <tr>
         <th v-for="(column ,index ) in columns">
             <div :class="cellClasses">
-                <span v-html="renderHtml(column,index)"></span>
+              <template v-if="column.type =='selection'">
+                <CheckBox v-model="column.checked" :value="isChecked" @on-change="selectAll"></CheckBox>
+              </template>
+              <template v-else>
+                 <span v-html="renderHtml(column,index)"></span>
+              </template>
+               
             </div>
         </th>
     </tr>
@@ -17,9 +23,12 @@
 </template>
 <script>
 import mixin from './mixin'
-
+import {CheckBox} from '../checkbox'
     export default{
         mixins:[mixin],
+        components:{
+            CheckBox
+        },
         props:{
             columns:Array,
             styleObj: Object,
@@ -27,7 +36,8 @@ import mixin from './mixin'
             columnsWidth: {
                 type:Object
             },
-            objData:Object
+            objData:Object,
+            data: Array,    // rebuildData
         },
         methods:{
             renderHtml(column,index){
@@ -36,6 +46,11 @@ import mixin from './mixin'
                 }else{
                     return column.title||'#';
                 }
+            },
+            selectAll(){
+                console.log(arguments)
+                const status = !this.isChecked;
+                this.$parent.selectAll(status);
             }
         },
         computed:{
@@ -50,6 +65,18 @@ import mixin from './mixin'
                 const width = this.$parent.bodyHeight ===0? parseInt(this.styleObj.width):parseInt(this.styleObj.width) + this.$parent.scrollBarWidth;
                 style.width = `${width}px`;
                 return style;
+            },
+            //是否默认全选
+            isChecked(){
+                let isChecked = true;
+                if (!this.data.length) isChecked = false;
+                for(let i =0;i<this.data.length;i++){
+                    if(!this.objData[this.data[i]._index]._isChecked && !this.objData[this.data[i]._index]._isDisabled){
+                        isChecked = false;
+                        break;
+                    }
+                }
+                return isChecked;
             }
         }
     }

@@ -43,7 +43,9 @@
             //选中时的值
             trueVal: [String, Number],
             //未选中时的值
-            falseVal: [String, Number]
+            falseVal: [String, Number],
+            //默认选中
+            checked:Boolean
         },
         data(){
             return{
@@ -63,6 +65,7 @@
                         this.dispatch('checkboxGroup', 'input', [val]);
                     } else if (this.value !== undefined) {
                         this.$emit('input', val);
+                        this.$emit('on-change',val)
                     } else {
                         this.selfModel = val;
                     }
@@ -96,12 +99,25 @@
         },
         methods:{
             handleChange(evt){
-            //    if (this.isGroup) {
-            //         this.$nextTick(_ => {
-            //             this.dispatch('checkboxGroup', 'change', [this._checkboxGroup.value]);
-            //         });
-            //     }
+                this.$emit('change', evt);
+                if (this.isGroup) {
+                this.$nextTick(_ => {
+                    this.dispatch('checkboxGroup', 'change', [this._checkboxGroup.value]);
+                });
+                }
+            },
+            add2Store(){
+                if(Array.isArray(this.model)&& this.model.indexOf(this.val) == -1){
+                    this.model.push(this.val)
+                }else{
+                    this.model = this.trueLabel ||true
+                }
             }
+        },
+        mounted(){
+        },
+        created(){
+            this.checked&& this.add2Store()
         }
     }
 </script>

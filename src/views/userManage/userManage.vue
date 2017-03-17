@@ -13,14 +13,14 @@
                     <input  class="form-control"type="text" placeholder="用户名"/>
                     <my-button @click="btnClk(2)" type="primary" size="large">查询</my-button>
                     </div>
-                    <div class="pull-left search">
-                   <CheckBoxGroup v-model="checked">
-                        <CheckBox val="0">启用</CheckBox> 
-                        <CheckBox val="1">禁用</CheckBox> 
-                        <CheckBox  val="2" >disabled</CheckBox>
+                   <!-- <div class="pull-left search">
+                   <CheckBoxGroup v-model="checkedList">
+                        <CheckBox val="1" >启用</CheckBox> 
+                        <CheckBox val="2" >禁用</CheckBox> 
+                        <CheckBox val="3" checked disabled>disabled</CheckBox>
                    </CheckBoxGroup>
                           
-                    </div>
+                    </div>-->
                    
                 </div>
             <Grid :columns="columns" border  :data="data1" highlightRow>
@@ -45,8 +45,9 @@
                 title: '用户管理',
                 data1:[],
                 checked:['0','1'],
+                checkedList:[],
                 columns:[{
-                    type:'index',
+                    type:'selection',
                     width:60,
                 },{
                     title:'用户名',

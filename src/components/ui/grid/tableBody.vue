@@ -6,7 +6,10 @@
     <tbody :class="[prefix+'-tbody']">
         <tr v-for="(row ,index) in data" @click.stop="handleClick(row._index)" @mouseenter.stop="handleMouseIn(row._index)" @mouseleave.stop="handleMouseOut(row._index)" :class="rowClasses(row._index)">
             <td v-for="(column,index) in columns">
-                <Cell :column="column" :prefix="prefix" :row="row" :index="column._index" :naturalIndex="column.index"></Cell>
+                <Cell :column="column"  :prefix="prefix"
+                 :row="row" :index="column._index" 
+                 :naturalIndex="column.index"
+                 :checked="rowChecked(column._index)"></Cell>
             </td>
         </tr>
     </tbody>
@@ -41,7 +44,7 @@
             }
         },
         computed:{
-
+           
         },
         methods:{
             handleMouseIn(index){
@@ -61,6 +64,11 @@
                         [`${this.prefix}-row-hover`]: this.objData[_index] && this.objData[_index]._isHover
                     }
                 ]
+            },
+             rowChecked(index){
+                //多选框是否选中
+                //objData用来保存data的状态，不污染原始的data
+                return this.objData[index]&&this.objData[index]._isChecked
             }
         }
 

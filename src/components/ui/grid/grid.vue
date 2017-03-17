@@ -5,7 +5,11 @@
              <slot name="toolbar"></slot>
          </div>
         <div :class="headerCls" ref="header">
-                <TableHeader :obj-data="objData" :columns="clonedColumns" :columns-width="columnsWidth" v-if="showHeader"  :styleObj="tableStyle" :prefix="prefix" :columnsWidth="columnsWidth">
+                <TableHeader :obj-data="objData" 
+                :columns="clonedColumns" :columns-width="columnsWidth" 
+                v-if="showHeader" 
+                 :styleObj="tableStyle" :prefix="prefix"
+                  :columnsWidth="columnsWidth"  :data="rebuildData">
                 </TableHeader>
         </div>
         <div :class="[prefix+'-body']" :style="bodyStyle" ref="body" v-if="!((nodataText && data.length==0) ||(noFilteredDataText&& rebuildData.length==0))">
@@ -97,6 +101,7 @@
                 rebuildData :[],
                 clonedColumns:this.copyColumns(),
                  columnsWidth:{},
+                 //保存每一列当前的状态用的数据
                  objData:{}
 
             }
@@ -293,6 +298,17 @@
                 //触发自定义事件，返回上一次选中的列，和这次选中的列
                 this.$emit('on-select-change',this.rebuildData[_index],oldObj)
 
+            },
+            //处理全选
+            selectAll(status){
+                for(const data of this.rebuildData){
+                    //如果是禁用的列，就不管
+                    if(this.objData[data._index]._isDisabled){
+                        continue;
+                    }else{
+                        this.objData[data._index]._isChecked = status;
+                    }
+                }
             }
         },
         watch:{

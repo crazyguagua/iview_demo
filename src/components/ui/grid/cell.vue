@@ -4,12 +4,18 @@
         <template v-if="renderType==='index'">
             <span>{{row._index+1}}</span>
         </template>
+        <template v-if="renderType==='selection'">
+            <CheckBox :value="checked"></CheckBox>
+        </template>
     </div>
 </template>
 <script>
 import Vue from 'vue';
+import {CheckBox} from '../checkbox'
     export default{
-
+        components:{
+            CheckBox
+        },
         props:{
             prefix:String,
             column:{
@@ -21,7 +27,9 @@ import Vue from 'vue';
                 default:{}
             },
             naturalIndex: Number, 
-            index:Number
+            index:Number,
+            checked:Boolean,
+            disabled:Boolean
         },
         data(){
             return{
@@ -82,7 +90,6 @@ import Vue from 'vue';
                     })
                     
                     const cell = component.$mount();
-                    console.log(cell)
                     this.$refs.cell.appendChild(cell.$el)
                 }
             }

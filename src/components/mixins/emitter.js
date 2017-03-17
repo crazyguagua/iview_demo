@@ -12,6 +12,7 @@ export default {
                 }
             }
             if (parent) {
+                debugger;
                 parent.$emit.apply(parent, [eventName].concat(params));
             }
         },

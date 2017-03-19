@@ -5,7 +5,7 @@
             <span>{{row._index+1}}</span>
         </template>
         <template v-if="renderType==='selection'">
-            <CheckBox :value="checked"></CheckBox>
+            <CheckBox :value="checked" @on-change="toggleSelect"></CheckBox>
         </template>
     </div>
 </template>
@@ -26,8 +26,8 @@ import {CheckBox} from '../checkbox'
                 type:Object,
                 default:{}
             },
-            naturalIndex: Number, 
-            index:Number,
+            naturalIndex: Number, //排序后的索引
+            index:Number,//原始索引
             checked:Boolean,
             disabled:Boolean
         },
@@ -57,6 +57,10 @@ import {CheckBox} from '../checkbox'
             }
         },
         methods:{
+             toggleSelect(){
+                //  this.checked = !this.checked;
+                 this.$parent.$parent.toggleSelect(this.index);
+            },
             compile(){
                //编译自定义cell
                let self = this;
@@ -92,7 +96,8 @@ import {CheckBox} from '../checkbox'
                     const cell = component.$mount();
                     this.$refs.cell.appendChild(cell.$el)
                 }
-            }
+            },
+           
         },
         mounted(){
             this.$nextTick(()=>{

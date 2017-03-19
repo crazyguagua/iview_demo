@@ -309,7 +309,12 @@
                         this.objData[data._index]._isChecked = status;
                     }
                 }
+            },
+            //处理单选
+            toggleSelect(index){
+
             }
+
         },
         watch:{
             height(){

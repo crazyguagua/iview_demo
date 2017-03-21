@@ -23,7 +23,7 @@
                     </div>-->
                    
                 </div>
-            <Grid :columns="columns" border  :data="data1" highlightRow>
+            <Grid :columns="columns" border  :data="data1" highlightRow @on-selection-change="getSelection">
                 
             </Grid>
         </div>
@@ -110,6 +110,9 @@
                     console.error(error);
                     // _this.errorMsg = "网络异常，登陆失败！"
                 })
+            },
+            getSelection(){
+                console.log(arguments)
             }
         },
         mounted(){

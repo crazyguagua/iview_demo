@@ -5,7 +5,7 @@
             <span>{{row._index+1}}</span>
         </template>
         <template v-if="renderType==='selection'">
-            <CheckBox :value="checked" @on-change="toggleSelect"></CheckBox>
+            <CheckBox  v-model="isRowChecked"  @on-change="toggleSelect" :disabled="disabled"></CheckBox>
         </template>
     </div>
 </template>
@@ -28,7 +28,7 @@ import {CheckBox} from '../checkbox'
             },
             naturalIndex: Number, //排序后的索引
             index:Number,//原始索引
-            checked:Boolean,
+            isChecked:Boolean,
             disabled:Boolean
         },
         data(){
@@ -54,6 +54,10 @@ import {CheckBox} from '../checkbox'
                     renderType ='normal'
                 }
                 return renderType;
+            },
+            isRowChecked(){
+                console.log(this.isChecked);
+                return this.isChecked
             }
         },
         methods:{

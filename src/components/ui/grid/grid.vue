@@ -309,11 +309,37 @@
                         this.objData[data._index]._isChecked = status;
                     }
                 }
+                 const selection = this.getSelection();
+                if (status) {
+                    this.$emit('on-select-all', selection);
+                }
+                this.$emit('on-selection-change', selection);
             },
             //处理单选
             toggleSelect(index){
-
-            }
+                 let data = {};
+                for (let i in this.objData) {
+                    if (parseInt(i) === index) {
+                        data = this.objData[i];
+                    }
+                }
+                const status = !data._isChecked;
+                this.objData[index]._isChecked = status;
+                const selection = this.getSelection();
+                if (status) {
+                    this.$emit('on-select', selection, JSON.parse(JSON.stringify(this.data[index])));
+                }
+                this.$emit('on-selection-change', selection);
+                console.log(this.objData);
+            },
+            //获得选中的列
+            getSelection () {
+                let selectionIndexes = [];
+                for (let i in this.objData) {
+                    if (this.objData[i]._isChecked) selectionIndexes.push(parseInt(i));
+                }
+                return JSON.parse(JSON.stringify(this.data.filter((data, index) => selectionIndexes.indexOf(index) > -1)));
+            },
 
         },
         watch:{

@@ -4,12 +4,15 @@
            <col v-for="(column, index) in columns" :width="setCellWidth(column, index, false)">
         </colgroup>
     <tbody :class="[prefix+'-tbody']">
-        <tr v-for="(row ,index) in data" @click.stop="handleClick(row._index)" @mouseenter.stop="handleMouseIn(row._index)" @mouseleave.stop="handleMouseOut(row._index)" :class="rowClasses(row._index)">
+        <tr v-for="(row ,index) in data"
+         @click.stop="handleClick(row._index)"
+          @mouseenter.stop="handleMouseIn(row._index)" 
+          @mouseleave.stop="handleMouseOut(row._index)" :class="rowClasses(row._index)">
             <td v-for="(column,index) in columns">
                 <Cell :column="column"  :prefix="prefix"
-                 :row="row" :index="column._index" 
-                 :naturalIndex="column.index"
-                 :checked="rowChecked(column._index)"></Cell>
+                 :row="row" :index="row._index" 
+                 :naturalIndex="index"
+                 :is-checked="rowChecked(row._index)" :disabled="rowDisabled(row._index)"></Cell>
             </td>
         </tr>
     </tbody>
@@ -35,7 +38,8 @@
                 default:[]
             },
             columnsWidth: Object,
-            objData:Object
+            objData:Object,
+           
           
         },
         data(){
@@ -68,7 +72,12 @@
              rowChecked(index){
                 //多选框是否选中
                 //objData用来保存data的状态，不污染原始的data
-                return this.objData[index]&&this.objData[index]._isChecked
+                let checked = this.objData[index]&&this.objData[index]._isChecked
+                return checked;
+            },
+            //判断这一行的checkbox是否是禁用状态
+            rowDisabled(index){
+                return this.objData[index]&&this.objData[index]._isDisabled;
             }
         }
 

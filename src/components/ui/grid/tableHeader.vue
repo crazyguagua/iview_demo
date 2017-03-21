@@ -48,7 +48,6 @@ import {CheckBox} from '../checkbox'
                 }
             },
             selectAll(){
-                console.log(arguments)
                 const status = !this.isChecked;
                 this.$parent.selectAll(status);
             }

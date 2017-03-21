@@ -88,6 +88,7 @@
                 return false;
             },
             isChecked() {
+
                 if ({}.toString.call(this.model) === '[object Boolean]') {
                 return this.model;
                 } else if (Array.isArray(this.model)) {

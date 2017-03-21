@@ -11,7 +11,7 @@
     export default{
         props:{
             height:{
-                type:Number,
+                type:[Number,String],
                 default:2
             },
             color:{
@@ -25,7 +25,7 @@
         },
         data(){
             return{
-                show:true,
+                show:false,
                 status:'success',
                 //百分比
                 percentage:10
@@ -58,17 +58,20 @@
                 }
                 //如果是自定义颜色
                 if(this.color!=='primary' && this.status==='success'){
-                    this.style.background=this.color;
+                    style.backgroundColor=this.color;
                 }
                 if(this.failedColor!=='error'&& this.status==='error'){
-                     this.style.background=this.failedColor;
+                     style.backgroundColor=this.failedColor;
                 }
                 return style;
             }
         },
         methods:{
-            update(){
-                this.percentage+= Math.random()*3 ;
+            updateStatus(config){
+                //这里只能用in 判断，如果用 config。show不能判断show为false的情况
+               if('percentage' in config)this.percentage = config.percentage;
+               if('status' in config)this.status=config.status;
+               if('show' in config)this.show = config.show;
             }
         }
     }
@@ -85,6 +88,9 @@
             transition:width .2s linear;
             &-color-primary{
                 background:#2a6aab;
+            }
+            &-failed-color{
+                background:#f5601e;
             }
         }
     }

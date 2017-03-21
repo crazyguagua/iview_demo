@@ -28,4 +28,12 @@ Vue.filter('dateformat', function (value,format) {
 const app = new Vue({
     router: router
 }).$mount('#app')
+loading.globalConfig({
+    color:'yellow',
+    height:5
+});
 loading.start();
+
+setTimeout(function(){
+    loading.error();
+},3000)

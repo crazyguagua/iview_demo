@@ -56,7 +56,6 @@ import {CheckBox} from '../checkbox'
                 return renderType;
             },
             isRowChecked(){
-                console.log(this.isChecked);
                 return this.isChecked
             }
         },

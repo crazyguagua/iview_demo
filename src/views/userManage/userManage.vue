@@ -39,6 +39,9 @@
         BreadCrumbItem
     } from '../../components/ui/breadcrumb'
     import {CheckBoxGroup,CheckBox} from '../../components/ui/checkbox'
+    // import loadingBar from '../../components/ui/loading'
+    // console.log(loadingBar);
+    // loadingBar.create();
     export default {
         data() {
             return {

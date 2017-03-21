@@ -7,6 +7,8 @@
 const prefix ='btn'
 import {oneOf} from '../../util/uiTool';
     export default{
+        componentName:'my-button',
+        name:'my-button',
         props:{
             type:{
                 validator(value){

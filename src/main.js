@@ -12,6 +12,8 @@ import VueRouter from 'vue-router'
 import './assets/main.css'
 import './assets/iconfont.css'
 import axios from 'axios'
+//loading-bar
+import loading from './components/ui/loading'
 axios.defaults.baseURL = 'http://localhost:3000/';
 Vue.prototype.$http = axios;
 
@@ -21,6 +23,9 @@ Vue.filter('dateformat', function (value,format) {
    return newValue;
 })
 
+
+
 const app = new Vue({
     router: router
 }).$mount('#app')
+loading.start();

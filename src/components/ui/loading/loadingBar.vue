@@ -68,7 +68,6 @@
         },
         methods:{
             update(){
-                debugger;
                 this.percentage+= Math.random()*3 ;
             }
         }

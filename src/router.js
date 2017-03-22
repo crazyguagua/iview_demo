@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+//loading-bar
+import loading from './components/ui/loading'
 var routes = [
 
     {
@@ -44,8 +46,16 @@ var router = new VueRouter({
     // mode: 'history',
     routes //等于 routes:routes
 })
+loading.globalConfig({
+    height:3
+})
 router.beforeEach((to, from, next) => {
     // ...
+    loading.start();
     next();
+})
+router.afterEach(route => {
+  // ...
+  loading.finish();
 })
 export default router

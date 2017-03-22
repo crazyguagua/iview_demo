@@ -26,6 +26,7 @@
             <Grid :columns="columns" border  :data="data1" highlightRow @on-selection-change="getSelection">
                 
             </Grid>
+            <Page :total="page.totalItems"></Page>
         </div>
        
     </div>
@@ -34,6 +35,7 @@
     import ContentHeader from '../../components/ContentHeader';
     import {Grid} from '../../components/ui/grid';
     import {myButton} from '../../components/ui/button';
+    import {Page} from '../../components/ui/page'
     import {
         BreadCrumb,
         BreadCrumbItem
@@ -46,6 +48,7 @@
         data() {
             return {
                 title: '用户管理',
+                page:{},
                 data1:[],
                 checked:['0','1'],
                 checkedList:[],
@@ -89,7 +92,7 @@
             Grid,
             myButton,
             CheckBoxGroup,
-            CheckBox
+            CheckBox,Page
         },
         methods:{
             btnClk:function(index){
@@ -106,6 +109,7 @@
                     let data = m.data;
                     if (data.retCode == 1) {
                         self.data1 = data.obj.list;
+                        self.page = data.obj.pageInfo;
                     } else {
                         
                     }

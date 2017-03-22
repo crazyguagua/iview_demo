@@ -23,10 +23,12 @@
                     </div>-->
                    
                 </div>
-            <Grid :columns="columns" border  :data="data1" highlightRow @on-selection-change="getSelection">
+            <Grid :columns="columns" border  :data="data1" highlightRow @on-selection-change="getSelection" >
                 
             </Grid>
-            <Page :total="page.totalItems"></Page>
+            <Page :total="page.totalItems" :page-size="pageInfo.pageSize" :current="pageInfo.currentPage"
+             show-total
+             @on-page-change="reload"></Page>
         </div>
        
     </div>
@@ -48,7 +50,13 @@
         data() {
             return {
                 title: '用户管理',
-                page:{},
+                page:{
+                    
+                },
+                pageInfo:{
+                    pageSize:2,
+                    currentPage:1
+                },
                 data1:[],
                 checked:['0','1'],
                 checkedList:[],
@@ -98,12 +106,12 @@
             btnClk:function(index){
                
             },
-            load(){
+            load(page){
                let self = this;
                this.$http.post('api', {
                    	"pageInfo":{
-                        "currentPage":"1",
-                        "limit":"8"
+                        "currentPage":page.currentPage||this.pageInfo.currentPage,
+                        "limit":page.pageSize||this.pageInfo.pageSize
                     }
                }).then(function(m) {
                     let data = m.data;
@@ -120,10 +128,14 @@
             },
             getSelection(){
                 console.log(arguments)
+            },
+              reload(page){
+                this.load(page);
             }
         },
+      
         mounted(){
-            this.load();
+            this.load(this.pageInfo);
         }
     }
 </script>

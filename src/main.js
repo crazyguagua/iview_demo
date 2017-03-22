@@ -10,7 +10,7 @@ import VueRouter from 'vue-router'
 // import iView from 'iview';
 // import 'iview/dist/styles/iview.css'; // 使用 CSS
 import './assets/main.css'
-import './assets/iconfont.css'
+
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:3000/';

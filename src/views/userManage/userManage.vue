@@ -28,7 +28,7 @@
             </Grid>
             <Page :total="page.totalItems" :page-size="pageInfo.pageSize" :current="pageInfo.currentPage"
              show-total
-             @on-page-change="reload"></Page>
+             @on-page-change="reload" jump show-sizer></Page>
         </div>
        
     </div>
@@ -54,7 +54,7 @@
                     
                 },
                 pageInfo:{
-                    pageSize:2,
+                    pageSize:5,
                     currentPage:1
                 },
                 data1:[],

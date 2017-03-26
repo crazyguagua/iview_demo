@@ -62,7 +62,6 @@ export default {
          * @param {Boolean} [visible-arrow=false] Visibility of the arrow, no style.
          */
         createPopper(){
-            debugger;
             if(this.$isServer){
                 return false;
             }

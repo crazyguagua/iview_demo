@@ -10,10 +10,11 @@
         </div>
         <transition>
               <select-drop-down v-if="isOpen"  ref="popper">
-                <option value="">1</option>
-                 <option value="">1</option>
-                  <option value="">1</option>
-                   <option value="">1</option>
+                    <scrollBar>
+                        <div>1232131321321312 <br>eeweeqweqwwq <br></div>
+                
+                    </scrollBar>
+                
               </select-drop-down>
         </transition>
     </div>
@@ -21,11 +22,13 @@
 <script>
     import selectDropDown from './select-dropdown'
      import clickoutside from '../../../directives/clickoutside';
+     import scrollBar from '../scrollbar'
     export default{
         name:'mySelect',
         componentName:'mySelect',
         components:{
-            selectDropDown
+            selectDropDown,
+            scrollBar
         },
         directives: {
             clickoutside

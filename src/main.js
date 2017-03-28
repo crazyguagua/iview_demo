@@ -12,6 +12,7 @@ import VueRouter from 'vue-router'
 import './assets/main.css'
 
 import axios from 'axios'
+import store from './store'
 
 axios.defaults.baseURL = 'http://localhost:3000/';
 Vue.prototype.$http = axios;
@@ -25,7 +26,8 @@ Vue.filter('dateformat', function (value,format) {
 
 
 const app = new Vue({
-    router: router
+    router: router,
+    store
 }).$mount('#app')
 // loading.globalConfig({
 //     color:'yellow',

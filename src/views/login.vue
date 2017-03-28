@@ -48,6 +48,7 @@
                         _this.errorMsg = data.retMsg;
                         _this.type = 'warning'
                     } else {
+                        _this.$store.commit('LOGIN_INFO',data.obj);
                         _this.$router.push('/dashboard');
                     }
                 }).catch(function(error) {

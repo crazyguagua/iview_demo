@@ -15,7 +15,8 @@
     "axios": "^0.15.3",
     "iview": "^0.9.13",
     "vue": "^2.1.0",
-    "vue-router": "^2.3.0"
+    "vue-router": "^2.3.0",
+    "vuex": "^2.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

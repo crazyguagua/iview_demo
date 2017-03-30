@@ -1,6 +1,6 @@
 export default {
 	loginMenu: state => {
-      debugger
-      return state.userInfo.menus
+      let ret =  state.userInfo.menus ||JSON.parse(sessionStorage.getItem('userInfo'))
+      return ret.menus;
     }
 }

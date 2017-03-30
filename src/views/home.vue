@@ -59,8 +59,6 @@
         }
     }
 </script>
-<style lang="" scoped>
-    .home-container {
-        /*position: relative;*/
-    }
+<style lang="less">
+   @import '../assets/components.less';
 </style>

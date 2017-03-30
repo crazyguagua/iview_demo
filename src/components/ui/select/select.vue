@@ -10,7 +10,7 @@
         </div>
         <transition>
               <select-drop-down v-if="isOpen"  ref="popper">
-                    <scrollBar>
+                    <scrollBar  tag="ul">
                         <div>1232131321321312 <br>eeweeqweqwwq <br></div>
                 
                     </scrollBar>

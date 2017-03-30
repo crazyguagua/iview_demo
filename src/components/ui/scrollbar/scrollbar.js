@@ -7,20 +7,20 @@ export default{
     },
     props:{
         native: Boolean,
-        wrapStyle: {},
+        wrapStyle: {},//包裹部分的样式
         wrapClass: {},
         viewClass: {},
-        viewStyle: {},
+        viewStyle: {},//内容部分的样式
         noresize: Boolean, // 如果 container 尺寸不会发生变化，最好设置它可以优化性能
         tag:{
-            type:Boolean,
-            default:'div'
+            type:String,
+            default:'div'//内容部分的标签名
         }
     },
     data(){
         return {
-            sizeWidth:0,
-            sizeHeigh:0,
+            sizeWidth:'0',
+            sizeHeigh:'0',
             moveX:0,
             moveY:0
         }
@@ -43,17 +43,19 @@ export default{
         style = gutterStyle;
       }
     }
+    //内容层
     const view = h(this.tag, {
-      class: ['el-scrollbar__view', this.viewClass],
+      class: ['scrollbar_view', this.viewClass],
       style: this.viewStyle,
       ref: 'resize'
     }, this.$slots.default);
+    //包裹层
     const wrap = (
       <div
         ref="wrap"
         style={ style }
         onScroll={ this.handleScroll }
-        class={ [this.wrapClass, 'scrollbar__wrap', gutter ? '' : 'scrollbar__wrap--hidden-default'] }>
+        class={ [this.wrapClass, 'scrollbar_wrap', gutter ? '' : 'scrollbar_wrap--hidden-default'] }>
         { [view] }
       </div>
     );
@@ -74,12 +76,20 @@ export default{
       nodes = ([
         <div
           ref="wrap"
-          class={ [this.wrapClass, 'el-scrollbar__wrap'] }
+          class={ [this.wrapClass, 'scrollbar_wrap'] }
           style={ style }>
           { [view] }
         </div>
       ]);
     }
-    return h('div', { class: 'el-scrollbar' }, nodes);
+    //最终模板
+    return h('div', { class: 'scrollbar' }, nodes);
+  },
+  
+  methods:{
+
+    handleScroll(){
+      alert('handleScroll')
     }
+  }
 }

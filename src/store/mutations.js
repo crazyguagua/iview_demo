@@ -15,6 +15,7 @@ export default {
 	//登陆
 	[LOGIN_INFO](state,userInfo){
 		state.userInfo = userInfo;
+		sessionStorage.setItem('userInfo',JSON.stringify(userInfo))
 	},
 	//退出登陆
 	[LOG_OUT](state) {

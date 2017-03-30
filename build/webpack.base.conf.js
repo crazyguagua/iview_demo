@@ -66,10 +66,17 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       },
+      // {
+      //           test: /\.less/,
+      //           exclude: /^node_modules$/,
+      //           loader: `style-loader!css-loader!autoprefixer-loader?{ browsers: ['last 100 versions'] }!less-loader`
+      // }
       {
-                test: /\.less/,
-                exclude: /^node_modules$/,
-                loader: `style-loader!css-loader!autoprefixer-loader?{ browsers: ['last 100 versions'] }!less-loader`
+
+      test: /\.less$/,
+
+      loader: "style-loader!css-loader!less-loader",
+
       }
     ]
   },

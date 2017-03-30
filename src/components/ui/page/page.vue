@@ -72,7 +72,9 @@
                     <span>页</span>
             </li>
             <li :class="[`${prefix}-sizer`]" v-if="showSizer">
-                <mySelect></mySelect>
+                <mySelect>
+                    <myOption v-for="pageSize in pageSizers" :value="pageSize" :label="pageSize"></myOption>
+                </mySelect>
             </li>
           
         </ul>
@@ -80,12 +82,13 @@
 <script>
     const prefix='myPage'
     const reg_num=/^\d+$/;
-    import {mySelect} from '../select'
+    import {mySelect,myOption} from '../select'
     export default{
         name:'page',
         componentName:'page',
         components:{
-            mySelect
+            mySelect,
+            myOption
         },
         props:{
             total:{

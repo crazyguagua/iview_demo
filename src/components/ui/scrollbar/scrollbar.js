@@ -26,7 +26,6 @@ export default{
         }
     },
     render(h){
-        debugger;
        let gutter = getScrollBarSize();
        let style = this.wrapStyle;
 

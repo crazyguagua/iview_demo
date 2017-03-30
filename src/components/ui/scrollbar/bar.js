@@ -49,11 +49,11 @@ export default{
          const { size, move, bar } = this;
         return (
             <div
-                class={ ['scrollbar__bar', 'is-' + bar.key] }
+                class={ ['scrollbar_bar', 'is-' + bar.key] }
                 onMousedown={ this.clickTrackHandler } >
                 <div
                 ref="thumb"
-                class="scrollbar__thumb"
+                class="scrollbar_thumb"
                 onMousedown={ this.clickThumbHandler }
                 style={ renderThumbStyle({ size, move, bar }) }>
                 </div>

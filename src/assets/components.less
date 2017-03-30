@@ -6,6 +6,22 @@
     & .scrollbar_wrap{
         overflow: scroll;
     }
+    & .scrollbar_bar{
+        position: absolute;
+        bottom:2px;
+        right:2px;
+        border-radius:4px;
+        transition: opacity .12s ease-in-out;
+        &.is-vertical{
+            /*垂直方向*/
+            width:6px;
+            top:2px;
+        }
+        &.is-horizontal{
+            height:2px;
+            left:2px;
+        }
+    }
 }
 
 

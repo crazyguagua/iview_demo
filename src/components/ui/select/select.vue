@@ -11,8 +11,7 @@
         <transition>
               <select-drop-down v-if="isOpen"  ref="popper">
                     <scrollBar  tag="ul">
-                        <div>1232131321321312 <br>eeweeqweqwwq <br></div>
-                
+                       <slot></slot>
                     </scrollBar>
                 
               </select-drop-down>
@@ -35,7 +34,9 @@
         },
         data(){
             return{
-                isOpen:false
+                isOpen:false,//是否弹出
+                hoverIndex:-1, //当前hover的索引，
+                options:[]//保存子组件options的索引
             }
         },
         methods:{

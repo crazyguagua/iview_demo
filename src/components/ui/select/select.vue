@@ -6,7 +6,10 @@
             <span class="arrow">
                 <i class="iconfont icon-arrow-down"></i>
             </span>
-           <input ref="reference" type="text" placeholder="请选择" readonly="readonly" autocomplete="off" class="input-inner">
+           <input ref="reference" type="text" placeholder="请选择" readonly="readonly" autocomplete="off" 
+           class="input-inner"
+           :style="{ 'max-width': inputWidth - 42 + 'px'}"
+           >
         </div>
         <transition>
               <select-drop-down v-if="isOpen"  ref="popper">
@@ -36,7 +39,8 @@
             return{
                 isOpen:false,//是否弹出
                 hoverIndex:-1, //当前hover的索引，
-                options:[]//保存子组件options的索引
+                options:[],//保存子组件options的索引,
+                inputWidth:0//输入框的宽度
             }
         },
         methods:{
@@ -46,6 +50,15 @@
             handleClose(){
                 this.isOpen = false;
             }
+        },
+        mounted(){
+            //获得select组件输入框的宽度
+           this.$nextTick(()=>{
+                if(this.$refs.reference){
+                     this.inputWidth = this.$refs.reference.getBoundingClientRect().width;
+                }
+           })
+           
         }
     }
 </script>

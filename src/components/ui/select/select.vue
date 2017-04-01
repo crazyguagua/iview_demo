@@ -12,7 +12,7 @@
            >
         </div>
         <transition>
-              <select-drop-down v-if="isOpen"  ref="popper">
+              <select-drop-down v-if="isOpen"  ref="popper" :input-width="inputWidth">
                     <scrollBar  tag="ul">
                        <slot></slot>
                     </scrollBar>
@@ -59,6 +59,11 @@
                 }
            })
            
+        },
+        watch:{
+            'inputWidth'(){
+                // console.log(arguments);
+            }
         }
     }
 </script>
@@ -83,7 +88,7 @@
                 outline: none;
                 padding: 3px 10px;
                 transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-                width: 80%;
+                width: 100%;
                 position: relative;
         }
         &-open .arrow i:before{
@@ -95,6 +100,7 @@
         &-selection{
                 position: relative;
                 cursor: pointer;
+                width:100%;
                 &-render{
                     margin:0 7px;
                     padding-right: 14px;

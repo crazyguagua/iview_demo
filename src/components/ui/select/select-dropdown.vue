@@ -1,5 +1,5 @@
 <template>
-    <div class="select-dropdown" :style="{minWidth:minWidth}">
+    <div class="select-dropdown" :style="{'min-width':inputWidth+'px'}">
         <slot></slot>
     </div>
 </template>
@@ -13,18 +13,16 @@
             placement:{
                 type:String,
                 default:'bottom-start'
-            }
+            },
+            inputWidth:Number  //外层select组件input框的宽度
         },
         data(){
            return{
-               minWidth:'', //dropdown的最小宽度，随select组件的变化而变化,
-               b:0
+               minWidth:'' //dropdown的最小宽度，随select组件的变化而变化,
            }
         },
         computed:{
-            a(){
-                return this.b;
-            }
+           
         },
         mounted(){
             this.referenceElm = this.$parent.$refs.reference;
@@ -32,21 +30,18 @@
             this.$on('updatePopper', this.updatePopper);
             this.$on('destroyPopper', this.destroyPopper);
             this.createPopper();
-            this.b++;
         },
         watch:{
 
             //检测相对于弹出框的input的宽度
-            '$parent.inputWidth':{
-                handler(){
-                     debugger;
-                     this.minWidth = this.$parent.$el.getBoundingClientRect().width+'px';
-                }
+            // '$parent.inputWidth'(){
+            //     // debugger;
+            //     // this.minWidth = this.$parent.$el.getBoundingClientRect().width+'px';
                
-            },
-            'a'(){
-                console.log(arguments);
-            }
+            // },
+            // 'a'(){
+            //     // console.log(arguments);
+            // }
         }
 
     }

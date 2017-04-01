@@ -229,6 +229,9 @@
         }
         &-sizer{
              float:left;
+             & .my-select{
+                 width:100px;
+             }
         }
         &-item:hover{
             border-color: #39f;

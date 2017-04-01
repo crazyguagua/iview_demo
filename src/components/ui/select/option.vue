@@ -1,5 +1,6 @@
 <template>
-    <li class="select-dropdown-item" @mouseenter="hoverOption">
+    <li class="select-dropdown-item" @mouseenter="hoverOption" :class="{'hover':parent.hoverIndex === index}"
+    @click.stop="selectOption">
         <span>{{label}}</span>
     </li>
 
@@ -10,11 +11,27 @@
         componentName:'myOption',
         props:{
             value:[String,Number,Boolean],
-            label:[String,Number]
+            label:[String,Number],
+            disabled:{
+                type:Boolean,
+                default:false
+            }//该option是否可用
+        },
+        data(){
+            return{
+              index:-1//当前option在select组件options中的索引
+            }
         },
         methods:{
             hoverOption(){
+               if(!this.disabled){
+                  this.parent.hoverIndex = this.index
+               }
+            },
+            selectOption(){
+                if(!this.disabled){
 
+                }
             }
         },
         computed:{
@@ -49,6 +66,9 @@
         cursor: pointer;
         & span{
             line-height:1.5;
+        }
+        &.hover{
+            background-color: #e4e8f1;
         }
     }
 </style>

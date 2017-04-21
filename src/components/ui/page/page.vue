@@ -72,7 +72,7 @@
                     <span>页</span>
             </li>
             <li :class="[`${prefix}-sizer`]" v-if="showSizer">
-                <mySelect>
+                <mySelect @input="handlePageSizeChange">
                     <myOption v-for="pageSize in pageSizers" :value="pageSize" :label="pageSize"></myOption>
                 </mySelect>
             </li>
@@ -101,7 +101,7 @@
             },
             pageSize:{
                 type:Number,
-                default:10
+                default:5
             },
             showTotal:{
                 type:Boolean,
@@ -122,7 +122,8 @@
             return {
                 prefix:prefix,
                 currentPage:this.current,
-                pageSizers:[10,20,30,40]
+                pageSizers:[10,20,30,40],
+                innerPageSize:5
             }
         },
         computed:{
@@ -133,8 +134,11 @@
                 return [`${prefix}-item`]
             },
             pageCount(){
-                return Math.ceil(this.total/this.pageSize);
+                return Math.ceil(this.total/this.innerPageSize);
             }
+        },
+        created(){
+           
         },
         methods:{
             //下一页
@@ -144,7 +148,7 @@
                 }
                 this.currentPage++;
                 this.$emit('on-page-change',{
-                    pageSize:this.pageSize,
+                    pageSize:this.innerPageSize,
                     currentPage:this.currentPage
                 })
             },
@@ -155,7 +159,7 @@
                 }
                 this.currentPage--;
                  this.$emit('on-page-change',{
-                    pageSize:this.pageSize,
+                    pageSize:this.innerPageSize,
                     currentPage:this.currentPage
                 })
             },
@@ -164,7 +168,7 @@
                 if(this.currentPage!=page){
                     this.currentPage = page;
                     this.$emit('on-page-change',{
-                        pageSize:this.pageSize,
+                        pageSize:this.innerPageSize,
                         currentPage:this.currentPage
                     })
                 }
@@ -198,7 +202,24 @@
                 }else{
                     evt.currentTarget.value = 1;
                 }
+            },
+            //处理页数改变
+            handlePageSizeChange(size){
+                this.innerPageSize = size;
+                this.$emit('on-page-change',{
+                        pageSize:this.innerPageSize,
+                        currentPage:this.currentPage
+                })
+            },
+            watch:{
+                pageSize:{
+                    immediate: true,
+                    handler(val){
+                        this.innerPageSize = pageSize;
+                    }
+                }
             }
+            //不能直接改变属性
         }
     }
 </script>

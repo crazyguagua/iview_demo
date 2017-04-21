@@ -12,7 +12,7 @@ export default {
                 }
             }
             if (parent) {
-                debugger;
+                //触发当前实例上的事件
                 parent.$emit.apply(parent, [eventName].concat(params));
             }
         },

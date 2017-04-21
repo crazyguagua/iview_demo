@@ -6,7 +6,7 @@
                 <BreadCrumbItem>用户管理</BreadCrumbItem>
             </BreadCrumb>
         </ContentHeader>
-        <div class="container">
+        <div class="right-content-container">
             <div class="fixed-toolbar clearfix" slot="toolbar">
                     <div class="pull-left search">
                     <my-button @click="btnClk(1)" type="purple" size="large">新增</my-button>

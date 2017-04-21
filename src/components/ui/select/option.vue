@@ -6,8 +6,10 @@
 
 </template>
 <script>
+    import Emitter from '../../mixins/emitter'
     export default{
         name:'myOption',
+        mixins:[Emitter],
         componentName:'myOption',
         props:{
             value:[String,Number,Boolean],
@@ -30,7 +32,8 @@
             },
             selectOption(){
                 if(!this.disabled){
-
+                    //事件通知对象   事件名 this
+                    this.dispatch('mySelect','optionClicked',this)
                 }
             }
         },

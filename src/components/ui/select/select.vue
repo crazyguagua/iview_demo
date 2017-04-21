@@ -6,7 +6,7 @@
             <span class="arrow">
                 <i class="iconfont icon-arrow-down"></i>
             </span>
-           <input ref="reference" type="text" placeholder="请选择" readonly="readonly" autocomplete="off" 
+           <input ref="reference" :value="val" type="text" placeholder="请选择" readonly="readonly" autocomplete="off" 
            class="input-inner"
            :style="{ 'max-width': inputWidth - 42 + 'px'}"
            >
@@ -35,12 +35,16 @@
         directives: {
             clickoutside
         },
+        props:{
+            multiple: Boolean, //是否多选
+        },
         data(){
             return{
                 isOpen:false,//是否弹出
                 hoverIndex:-1, //当前hover的索引，
                 options:[],//保存子组件options的索引,
-                inputWidth:0//输入框的宽度
+                inputWidth:0,//输入框的宽度
+                val:''
             }
         },
         methods:{
@@ -49,6 +53,15 @@
             },
             handleClose(){
                 this.isOpen = false;
+            },
+            //选中 执行的方法
+            handleSelect(option){
+                // console.log(arguments);
+                if(!this.multiple){
+                    this.$emit('input',option.value)
+                    this.isOpen = false;
+                    this.val = option.value;
+                }
             }
         },
         mounted(){
@@ -59,6 +72,10 @@
                 }
            })
            
+        },
+        created(){
+            //接收子组件传递的option选中事件
+            this.$on('optionClicked',this.handleSelect);
         },
         watch:{
             'inputWidth'(){

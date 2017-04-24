@@ -9,9 +9,9 @@
         <div class="right-content-container">
             <div class="fixed-toolbar clearfix" slot="toolbar">
                     <div class="pull-left search">
-                    <my-button @click="btnClk(1)" type="purple" size="large">新增</my-button>
-                    <input  class="form-control"type="text" placeholder="用户名"/>
-                    <my-button @click="btnClk(2)" type="primary" size="large">查询</my-button>
+                    <my-button @click="addUser()" type="purple" size="large">新增</my-button>
+                    <input  class="form-control"type="text" v-model="userName" placeholder="用户名"/>
+                    <my-button @click="this.showUserModal = false" type="primary" size="large">查询</my-button>
                     </div>
                    <!-- <div class="pull-left search">
                    <CheckBoxGroup v-model="checkedList">
@@ -22,7 +22,13 @@
                           
                     </div>-->
                    
+            </div>
+            <my-modal v-model="showUserModal" title="新增用户">
+                <div slot='footer'>
+                    <my-button type="primary" @click="saveUser">保存</my-button>
+                     <my-button @click="">取消</my-button>
                 </div>
+            </my-modal>
             <Grid :columns="columns" border  :data="data1" highlightRow @on-selection-change="getSelection" >
                 
             </Grid>
@@ -43,6 +49,7 @@
         BreadCrumbItem
     } from '../../components/ui/breadcrumb'
     import {CheckBoxGroup,CheckBox} from '../../components/ui/checkbox'
+    import {MyModal} from '../../components/ui/modal'
     // import loadingBar from '../../components/ui/loading'
     // console.log(loadingBar);
     // loadingBar.create();
@@ -53,10 +60,13 @@
                 page:{
                     
                 },
+                userName:null,
+                showUserModal:false,
                 pageInfo:{
                     pageSize:5,
                     currentPage:1
                 },
+                
                 data1:[],
                 checked:['0','1'],
                 checkedList:[],
@@ -100,15 +110,22 @@
             Grid,
             myButton,
             CheckBoxGroup,
-            CheckBox,Page
+            CheckBox,Page,MyModal
         },
         methods:{
-            btnClk:function(index){
-               
+            addUser:function(index){
+               this.showUserModal = true;
+            },
+            saveUser:function(){
+                alert('save');
+            },
+            query:function(){
+                this.load(this.pageInfo);
             },
             load(page){
                let self = this;
                this.$http.post('api', {
+                    "userName":this.userName,
                    	"pageInfo":{
                         "currentPage":page.currentPage||this.pageInfo.currentPage,
                         "limit":page.pageSize||this.pageInfo.pageSize

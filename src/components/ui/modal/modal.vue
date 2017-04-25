@@ -1,36 +1,41 @@
 <template>
-    <div :class="prefix">
-        <div :class="[`${prefix}-wrap`,customCls]" v-show="visible==true">
-            <div :class="[`${prefix}-content`,modalSize]" :style="styles">
-                <div :class="`${prefix}-header`">
-                    <span class="title">
-                        {{title}}
-                    </span>
-                    <div class="closeBtn" v-show="closeBtn">
-                        <i class="iconfont icon-close" @click="handleCloseBtn"></i>
+ 
+    <!--modal begin --><div :class="prefix">
+        <transition name="dialog-fade">
+            <div :class="[`${prefix}-wrap`,customCls]" v-show="visible==true">
+                <div :class="[`${prefix}-content`,modalSize]" :style="styles" >
+                    <div :class="`${prefix}-header`">
+                        <span class="title">
+                            {{title}}
+                        </span>
+                        <div class="closeBtn" v-show="closeBtn">
+                            <i class="iconfont icon-close" @click="close"></i>
+                        </div>
+                    </div>
+                    <div :class="`${prefix}-body`">
+                        <slot name="body"></slot>
+                    </div>
+                    <div :class="`${prefix}-footer`">
+                        <slot name="footer"></slot>
                     </div>
                 </div>
-                <div :class="`${prefix}-body`">
-                    <slot></slot>
-                </div>
-                <div :class="`${prefix}-footer`">
-                    <slot name="footer"></slot>
-                </div>
             </div>
-        </div>
-        <transition name="fade">
-             <div class="mask" v-show="visible==true"></div>
         </transition>
+           <!-- <transition name="dialog-fade">
+                <div class="mask" v-show="visible==true"></div>
+            </transition> --> 
     
-    </div>
-    
+    </div><!--modal end -->
+  
 
 </template>
 
 <script>
     const prefix='myModal'
+    import PopUp from '../../util/modalPopUp';
     export default{
         name:'myModal',
+        mixins:[PopUp],
         props:{
             value:{
                 type:Boolean,
@@ -63,43 +68,94 @@
         },
         methods:{
 
-            handleCloseBtn(){
-                this.visible = false;
-                //向上传递input事件，和v-model双向绑定，
-                this.$emit('input',false);
-            }
+            // handleCloseBtn(){
+            //     this.visible = false;
+            //     //向上传递input事件，和v-model双向绑定，
+            //     this.$emit('input',false);
+            // }
         },
         watch:{
             value(val){
-                this.visible = val
+                this.visible = val;
+            },
+            visible(val){
+                this.$emit('input',val);
+                if(val){
+                    //向上发布open事件
+                    this.$emit('open')
+                }else{
+                    this.$emit('close')
+                }
+            }
+        },
+        beforeMount(){
+            console.log('beforemount');
+        },
+        destory(){
+            console.log('destroy');
+        },
+        beforeDestroy(){
+            console.log('beforeDestroy');
+        },
+        mounted(){
+            console.log('mounted');
+            if(this.value){
+                this.open();
             }
         }
+
     }
 </script>
 <style lang="less">
     .myModal{
-        & .mask{
-            position:fixed;
-            left:0;
-            right:0;
-            top:0;
-            bottom:0;
-            background:rgba(55,55,55,.7);
-            z-index:1000;
-        }
+        // & .mask{
+        //     position:fixed;
+        //     left:0;
+        //     right:0;
+        //     top:0;
+        //     bottom:0;
+        //     background:rgba(55,55,55,.7);
+        //     z-index:1000;
+        // }
         & .myModal-wrap{
             position:fixed;
             left:0;
             right:0;
             top:0;
             bottom:0;
-            z-index:1001;
+            // background:rgba(55,55,55,.7);
+            // z-index:1001;
+            overflow: auto;
         }
-        & .fade-enter,& .fade-leave-active{
-            opacity:0;
+        // & .dialog-fade-enter,& .dialog-fade-leave-active{
+        //     opacity:0;
+        //     transform: translate3d(0, 0, 0);
+        // }
+        & .dialog-fade-enter-active {
+            animation: dialog-fade-in .3s;
         }
-        & .fade-enter-active, & .fade-leave-active{
-            transition:opacity .5s;
+        & .dialog-fade-leave-active{
+            animation: dialog-fade-out .3s;
+        }
+        @keyframes dialog-fade-in{
+            0%{
+                opacity:0;
+                transform: translate3d(0, -20px, 0);
+            }
+            100%{
+                opacity:1;
+                transform:translate3d(0,0,0);
+            }
+        }
+        @keyframes dialog-fade-out{
+            0%{
+                opacity:1;
+                transform: translate3d(0, 0, 0);
+            }
+            100%{
+                opacity:0;
+                transform:translate3d(0,-20px,0);
+            }
         }
         &-header{
             padding:20px;

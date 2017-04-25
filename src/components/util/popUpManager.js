@@ -9,6 +9,10 @@ const popManager={
     },
     getInstance(id){
         return instances[id];
+    },
+    //绑定popUpId 和组件
+    register(popUpId,component){
+
     }
 
 }

@@ -11,7 +11,7 @@
                     <div class="pull-left search">
                     <my-button @click="addUser()" type="purple" size="large">新增</my-button>
                     <input  class="form-control"type="text" v-model="userName" placeholder="用户名"/>
-                    <my-button @click="this.showUserModal = false" type="primary" size="large">查询</my-button>
+                    <my-button @click="query" type="primary" size="large">查询</my-button>
                     </div>
                    <!-- <div class="pull-left search">
                    <CheckBoxGroup v-model="checkedList">
@@ -23,12 +23,16 @@
                     </div>-->
                    
             </div>
-            <my-modal v-model="showUserModal" title="新增用户">
+           
+             <my-modal v-model="showUserModal" title="新增用户">
+                <div slot="body">
+                </div>
                 <div slot='footer'>
                     <my-button type="primary" @click="saveUser">保存</my-button>
-                     <my-button @click="">取消</my-button>
+                     <my-button @click="showUserModal = false">取消</my-button>
                 </div>
             </my-modal>
+            
             <Grid :columns="columns" border  :data="data1" highlightRow @on-selection-change="getSelection" >
                 
             </Grid>

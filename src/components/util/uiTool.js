@@ -1,3 +1,4 @@
+//校验 props validate 里面的属性在一定要在数组中存在  
 export function oneOf(one,validList)
 {   
     for(let i=0;i<validList.length;i++){
@@ -7,6 +8,7 @@ export function oneOf(one,validList)
     }
     return false;
 }
+//获取计算出来的样式
 export function getStyle(element,styleName){
     if(!element || !styleName) return null;
     try{
@@ -54,6 +56,7 @@ export function getScrollBarSize(fresh){
     return cached;
 }
 
+//深拷贝，
 export function deepCopy(src){
     var ret =src instanceof Array?[]:{};
     for(var key in src){
@@ -65,4 +68,30 @@ export function deepCopy(src){
         }
     }
     return ret;
+}
+
+//合并多个object
+export function merge(target){
+    for(let i=0,j=arguments.length;i<j;i++){
+        var source = arguments[i]||{};
+        for(let key in source){
+            if(source.hasOwnProperty(key)){
+                let val = source[key];
+                if(val != undefined){
+                    target[key] = val;
+                }
+            }
+            
+        }
+    }
+    return target;//返回第一个对象
+}
+
+//getDom 处理含有注释的dom，获得去掉注释的dom
+export function getDom(dom){
+    if(dom.nodeType==3){// nodeType == 3表示该节点是注释
+        dom = dom.nextElementSibling ||dom.nextSibling;
+        getDom(dom);
+    }
+    return dom
 }

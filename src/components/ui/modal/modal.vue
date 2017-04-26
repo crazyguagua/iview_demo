@@ -88,15 +88,7 @@
                 }
             }
         },
-        beforeMount(){
-            console.log('beforemount');
-        },
-        destory(){
-            console.log('destroy');
-        },
-        beforeDestroy(){
-            console.log('beforeDestroy');
-        },
+       
         mounted(){
             console.log('mounted');
             if(this.value){

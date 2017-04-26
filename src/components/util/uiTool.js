@@ -95,3 +95,54 @@ export function getDom(dom){
     }
     return dom
 }
+/**
+ * 判断dom元素添加样式
+ * @param  {dom} dom
+ * @param  {String} cls
+ */
+export function addClass(dom,cls){
+    if(!dom || !cls) return;
+    let curClass = dom.className;
+    let classes = cls.split(" ");
+    for(var i=0;i<classes.length;i++){
+        var eachCls = classes[i];
+        if(!eachCls){
+            continue;
+        }
+        if(dom.classList){
+            dom.classList.remove(eachCls);
+        }else{
+            if (hasClass(dom, eachCls)) {
+                curClass =curClass.replace(' '+eachCls+' ',' ');
+            }
+        }
+    }
+    if(!dom.classList){
+        dom.className = curClass.replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g,'');
+    }
+}
+/**
+ * 为dom元素移除样式
+ * @param  {dom} dom
+ * @param  {String} cls
+ */
+export function removeClass(dom,cls){
+
+}
+/**
+ * 判断dom是否含有某个样式
+ * @param  {dom} dom
+ * @param  {String} cls
+ */
+export function hasClass(dom,cls){
+    if(!dom || cls) return;
+    if(cls.indexOf(' ')!=-1){
+        throw new Error('参数 cls 不能含有空格')
+    }
+    if(dom.classList){
+        return dom.classList.contains(cls);
+    }else{
+        let className = dom.className;
+        return (' ' + className + ' ').indexOf(' ' + cls + ' ') > -1;
+    }
+}

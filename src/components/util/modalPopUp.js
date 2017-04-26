@@ -25,8 +25,21 @@ export default{
     },
     data(){
         return {
-            opended:false//弹出框是否已经打开
+            opended:false,//弹出框是否已经打开
+            seedId:1 //弹出框种子Id
         }
+    },
+    beforeMount(){
+        this.popupId = `popUp-${this.seedId}`;
+        console.log(this.popupId);
+        PopupManager.register(this.popupId,this);//注册到popUp管理器
+        // console.log('beforemount');
+    },
+    destory(){
+        console.log('destroy');
+    },
+    beforeDestroy(){
+        // console.log('beforeDestroy');
     },
     methods:{
         open(options){
@@ -48,9 +61,8 @@ export default{
             //modal
             if(modal){
                 console.log('模态框');
-
+                popupId.openModal(this.popupId,zIndex);
             }
-            debugger;
             if(getComputedStyle(dom).position=='static'){
                 dom.style.position = 'absolute';
             }

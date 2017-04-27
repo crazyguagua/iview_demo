@@ -110,6 +110,32 @@ export function addClass(dom,cls){
             continue;
         }
         if(dom.classList){
+            dom.classList.add(eachCls);
+        }else{
+            if (!hasClass(dom, eachCls)) {
+               curClass += ' ' + clsName;
+            }
+        }
+    }
+    if(!dom.classList){
+        dom.className = curClass;
+    }
+}
+/**
+ * 为dom元素移除样式
+ * @param  {dom} dom
+ * @param  {String} cls
+ */
+export function removeClass(dom,cls){
+    if(!dom || !cls) return;
+    let curClass = dom.className;
+    let classes = cls.split(" ");
+    for(var i=0;i<classes.length;i++){
+        var eachCls = classes[i];
+        if(!eachCls){
+            continue;
+        }
+        if(dom.classList){
             dom.classList.remove(eachCls);
         }else{
             if (hasClass(dom, eachCls)) {
@@ -120,14 +146,6 @@ export function addClass(dom,cls){
     if(!dom.classList){
         dom.className = curClass.replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g,'');
     }
-}
-/**
- * 为dom元素移除样式
- * @param  {dom} dom
- * @param  {String} cls
- */
-export function removeClass(dom,cls){
-
 }
 /**
  * 判断dom是否含有某个样式

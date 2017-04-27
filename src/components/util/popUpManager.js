@@ -11,6 +11,7 @@ let getModalDom = function(){
     }
     return popManager.modalDom;
 }
+import {addClass,removeClass} from './uiTool'
 const popManager={
     zIndex:2000,
     nextZIndex(){
@@ -33,23 +34,31 @@ const popManager={
      * @param  {string} zIndex zIndex
      * @param  {dom} parent   popUp插入位置
      * @param  {array} modalCls popUp 额外的样式
-     * @param  {boolean} fade  modal是否加入淡入淡出效果
+     * @param  {boolean} modalFade  modal是否加入淡入淡出效果
      */
-    openModal(id,zIndex,parent,modalCls,fade){
+    openModal(id,zIndex,parent,modalCls,modalFade){
         let modalDom = getModalDom();
-
         debugger;
+        //添加modal-mask 样式
+        addClass(modalDom,'modal-mask');
         //判断堆栈中是否存在 popupId
         for(let i=0;i<this.modalStack.length;i++){
             if(modalStack[i].id == id){
                 return;
             }
         }
-
         //处理modalClass
-        if (modalClass) {
-            let classArr = modalClass.trim().split(/\s+/);
+        if (modalCls) {
+            let classArr = modalCls.trim().split(/\s+/);
             classArr.forEach(item => addClass(modalDom, item));
+        }
+        //判断是否需要给遮罩添加淡入淡出的动画
+        if(modalFade){
+            addClass(modalDom,'modal-mask-enter');
+            setTimeout(function(){
+                debugger;
+                removeClass(modalDom,'modal-mask-enter');
+            },200)
         }
         
         //如果没有指定modalDom插入的位置，则插入到body
@@ -64,7 +73,7 @@ const popManager={
         }
         modalDom.style.display='';
 
-        this.modalStack.push({id:id,zIndex:zIndex,modalClass:modalClass})
+        this.modalStack.push({id:id,zIndex:zIndex,modalCls:modalCls})
     }
 
 }

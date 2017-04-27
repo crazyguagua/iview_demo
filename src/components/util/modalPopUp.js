@@ -11,7 +11,11 @@ export default{
             type:Boolean,
             default:false
         },
-        modelCls:String, //弹出框遮罩的样式
+        modalFade:{ //是否给遮罩添加淡入淡出的效果
+            type:Boolean,
+            default:true
+        },
+        modalCls:String, //弹出框遮罩的样式
         zIndex:{}//z-index 属性
     },
     watch:{
@@ -43,28 +47,30 @@ export default{
     },
     methods:{
         open(options){
+            
             //this.$props 这个取不到 ，只能取整个组件的属性
             const props = merge({}, (this.$props || this), options);
-            console.log(props);
            this.handleOpen(props);
         },
         handleOpen(props){
+           
             this.visible = true;
             this.$emit('input',true);
             //dom
             let dom = getDom(this.$el);
             const modal = props.modal;
             let zIndex = props.zIndex;
-            if(!zIndex){
-                zIndex = PopupManager.nextZIndex();
-            }
+           
             //modal
             if(modal){
-                console.log('模态框');
-                popupId.openModal(this.popupId,zIndex);
+               
+                PopupManager.openModal(this.popupId,PopupManager.nextZIndex(),props.appendToBody==true?null:dom,props.modalCls,props.modalFade);
             }
             if(getComputedStyle(dom).position=='static'){
                 dom.style.position = 'absolute';
+            }
+            if(!zIndex){
+                zIndex = PopupManager.nextZIndex();
             }
             dom.style.zIndex = zIndex;
             this.opened = true;

@@ -54,7 +54,15 @@
                 type:String,
                 default:'15%'
             },
-            customCls:String
+            customCls:String,
+             appendToBody:{ //弹框是否 append到body中
+                type:Boolean,
+                default:true
+            },
+            modal:{ //是否为模态框 是否需要遮罩
+                type:Boolean,
+                default:true
+            }
         },
         data(){
             return {

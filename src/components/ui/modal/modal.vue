@@ -2,20 +2,20 @@
  
     <!--modal begin --><div :class="prefix">
         <transition name="dialog-fade">
-            <div :class="[`${prefix}-wrap`,customCls]" v-show="visible==true">
+            <div :class="[`${prefix}-wrap`,customCls]" v-show="visible==true" @click="handleWrapperClose">
                 <div :class="[`${prefix}-content`,modalSize]" :style="styles" >
                     <div :class="`${prefix}-header`">
                         <span class="title">
                             {{title}}
                         </span>
                         <div class="closeBtn" v-show="closeBtn">
-                            <i class="iconfont icon-close" @click="close"></i>
+                            <i class="iconfont icon-close" @click="handleModalClose"></i>
                         </div>
                     </div>
-                    <div :class="`${prefix}-body`">
+                    <div :class="`${prefix}-body`" v-if="rendered">
                         <slot name="body"></slot>
                     </div>
-                    <div :class="`${prefix}-footer`">
+                    <div :class="`${prefix}-footer`" v-if="$slots.footer">
                         <slot name="footer"></slot>
                     </div>
                 </div>
@@ -33,6 +33,7 @@
 <script>
     const prefix='myModal'
     import PopUp from '../../util/modalPopUp';
+    import {oneOf} from '../../util/uiTool'
     export default{
         name:'myModal',
         mixins:[PopUp],
@@ -42,24 +43,42 @@
                 default:false
             },
             title:String,
-            closeBtn:{
+            closeBtn:{//是否显示右上角的关闭按钮
                 type:Boolean,
                 default:true
             },
             size:{
                 type:String,
-                default:'small'
+                default:'small',
+                validator(value){
+                    return oneOf(value,['mini','small','large','full'])
+                }
             },
             top:{
                 type:String,
                 default:'15%'
             },
             customCls:String,
-             appendToBody:{ //弹框是否 append到body中
+            appendToBody:{ //弹框是否 append到body中
                 type:Boolean,
                 default:true
             },
             modal:{ //是否为模态框 是否需要遮罩
+                type:Boolean,
+                default:true
+            },
+            beforeClose:Function, //在modal关闭之前执行的函数，尤modal组件的调用者选择是否需要执行
+            escEnable:{ //是否通过按下esc取消遮罩
+                type:Boolean,
+                default:true
+            },
+            clickWrapperClose:{
+                //点击modal的wrapper 可以关闭modal
+                type:Boolean,
+                default:false
+            },
+            lockScroll:{
+                //是否锁住body的滚动条
                 type:Boolean,
                 default:true
             }
@@ -69,9 +88,8 @@
                 visible:this.value,
                 prefix:prefix,
                 modalSize:`modal-${this.size}`,
-                styles:{
-                    top:this.top
-                }
+                //如果size==full的时候就不需要默认的top值了
+                styles:this.size==='full'?{}:{top:this.top}
             }
         },
         methods:{
@@ -81,6 +99,17 @@
             //     //向上传递input事件，和v-model双向绑定，
             //     this.$emit('input',false);
             // }
+            handleModalClose(){
+                if(typeof this.beforeClose ==='function'){
+                    this.beforeClose();
+                }
+                this.close();//调用modalPopUp的close 方法
+            },
+            handleWrapperClose(){
+                if(this.clickWrapperClose){
+                    this.close();
+                }
+            }
         },
         watch:{
             value(val){
@@ -98,10 +127,13 @@
         },
        
         mounted(){
-            console.log('mounted');
+            // console.log('mounted 后执行');
             if(this.value){
                 this.open();
             }
+        },
+        created(){
+            // console.log('created  先执行');
         }
 
     }
@@ -185,6 +217,16 @@
         }
         & .modal-small{
             width:50%;
+        }
+        & .modal-mini{
+            width:30%;
+        }
+        & .modal-large{
+            width:90%;
+        }
+         & .modal-full{
+            width:100%;
+            height:100%;
         }
         &-content{
             position:absolute;

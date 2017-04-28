@@ -24,12 +24,13 @@
                    
             </div>
            
-             <my-modal v-model="showUserModal" title="新增用户">
+             <my-modal v-model="showUserModal" title="新增用户" size="small" click-wrapper-close="true">
                 <div slot="body">
+                    
                 </div>
                 <div slot='footer'>
                     <my-button type="primary" @click="saveUser">保存</my-button>
-                     <my-button @click="showUserModal = false">取消</my-button>
+                    <my-button @click="showUserModal = false">取消</my-button>
                 </div>
             </my-modal>
             

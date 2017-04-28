@@ -167,3 +167,28 @@ a[disabled] {
     background:#000;
     opacity:.5;
 }
+/*modalPopUp 遮罩淡入*/
+.modal-mask-enter{
+    animation: modal-in .2s ease;
+}
+/*modalPopUp 遮罩淡出*/
+.modal-mask-leave{
+    animation: modal-out .2s ease;
+}
+@keyframes modal-in{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        
+    }
+}
+
+@keyframes modal-out{
+    0%{
+       
+    }
+    100%{
+         opacity: 0;
+    }
+}

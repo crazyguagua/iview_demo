@@ -24,9 +24,11 @@
                    
             </div>
            
-             <my-modal v-model="showUserModal" title="新增用户" size="small" click-wrapper-close="true">
+             <my-modal v-model="showUserModal" title="新增用户" size="small" :click-wrapper-close="true">
                 <div slot="body">
-                    
+                    <my-form>
+                        <my-form-item> </my-form-item>
+                    </my-form>
                 </div>
                 <div slot='footer'>
                     <my-button type="primary" @click="saveUser">保存</my-button>
@@ -55,6 +57,7 @@
     } from '../../components/ui/breadcrumb'
     import {CheckBoxGroup,CheckBox} from '../../components/ui/checkbox'
     import {MyModal} from '../../components/ui/modal'
+    import {MyForm,MyFormItem} from '../../components/ui/form'
     // import loadingBar from '../../components/ui/loading'
     // console.log(loadingBar);
     // loadingBar.create();
@@ -115,7 +118,7 @@
             Grid,
             myButton,
             CheckBoxGroup,
-            CheckBox,Page,MyModal
+            CheckBox,Page,MyModal,MyForm,MyFormItem
         },
         methods:{
             addUser:function(index){

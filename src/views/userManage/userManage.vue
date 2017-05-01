@@ -27,7 +27,9 @@
              <my-modal v-model="showUserModal" title="新增用户" size="small" :click-wrapper-close="true">
                 <div slot="body">
                     <my-form>
-                        <my-form-item> </my-form-item>
+                        <my-form-item> 
+                            <my-input></my-input>
+                        </my-form-item>
                     </my-form>
                 </div>
                 <div slot='footer'>
@@ -58,6 +60,7 @@
     import {CheckBoxGroup,CheckBox} from '../../components/ui/checkbox'
     import {MyModal} from '../../components/ui/modal'
     import {MyForm,MyFormItem} from '../../components/ui/form'
+    import MyInput from '../../components/ui/input'
     // import loadingBar from '../../components/ui/loading'
     // console.log(loadingBar);
     // loadingBar.create();
@@ -118,7 +121,7 @@
             Grid,
             myButton,
             CheckBoxGroup,
-            CheckBox,Page,MyModal,MyForm,MyFormItem
+            CheckBox,Page,MyModal,MyForm,MyFormItem,MyInput
         },
         methods:{
             addUser:function(index){

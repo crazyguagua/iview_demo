@@ -2,7 +2,7 @@
  
     <!--modal begin --><div :class="prefix">
         <transition name="dialog-fade">
-            <div :class="[`${prefix}-wrap`,customCls]" v-show="visible==true" @click="handleWrapperClose">
+            <div :class="[`${prefix}-wrap`,customCls]" v-show="visible==true" @click.self="handleWrapperClose">
                 <div :class="[`${prefix}-content`,modalSize]" :style="styles" >
                     <div :class="`${prefix}-header`">
                         <span class="title">
@@ -106,6 +106,7 @@
                 this.close();//调用modalPopUp的close 方法
             },
             handleWrapperClose(){
+                // @click.self 只有点击自己才出发事件，点击子元素不会触发
                 if(this.clickWrapperClose){
                     this.close();
                 }

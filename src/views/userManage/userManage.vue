@@ -24,12 +24,18 @@
                    
             </div>
            
-             <my-modal v-model="showUserModal" title="新增用户" size="small" :click-wrapper-close="true">
+             <my-modal v-model="showUserModal" title="新增用户" size="small" >
                 <div slot="body">
+                    <span>{{formData.userName}}</span>
                     <my-form>
                         <my-form-item> 
-                            <my-input></my-input>
+                             <my-input placeholder="请输入用户名"  v-model="formData.userName" icon="icon-pen_1" >
+                                <span slot="prepend">http://</span>
+                                <span slot="after">.com</span>
+                             </my-input>
+                             <my-input placeholder="请输入描述" size="large" v-model="formData.desc" type="textarea" :rows="10" :autosize="{minRows: 2,maxRows: 5}"></my-input>
                         </my-form-item>
+                      
                     </my-form>
                 </div>
                 <div slot='footer'>
@@ -77,7 +83,7 @@
                     pageSize:5,
                     currentPage:1
                 },
-                
+                formData:{},
                 data1:[],
                 checked:['0','1'],
                 checkedList:[],

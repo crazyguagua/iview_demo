@@ -1,6 +1,6 @@
 <template>
     <div :class="classes">
-        <label for="" :style="labelStyle" :class="[`${prefix}-label`]"><slot name="label">{{label}}</slot></label>
+        <label  :style="labelStyle" :class="[`${prefix}-label`]"><slot name="label">{{label}}</slot></label>
         <div :class="[`${prefix}-content`]" :style="contentStyle">
             <slot></slot>
         </div>
@@ -36,8 +36,11 @@
             },
             contentStyle(){
                 let labelStyle ={};
-                let labelWidth =this.labelWidth||this.form.labelWidth;
-                labelStyle.marginLeft = `${labelWidth}px`
+                if(this.form.labelPosition!=='top'){
+                    let labelWidth =this.labelWidth||this.form.labelWidth;
+                    labelStyle.marginLeft = `${labelWidth}px`
+                }
+                
                 return labelStyle;
             },
             form(){
@@ -68,6 +71,7 @@
             padding:10px 12px 10px 0;
             text-align:right;
             line-height:1;
+            vertical-align:middle;
         }
        
     }

@@ -27,11 +27,11 @@
              <my-modal v-model="showUserModal" title="新增用户" size="small" >
                 <div slot="body">
                     <span>{{formData.userName}}</span>
-                    <my-form :label-width="100">
+                    <my-form :label-width="100" label-position="top">
                         <my-form-item label="用户名"> 
                              <my-input placeholder="请输入用户名"  v-model="formData.userName" icon="icon-pen_1" >
-                                <span slot="prepend">http://</span>
-                                <span slot="after">.com</span>
+                                <!--<span slot="prepend">http://</span>
+                                <span slot="after">.com</span>-->
                              </my-input>
                              
                         </my-form-item>

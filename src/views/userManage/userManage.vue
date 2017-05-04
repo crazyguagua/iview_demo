@@ -27,16 +27,16 @@
              <my-modal v-model="showUserModal" title="新增用户" size="small" >
                 <div slot="body">
                     <span>{{formData.userName}}</span>
-                    <my-form :label-width="100" label-position="top">
-                        <my-form-item label="用户名"> 
-                             <my-input placeholder="请输入用户名"  v-model="formData.userName" icon="icon-pen_1" >
+                    <my-form :label-width="100" label-position="top" :model="formData" :rules="userRule">
+                        <my-form-item label="用户名" item-key="userName"> 
+                             <my-input placeholder="请输入用户名"   v-model="formData.userName" icon="icon-pen_1" >
                                 <!--<span slot="prepend">http://</span>
                                 <span slot="after">.com</span>-->
                              </my-input>
                              
                         </my-form-item>
-                        <my-form-item label="描述">
-                            <my-input placeholder="请输入描述" size="large" v-model="formData.desc" type="textarea" :rows="10" :autosize="{minRows: 2,maxRows: 5}"></my-input>
+                        <my-form-item label="描述" item-key="desc">
+                            <my-input placeholder="请输入描述"  size="large" v-model="formData.desc" type="textarea" :rows="10" :autosize="{minRows: 2,maxRows: 5}"></my-input>
                         </my-form-item>
                     </my-form>
                 </div>
@@ -87,6 +87,12 @@
                 },
                 formData:{},
                 data1:[],
+                userRule:{
+                        //用户校验规则
+                        userName:[{validator:function(){
+
+                        },trigger:'blur',required:true}]
+                },
                 checked:['0','1'],
                 checkedList:[],
                 columns:[{

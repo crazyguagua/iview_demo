@@ -18,11 +18,15 @@
                 validator(val){
                     return oneOf(val,['left','right','top'])
                 }
+             },
+             rules:{}, //校验规则
+             model:{ //表单字段
+
              }
         },
         data(){
             return {
-
+                fields:[]
             }
         },
         computed:{
@@ -31,6 +35,12 @@
                     [`${prefix}-label-${this.labelPosition}`]:this.labelPosition
                 }];
             }
+        },
+        created(){
+            this.$on('item-added',(item)=>{
+                //获得子组件的引用
+                this.fields.push(item);
+            })
         }
     }
 </script>

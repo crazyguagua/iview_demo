@@ -7,7 +7,7 @@
             <div class="input-wrapper">
                 <i class="iconfont input-icon" :class="iconCls" v-if="this.icon" @click="handleIconClick">
                 </i>
-                <input :autofocus="autofocus" :maxlength="maxlength" :type="type" :readOnly="readOnly" :disabled="disabled" :placeholder="placeholder" :class="inputCls" class="input"
+                <input :value="currentValue" :autofocus="autofocus" :maxlength="maxlength" :type="type" :readOnly="readOnly" :disabled="disabled" :placeholder="placeholder" :class="inputCls" class="input"
                 @focus="handleFocus" @blur="handleBlur" @input="handleInput" @change="handleChange" @keyup.enter="handlerEnterKeyPressed"
                 >
             </div>
@@ -27,8 +27,10 @@
 </template>
 <script>
 import {oneOf,calcTextareaHeight} from '../../util/uiTool';
+import emitter from '../../mixins/emitter';
 const prefix ='my-input'
     export default{
+        mixins:[emitter],
         props:{
             size:{ //输入框的尺寸
                 type:String,
@@ -90,7 +92,8 @@ const prefix ='my-input'
                 textareaStyles:{},
                 prefix:prefix,
                 prepend:false,
-                after:false
+                after:false,
+                currentValue:this.value
             }
         },
         computed:{
@@ -109,22 +112,26 @@ const prefix ='my-input'
         methods:{
             handlerEnterKeyPressed(){
                 //处理回车键
-                alert('enter key pressed');
+                // alert('enter key pressed');
             },
             handleFocus(e){
                 console.log('focus');
             },
             handleBlur(e){
                 console.log('blur');
+                this.dispatch('myFormItem','on-field-blur','blur');
             },
             handleInput(e){
                 let value = e.target.value;
-                console.log(value);
                 if(this.number)  value = Number.isNaN(Number(value)) ? value : Number(value);
+                this.setCurrentValue(value);
                 this.$emit('input',value); //双向绑定到外部的 v-model
             },
             handleChange(e){
-
+                //触发form-item
+                // debugger;
+                // this.setCurrentValue();
+                
             },
             handleIconClick(e){
                 //点击icon触发事件
@@ -140,6 +147,14 @@ const prefix ='my-input'
                 const minRows = autosize.minRows;
                 const maxRows = autosize.maxRows;
                 this.textareaStyles = calcTextareaHeight(this.$refs.textarea, minRows, maxRows);
+            },
+            setCurrentValue(value){
+               
+                if(value !== this.currentValue){
+                    this.currentValue = value;
+                    this.dispatch('myFormItem','on-field-change','change');
+                }
+               
             }
         },
         mounted(){
@@ -259,5 +274,10 @@ const prefix ='my-input'
         & .input{
             border-radius:0;
         }   
+    }
+
+    /*form error 红色*/
+    .my-form-item-error .input{
+        color:#f30;
     }
 </style>

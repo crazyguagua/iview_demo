@@ -82,6 +82,7 @@
             })
             //判断rule
             if(this.cRules.length>0){
+                //如果有校验规则，接收input 等控件的 field-change field-blur事件
                 this.$on('on-field-change',this.validateFormItem);
                 this.$on('on-field-blur',this.validateFormItem)
             }

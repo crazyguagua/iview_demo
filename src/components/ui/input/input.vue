@@ -276,8 +276,8 @@ const prefix ='my-input'
         }   
     }
 
-    /*form error 红色*/
-    .my-form-item-error .input{
-        color:#f30;
+    /*form error 边框红色*/
+    .my-form-item-error .input,.my-form-item-error .input:hover{
+        border:1px solid #f30;
     }
 </style>

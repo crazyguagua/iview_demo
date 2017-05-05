@@ -42,7 +42,7 @@
                 </div>
                 <div slot='footer'>
                     <my-button type="primary" @click="saveUser">保存</my-button>
-                    <my-button @click="showUserModal = false">取消</my-button>
+                    <my-button @click="reset">重置</my-button>
                 </div>
             </my-modal>
             
@@ -89,9 +89,7 @@
                 data1:[],
                 userRule:{
                         //用户校验规则
-                        userName:[{validator:function(){
-
-                        },trigger:'blur',required:true}]
+                        userName:[ { min: 3, max: 5, message: '用户名长度在 3 到 5 个字符', trigger: 'blur' }]
                 },
                 checked:['0','1'],
                 checkedList:[],

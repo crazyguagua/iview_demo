@@ -4,14 +4,37 @@
         <div :class="[`${prefix}-content`]" :style="contentStyle">
             <slot></slot>
         </div>
-        <div v-if="showMsg" :class="[`${prefix}-err`]">
-            error
+        <div v-if="showMsg && errorState==='error'" :class="[`${prefix}-err`]">
+            {{errorMessage}}
         </div>
     </div>
 </template>
 <script>
-    import emitter from '../../mixins/emitter'
+    import emitter from '../../mixins/emitter';
+    import AsyncValidator from 'async-validator';
     const prefix = 'my-form-item';
+    function getPropByPath(obj, path) {
+        let tempObj = obj;
+        path = path.replace(/\[(\w+)\]/g, '.$1');
+        path = path.replace(/^\./, '');
+
+        let keyArr = path.split('.');
+        let i = 0;
+
+        for (let len = keyArr.length; i < len - 1; ++i) {
+            let key = keyArr[i];
+            if (key in tempObj) {
+                tempObj = tempObj[key];
+            } else {
+                throw new Error('[iView warn]: please transfer a valid prop path to form item!');
+            }
+        }
+        return {
+            o: tempObj,
+            k: keyArr[i],
+            v: tempObj[keyArr[i]]
+        };
+    }
     export default{
         name:'myFormItem',
         mixins:[emitter],
@@ -37,7 +60,8 @@
         data(){
             return {
                 prefix:prefix,
-                errorState:false,
+                errorState:'success',
+                errorMessage:'',//错误文字
                 cRules:[],
                 required:false//是否是必填项  显示小星星
                
@@ -70,9 +94,27 @@
                     parent = parent.$parent; 
                 }
                 return parent;
+            },
+            fieldValue:{
+                cache: false,
+                get(){
+                    const model = this.form.model;
+                    if (!model || !this.itemKey) { return; }
+
+                    let path = this.itemKey;
+                    if (path.indexOf(':') !== -1) {
+                        path = path.replace(/:/, '.');
+                    }
+                    return getPropByPath(model, path).v;
+                }
             }
         },
         mounted(){
+            //保存formItem的初始值
+            Object.defineProperty(this,'initValue', {
+                    value: this.fieldValue
+            });
+
             //通知form组件 本form-item 已经挂载
             this.dispatch('myForm','item-added',this);
             this.cRules = this.getRules();
@@ -87,21 +129,38 @@
                 this.$on('on-field-blur',this.validateFormItem)
             }
         },
+        beforeDestroy(){
+            //通知form组件 本form-item 已经销毁
+            this.dispatch('myForm','item-removed',this);
+        },
         methods:{
-            validateFormItem(triggerType){
-                var validateRule = this.getRuleByTriggerType(triggerType);
+            validateFormItem(triggerType,callback = function () {}){
+                let validateRule = this.getRuleByTriggerType(triggerType);
                 
-                if(validateRule&&validateRule.validator){
-                    debugger;
-                    validateRule.validator(value);
-                }
+                let descriptor = {}
+                descriptor[this.itemKey] = validateRule;
+                let model = {};
+
+                model[this.itemKey] = this.fieldValue;
+                /*数据模型，可选项*/
+                const validator = new AsyncValidator(descriptor);
+                validator.validate(model, { firstFields: true }, errors => {
+                    this.errorState = !errors ? 'success' : 'error';
+                    this.errorMessage = errors ? errors[0].message : '';
+                    callback(this.errorMessage);
+                });
+                
             },
-            getRuleByTriggerType(type){
-                return this.cRules.filter(rule =>rule.trigger === type);
+            getRuleByTriggerType(type){ 
+                //可以不指定trigger  因为form组件调用各个formItem组件的时候是不需要触发方式的
+                return this.cRules.filter(rule =>!rule.trigger||rule.trigger === type);
             },
             getRules(){//获取formItem的校验规则
                 var rules =  this.rule || this.form.rules[this.itemKey];
                 return rules||[];
+            },
+            resetField(){
+                
             }
         }
 
@@ -131,6 +190,9 @@
             text-align:right;
             line-height:1;
             vertical-align:middle;
+        }
+        &-err{
+            color: #f30;
         }
        
     }

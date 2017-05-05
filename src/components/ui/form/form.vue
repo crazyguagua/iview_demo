@@ -41,6 +41,27 @@
                 //获得子组件的引用
                 this.fields.push(item);
             })
+
+            this.$on('item-removed',(item)=>{
+               
+                this.fields.splice(this.fields.indexOf(item),1);
+            })
+        },
+        methods:{
+            //对整个表单进行校验
+            validate(callback){
+                let valid = true;
+                let count =0;
+                this.fields.forEach(item=>{
+                    item.validateFormItem('',errors=>{
+                        if(errors) valid = false;
+                        //在form组件外调用
+                        if(typeof callback === 'function' && this.fields.length==(++count)){
+                            callback(valid);
+                        }
+                    })
+                })
+            }
         }
     }
 </script>

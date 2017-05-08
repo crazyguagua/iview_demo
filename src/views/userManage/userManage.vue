@@ -24,12 +24,18 @@
                    
             </div>
            
-             <my-modal v-model="showUserModal" title="新增用户" size="small" >
+             <my-modal v-model="showUserModal"  title="新增用户" size="small" >
                 <div slot="body">
-                    <span>{{formData.userName}}</span>
-                    <my-form :label-width="100" label-position="top" :model="formData" :rules="userRule">
+                    <my-form ref="userForm" :label-width="100" label-position="top" :model="formData" :rules="userRule">
                         <my-form-item label="用户名" item-key="userName"> 
                              <my-input placeholder="请输入用户名"   v-model="formData.userName" icon="icon-pen_1" >
+                                <!--<span slot="prepend">http://</span>
+                                <span slot="after">.com</span>-->
+                             </my-input>
+                             
+                        </my-form-item>
+                         <my-form-item label="邮箱" item-key="email"> 
+                             <my-input placeholder="请输入邮箱"   v-model="formData.email"  >
                                 <!--<span slot="prepend">http://</span>
                                 <span slot="after">.com</span>-->
                              </my-input>
@@ -85,11 +91,15 @@
                     pageSize:5,
                     currentPage:1
                 },
-                formData:{},
+                formData:{email:'xxx@11.com'},
                 data1:[],
                 userRule:{
                         //用户校验规则
-                        userName:[ { min: 3, max: 5, message: '用户名长度在 3 到 5 个字符', trigger: 'blur' }]
+                        userName:[ { min: 3, max: 5, message: '用户名长度在 3 到 5 个字符', trigger: 'blur' }],
+                         email: [
+                            { required: true, message: '邮箱不能为空', trigger: 'blur' },
+                            { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+                        ]
                 },
                 checked:['0','1'],
                 checkedList:[],
@@ -145,6 +155,9 @@
             query:function(){
                 this.load(this.pageInfo);
             },
+            reset(){
+                this.$refs['userForm'].reset();
+            },
             load(page){
                let self = this;
                this.$http.post('api', {
@@ -169,7 +182,7 @@
             getSelection(){
                 console.log(arguments)
             },
-              reload(page){
+            reload(page){
                 this.load(page);
             }
         },

@@ -84,6 +84,9 @@ const prefix ='my-input'
             autosize:{
                 type: [Boolean, Object],
                  default: false
+            },
+             value: {
+                type: [String, Number]
             }
 
         },
@@ -107,6 +110,12 @@ const prefix ='my-input'
             },
             iconCls(){
                 return [`${this.icon}`,`input-icon-${this.size}`]
+            }
+        },
+        watch:{
+            value (val) {
+                debugger;
+                this.setCurrentValue(val);
             }
         },
         methods:{
@@ -277,7 +286,7 @@ const prefix ='my-input'
     }
 
     /*form error 边框红色*/
-    .my-form-item-error .input,.my-form-item-error .input:hover{
+    .my-form-item-error .input,.my-form-item-error .input:hover,.my-form-item-error .input:focus{
         border:1px solid #f30;
     }
 </style>

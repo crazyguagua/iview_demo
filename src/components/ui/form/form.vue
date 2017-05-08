@@ -61,6 +61,11 @@
                         }
                     })
                 })
+            },
+            reset(){
+                this.fields.forEach(item=>{
+                    item.resetField();
+                });
             }
         }
     }

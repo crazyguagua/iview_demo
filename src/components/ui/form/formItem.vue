@@ -4,7 +4,7 @@
         <div :class="[`${prefix}-content`]" :style="contentStyle">
             <slot></slot>
         </div>
-        <div v-if="showMsg && errorState==='error'" :class="[`${prefix}-err`]">
+        <div v-if="showMsg && errorState==='error'" :class="{[`${prefix}-err`]:errorState==='error'}">
             {{errorMessage}}
         </div>
     </div>
@@ -70,7 +70,7 @@
         computed:{
             classes(){
                 return [`${prefix}`,{
-                    [`${prefix}-error`]:this.errorState
+                    [`${prefix}-error`]:this.errorState=='error'
                 }];
             },
             labelStyle(){
@@ -160,7 +160,21 @@
                 return rules||[];
             },
             resetField(){
-                
+                let model = this.form.model;
+                let value = this.fieldValue;
+                let path = this.itemKey;
+                if (path.indexOf(':') !== -1) {
+                    path = path.replace(/:/, '.');
+                }
+
+                let prop = getPropByPath(model, path);
+                this.errorState ='success';
+                this.errorMessage = '';//错误文字
+                if (Array.isArray(value)) {
+                    prop.o[prop.k] = [].concat(this.initialValue);
+                } else {
+                    prop.o[prop.k] = this.initialValue;
+                }
             }
         }
 

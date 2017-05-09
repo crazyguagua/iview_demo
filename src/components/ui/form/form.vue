@@ -52,13 +52,17 @@
             validate(callback){
                 let valid = true;
                 let count =0;
+                let fieldLenth = this.fields.length;
                 this.fields.forEach(item=>{
                     item.validateFormItem('',errors=>{
+                        count++;
+                        
                         if(errors) valid = false;
                         //在form组件外调用
-                        if(typeof callback === 'function' && this.fields.length==(++count)){
+                        if(typeof callback === 'function' && fieldLenth==count){
                             callback(valid);
                         }
+                        // console.log(count);
                     })
                 })
             },
@@ -66,6 +70,12 @@
                 this.fields.forEach(item=>{
                     item.resetField();
                 });
+            },
+            //针对表单的某个字段进行校验   itemKey: formItem 的 itemKey   callback：回调函数
+            validateField(itemKey,callback){
+                let formItem = this.fields.filter(item=>item.itemKey===itemKey)[0];
+                if(!formItem) throw new Error('[warn] method validateField must use a valid itemKey');
+                formItem.validateFormItem(null,callback);
             }
         }
     }

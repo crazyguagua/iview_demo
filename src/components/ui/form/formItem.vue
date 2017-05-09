@@ -3,10 +3,14 @@
         <label  :style="labelStyle" :class="[`${prefix}-label`]"><slot name="label"><span class="star" v-if="required">*</span>{{label}}</slot></label>
         <div :class="[`${prefix}-content`]" :style="contentStyle">
             <slot></slot>
+            <transition name="fade">
+                <div v-if="showMsg && errorState==='error'" :class="{[`${prefix}-err`]:errorState==='error'}">
+                    {{errorMessage}}
+                </div>
+            </transition>
         </div>
-        <div v-if="showMsg && errorState==='error'" :class="{[`${prefix}-err`]:errorState==='error'}">
-            {{errorMessage}}
-        </div>
+        
+        
     </div>
 </template>
 <script>
@@ -136,7 +140,11 @@
         methods:{
             validateFormItem(triggerType,callback = function () {}){
                 let validateRule = this.getRuleByTriggerType(triggerType);
-                
+                //如果有的字段没有校验，直接返回true
+                if(!validateRule || validateRule.length==0){
+                    callback();
+                    return true;
+                }
                 let descriptor = {}
                 descriptor[this.itemKey] = validateRule;
                 let model = {};
@@ -153,7 +161,8 @@
             },
             getRuleByTriggerType(type){ 
                 //可以不指定trigger  因为form组件调用各个formItem组件的时候是不需要触发方式的
-                return this.cRules.filter(rule =>!rule.trigger||rule.trigger === type);
+                //如果不指定type cRules不会过滤，如果指定了type 需要判断rule.trigger 
+                return this.cRules.filter(rule =>!rule.trigger|| rule.trigger.indexOf(type) !== -1);
             },
             getRules(){//获取formItem的校验规则
                 var rules =  this.rule || this.form.rules[this.itemKey];

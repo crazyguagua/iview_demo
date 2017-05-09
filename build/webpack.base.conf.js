@@ -33,6 +33,7 @@ module.exports = {
     fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
+    devtool: 'source-map',
     loaders: [
       {
         test: /\.vue$/,

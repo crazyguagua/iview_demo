@@ -1,6 +1,6 @@
 <template>
     <div :class="wrapperCls">
-        <template v-if="type=='text'">
+        <template v-if="type==='text'||type==='password'">
             <div class="prepend" v-if="prepend">
                 <slot name="prepend"></slot>
             </div>
@@ -17,7 +17,7 @@
             </div>
         </template>
         <template v-if="type==='textarea'">
-            <textarea :maxlength="maxlength" ref="textarea" class="input" :style="textareaStyles" cols="30" :rows="rows" :placeholder="placeholder" :readOnly="readOnly" :disabled="disabled"
+            <textarea  :value="currentValue" :maxlength="maxlength" ref="textarea" class="input" :style="textareaStyles" cols="30" :rows="rows" :placeholder="placeholder" :readOnly="readOnly" :disabled="disabled"
             @focus="handleFocus" @blur="handleBlur" @input="handleInput" @change="handleChange" @keyup.enter="handlerEnterKeyPressed"
             >
             
@@ -86,7 +86,8 @@ const prefix ='my-input'
                  default: false
             },
              value: {
-                type: [String, Number]
+                type: [String, Number],
+                default:''
             }
 
         },
@@ -114,7 +115,6 @@ const prefix ='my-input'
         },
         watch:{
             value (val) {
-                debugger;
                 this.setCurrentValue(val);
             }
         },
@@ -124,10 +124,10 @@ const prefix ='my-input'
                 // alert('enter key pressed');
             },
             handleFocus(e){
-                console.log('focus');
+                // console.log('focus');
             },
             handleBlur(e){
-                console.log('blur');
+                // console.log('blur');
                 this.dispatch('myFormItem','on-field-blur','blur');
             },
             handleInput(e){

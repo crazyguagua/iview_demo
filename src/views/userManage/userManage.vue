@@ -24,9 +24,9 @@
                    
             </div>
            
-             <my-modal v-model="showUserModal"  title="新增用户" size="small" >
+             <my-modal v-model="modalShow"  title="新增用户" size="small" top="55px" >
                 <div slot="body">
-                    <my-form ref="userForm" :label-width="100" label-position="top" :model="formData" :rules="userRule">
+                    <my-form ref="userForm" :label-width="100" label-position="left" :model="formData" :rules="userRule">
                         <my-form-item label="用户名" item-key="userName"> 
                              <my-input placeholder="请输入用户名"   v-model="formData.userName" icon="icon-pen_1" >
                                 <!--<span slot="prepend">http://</span>
@@ -34,8 +34,17 @@
                              </my-input>
                              
                         </my-form-item>
+                        <my-form-item label="中文名" itemKey="realName">
+                            <my-input placeholder="请输入中文名" v-model="formData.realName"></my-input>
+                        </my-form-item>
+                        <my-form-item label="密码" itemKey="pwd">
+                            <my-input placeholder="请输入密码" v-model="formData.pwd" type="password"></my-input>
+                        </my-form-item>
+                        <my-form-item label="确认密码" itemKey="repwd">
+                            <my-input placeholder="请再次输入密码" v-model="formData.repwd" type="password"></my-input>
+                        </my-form-item>
                          <my-form-item label="邮箱" item-key="email"> 
-                             <my-input placeholder="请输入邮箱"   v-model="formData.email"  >
+                             <my-input placeholder="请输入邮箱"   v-model="formData.email">
                                 <!--<span slot="prepend">http://</span>
                                 <span slot="after">.com</span>-->
                              </my-input>
@@ -75,30 +84,64 @@
     import {MyModal} from '../../components/ui/modal'
     import {MyForm,MyFormItem} from '../../components/ui/form'
     import MyInput from '../../components/ui/input'
+    //message 消息提示 组件
+    import message from '../../components/ui/message';
     // import loadingBar from '../../components/ui/loading'
     // console.log(loadingBar);
     // loadingBar.create();
     export default {
         data() {
+            let _this = this;
+            const validatorrepwd= function (rule, value, callback){
+                if(value===""){
+                        callback(new Error('请再次输入密码'));
+                }else if(value!=_this.formData.pwd){
+                        callback(new Error('两次输入密码不一致'));
+                }else{
+                    callback();
+                }
+            }
+            const validatePwd = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    if (this.formData.repwd !== '') {
+                        // 对第二个密码框单独验证
+                        this.$refs.userForm.validateField('repwd');
+                    }
+                    callback();
+                }
+            };
             return {
                 title: '用户管理',
                 page:{
                     
                 },
                 userName:null,
-                showUserModal:false,
+                modalShow:false,
                 pageInfo:{
                     pageSize:5,
                     currentPage:1
                 },
-                formData:{email:'xxx@11.com'},
+                formData:{
+                    //这个对象必须要有默认值，否则form组件 清空清不掉 
+                    email:'',userName:'',desc:'',repwd:''
+                },
                 data1:[],
                 userRule:{
                         //用户校验规则
-                        userName:[ { min: 3, max: 5, message: '用户名长度在 3 到 5 个字符', trigger: 'blur' }],
-                         email: [
+                        userName:[ {required: true, min: 2, max: 12, message: '用户名长度在 2 到 12 个字符', trigger: 'blur' }],
+                        email: [
                             { required: true, message: '邮箱不能为空', trigger: 'blur' },
                             { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+                        ],
+                        repwd:[{
+                            required: true,
+                            trigger:'blur',
+                            validator:validatorrepwd
+                        }],
+                        pwd:[{required:true,message:'密码不能为空',trigger:'blur'},{min:6,max:12, message: '密码长度在 6 到 12个字符', trigger: 'blur'},
+                            {validator:validatePwd,trigger:'blur'}
                         ]
                 },
                 checked:['0','1'],
@@ -147,10 +190,24 @@
         },
         methods:{
             addUser:function(index){
-               this.showUserModal = true;
+               this.modalShow = true;
             },
             saveUser:function(){
-                alert('save');
+                let _this = this;
+                this.$refs['userForm'].validate((valid)=>{
+                    if(valid){
+                            this.$http.post('saveUser', this.formData).then(function(m) {
+                                let data = m.data;
+                                // console.log(data);
+                                if(data.retCode === 1){
+                                    _this.modalShow = false;
+                                     _this.load(_this.pageInfo);
+                                }
+                            }).catch(function(error) {
+                                console.error(error);
+                            })
+                    }
+                })
             },
             query:function(){
                 this.load(this.pageInfo);
@@ -171,6 +228,7 @@
                     if (data.retCode == 1) {
                         self.data1 = data.obj.list;
                         self.page = data.obj.pageInfo;
+                        message.success('操作成功');
                     } else {
                         
                     }

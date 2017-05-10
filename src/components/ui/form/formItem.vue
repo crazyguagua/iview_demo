@@ -1,6 +1,6 @@
 <template>
     <div :class="classes">
-        <label  :style="labelStyle" :class="[`${prefix}-label`]"><slot name="label"><span class="star" v-if="required">*</span>{{label}}</slot></label>
+        <label  :style="labelStyle" :class="[`${prefix}-label`]"><slot name="label">{{label}}<span class="star" v-if="required">*</span></slot></label>
         <div :class="[`${prefix}-content`]" :style="contentStyle">
             <slot></slot>
             <transition name="fade">
@@ -30,7 +30,7 @@
             if (key in tempObj) {
                 tempObj = tempObj[key];
             } else {
-                throw new Error('[iView warn]: please transfer a valid prop path to form item!');
+                throw new Error('please transfer a valid prop path to form item!');
             }
         }
         return {

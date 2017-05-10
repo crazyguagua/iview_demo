@@ -228,7 +228,7 @@
                     if (data.retCode == 1) {
                         self.data1 = data.obj.list;
                         self.page = data.obj.pageInfo;
-                        message.success('操作成功');
+                        message.info('操作成功',0);
                     } else {
                         
                     }

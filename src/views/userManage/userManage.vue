@@ -37,6 +37,9 @@
                         <my-form-item label="中文名" itemKey="realName">
                             <my-input placeholder="请输入中文名" v-model="formData.realName"></my-input>
                         </my-form-item>
+                        <my-form-item label="兴趣" itemKey="hobbies">
+                            <Radio>足球</Radio>
+                        </my-form-item>
                         <my-form-item label="密码" itemKey="pwd">
                             <my-input placeholder="请输入密码" v-model="formData.pwd" type="password"></my-input>
                         </my-form-item>
@@ -86,6 +89,7 @@
     import MyInput from '../../components/ui/input'
     //message 消息提示 组件
     import message from '../../components/ui/message';
+    import {Radio,RadioGroup} from '../../components/ui/radio'
     // import loadingBar from '../../components/ui/loading'
     // console.log(loadingBar);
     // loadingBar.create();
@@ -186,7 +190,7 @@
             Grid,
             myButton,
             CheckBoxGroup,
-            CheckBox,Page,MyModal,MyForm,MyFormItem,MyInput
+            CheckBox,Page,MyModal,MyForm,MyFormItem,MyInput,Radio
         },
         methods:{
             addUser:function(index){
@@ -228,7 +232,7 @@
                     if (data.retCode == 1) {
                         self.data1 = data.obj.list;
                         self.page = data.obj.pageInfo;
-                        message.info('操作成功',0);
+                        message.info('操作成功');
                     } else {
                         
                     }

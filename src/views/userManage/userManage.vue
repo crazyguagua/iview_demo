@@ -3,66 +3,28 @@
         <ContentHeader :title="title" >
              <BreadCrumb slot="breadcrumb">
                 <BreadCrumbItem :to="{path:'/'}">首页</BreadCrumbItem>
-                <BreadCrumbItem>用户管理</BreadCrumbItem>
+                <BreadCrumbItem>人员帐号管理</BreadCrumbItem>
             </BreadCrumb>
         </ContentHeader>
         <div class="right-content-container">
             <div class="fixed-toolbar clearfix" slot="toolbar">
-                    <div class="pull-left search">
-                    <my-button @click="addUser()" type="purple" size="large">新增</my-button>
-                    <input  class="form-control"type="text" v-model="userName" placeholder="用户名"/>
-                    <my-button @click="query" type="primary" size="large">查询</my-button>
-                    </div>
-                   <!-- <div class="pull-left search">
-                   <CheckBoxGroup v-model="checkedList">
-                        <CheckBox val="1" >启用</CheckBox> 
-                        <CheckBox val="2" >禁用</CheckBox> 
-                        <CheckBox val="3" checked disabled>disabled</CheckBox>
-                   </CheckBoxGroup>
-                          
-                    </div>-->
+                <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+                    <el-form-item label="审批人">
+                        <el-input v-model="searchForm.user" placeholder="审批人"></el-input>
+                    </el-form-item>
+                    <el-form-item label="活动区域">
+                        <el-select v-model="searchForm.region" placeholder="活动区域">
+                        <el-option label="区域一" value="shanghai"></el-option>
+                        <el-option label="区域二" value="beijing"></el-option>
+                        </el-select>
+                    </el-form-item><el-form-item>
+                        <el-button type="primary" @click="query">查询</el-button>
+                    </el-form-item>
+                </el-form>
                    
             </div>
            
-             <my-modal v-model="modalShow"  title="新增用户" size="small" top="55px" >
-                <div slot="body">
-                    <my-form ref="userForm" :label-width="100" label-position="left" :model="formData" :rules="userRule">
-                        <my-form-item label="用户名" item-key="userName"> 
-                             <my-input placeholder="请输入用户名"   v-model="formData.userName" icon="icon-pen_1" >
-                                <!--<span slot="prepend">http://</span>
-                                <span slot="after">.com</span>-->
-                             </my-input>
-                             
-                        </my-form-item>
-                        <my-form-item label="中文名" itemKey="realName">
-                            <my-input placeholder="请输入中文名" v-model="formData.realName"></my-input>
-                        </my-form-item>
-                        <my-form-item label="兴趣" itemKey="hobbies">
-                            <Radio>足球</Radio>
-                        </my-form-item>
-                        <my-form-item label="密码" itemKey="pwd">
-                            <my-input placeholder="请输入密码" v-model="formData.pwd" type="password"></my-input>
-                        </my-form-item>
-                        <my-form-item label="确认密码" itemKey="repwd">
-                            <my-input placeholder="请再次输入密码" v-model="formData.repwd" type="password"></my-input>
-                        </my-form-item>
-                         <my-form-item label="邮箱" item-key="email"> 
-                             <my-input placeholder="请输入邮箱"   v-model="formData.email">
-                                <!--<span slot="prepend">http://</span>
-                                <span slot="after">.com</span>-->
-                             </my-input>
-                             
-                        </my-form-item>
-                        <my-form-item label="描述" item-key="desc">
-                            <my-input placeholder="请输入描述"  size="large" v-model="formData.desc" type="textarea" :rows="10" :autosize="{minRows: 2,maxRows: 5}"></my-input>
-                        </my-form-item>
-                    </my-form>
-                </div>
-                <div slot='footer'>
-                    <my-button type="primary" @click="saveUser">保存</my-button>
-                    <my-button @click="reset">重置</my-button>
-                </div>
-            </my-modal>
+            
             
             <Grid :columns="columns" border  :data="data1" highlightRow @on-selection-change="getSelection" >
                 
@@ -126,6 +88,9 @@
                 pageInfo:{
                     pageSize:5,
                     currentPage:1
+                },
+                searchForm:{
+
                 },
                 formData:{
                     //这个对象必须要有默认值，否则form组件 清空清不掉 

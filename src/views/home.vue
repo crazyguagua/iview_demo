@@ -49,7 +49,7 @@
         data() {
             return {
                 theme2: 'light',
-                sysName: '后台管理系统'
+                sysName: '道路交通清障救援服务智能管理平台'
             }
         },
         components: {

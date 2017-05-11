@@ -20,9 +20,6 @@
                     
                </div>
                 </li>
-                <li class="menu-li" style="margin-right:20px;"><i></i><span>业务系统</span></li>
-                <li class="menu-li"><i></i><span>监控系统</span></li>
-                <li  class="menu-li"><i></i><span>报表系统</span></li>
             </ul>
         </div>
     </div>

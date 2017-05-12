@@ -37,8 +37,8 @@
                         <my-form-item label="中文名" itemKey="realName">
                             <my-input placeholder="请输入中文名" v-model="formData.realName"></my-input>
                         </my-form-item>
-                        <my-form-item label="兴趣" itemKey="hobbies">
-                            <Radio>足球</Radio>
+                        <my-form-item label="性别" itemKey="gender">
+                            <RadioGroup v-model="formData.gender"><Radio >男</Radio> <Radio >女</Radio> </RadioGroup>
                         </my-form-item>
                         <my-form-item label="密码" itemKey="pwd">
                             <my-input placeholder="请输入密码" v-model="formData.pwd" type="password"></my-input>
@@ -129,7 +129,7 @@
                 },
                 formData:{
                     //这个对象必须要有默认值，否则form组件 清空清不掉 
-                    email:'',userName:'',desc:'',repwd:''
+                    email:'',userName:'',desc:'',repwd:'',gender:false
                 },
                 data1:[],
                 userRule:{
@@ -190,7 +190,7 @@
             Grid,
             myButton,
             CheckBoxGroup,
-            CheckBox,Page,MyModal,MyForm,MyFormItem,MyInput,Radio
+            CheckBox,Page,MyModal,MyForm,MyFormItem,MyInput,Radio,RadioGroup
         },
         methods:{
             addUser:function(index){

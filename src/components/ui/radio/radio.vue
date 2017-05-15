@@ -15,10 +15,14 @@
 <script>
      const prefix ='my-radio';
      export default{
+            name:'myRadio',
             props:{
                 value:{
                     type:Boolean,
                     default:false
+                },
+                valueField:{
+                    type:[String,Number]
                 },
                 disabled:{
                     //是否是禁用状态
@@ -28,10 +32,10 @@
             },
             computed:{
                 labelCls(){
-                    return [`${prefix}`]
+                    return [`${prefix}`,{[`${prefix}-checked`]:this.cValue===true}]
                 },
                 radioCls(){
-                    return [`${prefix}-span`,{[`${prefix}-span-checked`]:this.cValue===true}]
+                    return [`${prefix}-span`]
                 },
                 innerCls(){
                     return [`${prefix}-inner`]
@@ -42,7 +46,9 @@
             },
             data(){
                 return {
-                    cValue:false
+                    cValue:false,
+                    group:false,//外层是否有radioGroup,radioGroup在挂载时判断
+                    cValueField:null
                 }
             },
             methods:{
@@ -51,18 +57,32 @@
                     if(this.disabled ===true){
                         return false;
                     }
-                    debugger;
                     this.cValue = checked;
                     //绑定到外层 v-model
                     this.$emit('input',checked);
-                    //触发表单校验
-                    
+                   
+                    //判断是否有父组件 radioGroup
+
+                    //如果有radioGroup则在radioGroup里面触发form表单校验
+                    if(this.group){
+                       this.$parent.change({
+                           value:this.cValueField,
+                           checked:checked
+                       });
+                    }else{
+                         //如果没有radioGroup 直接触发表单校验 
+                        this.$emit('on-change',checked)
+                        this.dispatch('myFormItem','on-field-change','change');
+                    }
                 }
             },
             watch:{
                 value(val){
                     this.cValue = val
                 }
+            },
+            mounted(){
+                this.cValueField = this.valueField||this.$slots.default[0].text;
             }
 
      }
@@ -74,6 +94,8 @@
                 white-space: nowrap;
                 cursor:pointer;
                 margin-right:8px;
+                display:inline-block;
+                vertical-align:middle;
 
             &-span{
 
@@ -87,6 +109,7 @@
                 background-color: #fff;
                 border: 1px solid #d7dde4;
                 position:relative;
+                vertical-align:middle;
                 &:after{
                     content:' ';
                     top:3px;
@@ -107,7 +130,7 @@
             }
             /** 选中状态 */
             
-            .my-radio-span-checked{
+            .my-radio-checked{
                   .my-radio-inner{
                       border: 1px solid #39f;
                   } 

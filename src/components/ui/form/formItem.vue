@@ -116,7 +116,7 @@
         mounted(){
             //保存formItem的初始值
             Object.defineProperty(this,'initValue', {
-                    value: this.fieldValue
+                value: this.fieldValue
             });
 
             //通知form组件 本form-item 已经挂载
@@ -196,6 +196,12 @@
             margin-right:4px;
             line-height:1;
             font-size:12px;
+        }
+        &-content{
+            /*formitem 内容的行高设置*/
+            position: relative;
+            line-height: 32px;
+            font-size: 12px;
         }
         &:before{
             content:'';

@@ -37,8 +37,8 @@
                         <my-form-item label="中文名" itemKey="realName">
                             <my-input placeholder="请输入中文名" v-model="formData.realName"></my-input>
                         </my-form-item>
-                        <my-form-item label="性别" itemKey="gender">
-                            <RadioGroup v-model="formData.gender"><Radio >男</Radio> <Radio >女</Radio> </RadioGroup>
+                        <my-form-item label="性别" itemKey="gender" >
+                            <RadioGroup v-model="formData.gender" button><Radio >男</Radio><Radio>女</Radio> </RadioGroup>
                         </my-form-item>
                         <my-form-item label="密码" itemKey="pwd">
                             <my-input placeholder="请输入密码" v-model="formData.pwd" type="password"></my-input>
@@ -129,7 +129,7 @@
                 },
                 formData:{
                     //这个对象必须要有默认值，否则form组件 清空清不掉 
-                    email:'',userName:'',desc:'',repwd:'',gender:false
+                    email:'',userName:'',desc:'',repwd:'',gender:null
                 },
                 data1:[],
                 userRule:{
@@ -146,7 +146,10 @@
                         }],
                         pwd:[{required:true,message:'密码不能为空',trigger:'blur'},{min:6,max:12, message: '密码长度在 6 到 12个字符', trigger: 'blur'},
                             {validator:validatePwd,trigger:'blur'}
-                        ]
+                        ],
+                        gender:[{
+                            required:true,message:'请选择性别',trigger:'blur'
+                        }]
                 },
                 checked:['0','1'],
                 checkedList:[],

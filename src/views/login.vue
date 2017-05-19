@@ -1,12 +1,18 @@
 <template>
     <div class="login-container">
+       <login-header></login-header>
         <div class="login-title">
-            <h1>后台管理系统</h1>
+            <img src="../assets/images/Logo_96.png" alt="">
+             <h1>车辆救援系统</h1>
         </div>
         <div class="login-panel">
             <div  novalidate class="loginform">
                 <div class="form-input"><input v-model="formData.userName" type="text" class="form-control"name="uname" placeholder="请输入用户名"></div>
                 <div class="form-input"><input v-model="formData.pwd" type="password" class="form-control" name="pwd" placeholder="请输入密码"></div>
+                <div class="form-input">
+                    <input v-model="formData.pwd" type="input" class="form-control " name="pwd" placeholder="验证码">
+                    <img :src="codeSrc" alt="" class="validate-code" v-if="requestId!==''" >
+                </div>
                 <!--<div class="form-input">
                     <input type="text" class="form-control" placeholder="请输入验证码">
                 </div>-->
@@ -14,29 +20,45 @@
                     <!--<label for=""><input type="checkbox"><span>记住我</span></label>-->
                     <button class="btn btn-login" @click="doLogin()"><span>登陆</span></button>
                 </div>
-                
+                <div class="loginbar">
+                    <!--<label for=""><input type="checkbox"><span>记住我</span></label>-->
+                    <router-link :to="{ path: 'reg/select' }"><button class="btn btn-reg" ><span>注册</span></button></router-link>
+                </div>
             </div>
            
         </div>
          <Alert :message="errorMsg" :type="type" v-if="errorMsg"></Alert>
+         <div class="copy-right-info">
+            © 2016 江苏亿科达科技发展有限公司版权所有 |<a target="_blank" href="http://www.miitbeian.gov.cn" class="beian-info">苏ICP备11037465号-3</a> 
+        </div>
     </div>
 </template>
 <script>
     import '../assets/login.css'
     import Alert from '../components/ui/alert'
+    import LoginHeader from '../components/LoginHeader'
     export default {
         components: {
-            Alert
+            Alert,LoginHeader
         },
         mounted() {
-
+            //获取验证码
+            
+            this.getValidateCode();
         },
         data() {
             return {
                 formData: {},
                 errorMsg: "",
-                type: 'danger'
+                type: 'danger',
+                validateCode:'',
+                requestId:''
 
+            }
+        },
+        computed:{
+            codeSrc(){
+                return 'data:image/png;base64,'+this.validateCode;
             }
         },
         methods: {
@@ -51,7 +73,21 @@
                         _this.$router.push('/dashboard');
                     }
                 }).catch(function(error) {
-                    console.error(error);
+                    _this.errorMsg = "网络异常，登陆失败！"
+                })
+            },
+            getValidateCode(){
+                let _this = this;
+                this.$http.post('service/api',  {"cmd" : "fetchVerifyCode" }).then(function(m) {
+                        let data = m.data;
+                        if (data.retCode !== 1) {
+                            _this.errorMsg = data.retMsg;
+                            _this.type = 'warning'
+                        }else{
+                            _this.requestId = data.requestId;
+                            _this.validateCode=data.verifyCodeBase64;
+                        } 
+                }).catch(function(error) {
                     _this.errorMsg = "网络异常，登陆失败！"
                 })
             }

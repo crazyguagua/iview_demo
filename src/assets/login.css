@@ -27,8 +27,8 @@ input:-webkit-autofill {
 }
 
 .login-title h1 {
-    font-size: 30px;
-    margin-top: 20px;
+    font-size: 20px;
+    margin-top: 10px;
     margin-bottom: 10px;
     font-weight: 400;
     color: #fff;
@@ -47,6 +47,7 @@ input:-webkit-autofill {
 .loginbar {
     max-width: 100%;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .form-input .form-control {
@@ -54,7 +55,7 @@ input:-webkit-autofill {
     color: #858585;
     box-sizing: border-box;
     display: block;
-    height: 34px;
+    height: 36px;
     background-color: #FFF;
     border: 1px solid #D5D5D5;
     padding: 2px 8px 2px;
@@ -63,8 +64,8 @@ input:-webkit-autofill {
     border-radius: 3px;
 }
 
-.btn-login {
-    background-color: #428BCA!important;
+.btn-login,.btn-reg {
+    background-color: #428BCA;
     border: none;
     display: block;
     font-size: 13px;
@@ -72,14 +73,45 @@ input:-webkit-autofill {
     cursor: pointer;
     line-height: 1.38;
     width: 100% !important;
-    color: #FFF!important;
+    color: #FFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
     user-select: none;
     box-shadow: none;
     font-weight: 400;
     border-radius: 2px;
 }
-
+.btn-reg{
+    background: #fff;
+    border: 1px solid #bfcbd9;
+    color: #1f2d3d;
+}
 .btn-login:hover {
     background-color: #306fa6;
+}
+.btn-reg:hover {
+    color: #20a0ff;
+    border-color: #20a0ff;
+}
+.validate-code{
+    position:absolute;
+    right:3px;
+    top:3px;
+    cursor:pointer;
+}
+.copy-right-info{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    left:0;
+    height:50px;
+    line-height:50px;
+    font-size:16px;
+    color:#c5d5da;
+    text-align: center;
+    /*border-top:1px solid #dee5e7;*/
+}
+.copy-right-info .beian-info{
+    color:#d5d5d5;
+    margin-left:10px;
+    font-size:14px;
 }

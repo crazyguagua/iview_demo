@@ -13,7 +13,30 @@ var routes = [
         name: 'login',
         component: resolve => require(['./views/login'], resolve)
             // component: require('./views/login') //component 不能拼写错误，否则路由加载不进来
-    }, {
+    },
+    {
+        path: '/audit',
+        name: 'audit',
+        component: resolve => require(['./views/audit'], resolve)
+            // component: require('./views/login') //component 不能拼写错误，否则路由加载不进来
+    },
+    {
+        path: '/reg',
+        name: 'reg',
+        component: resolve => require(['./views/reg'], resolve),
+        children: [
+            {
+                
+                path:'select/:type', //这里不能有斜杠   '/select'
+                component: resolve => require(['./views/regCompany'], resolve)
+            },
+            {
+                path:'select', //这里不能有斜杠   '/select'
+                component: resolve => require(['./views/select'], resolve)
+            }
+            ]
+    },
+     {
         path: '/home',
         name: 'home',
         // component: require('./views/home'),

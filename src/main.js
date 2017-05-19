@@ -13,7 +13,11 @@ import './assets/main.css'
 import './assets/iconfont.css'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:3000/';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+Vue.use(ElementUI);
+
+axios.defaults.baseURL = 'http://sos.jsecode.com/rescue-esb/';
 Vue.prototype.$http = axios;
 
 Vue.filter('dateformat', function (value,format) {

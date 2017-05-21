@@ -10,7 +10,7 @@
                 <div class="form-input"><input v-model="formData.userName" type="text" class="form-control"name="uname" placeholder="请输入用户名"></div>
                 <div class="form-input"><input v-model="formData.pwd" type="password" class="form-control" name="pwd" placeholder="请输入密码"></div>
                 <div class="form-input">
-                    <input v-model="formData.pwd" type="input" class="form-control " name="pwd" placeholder="验证码">
+                    <input v-model="formData.pwd" type="text" class="form-control " name="pwd" placeholder="验证码">
                     <img :src="codeSrc" alt="" class="validate-code" v-if="requestId!==''" >
                 </div>
                 <!--<div class="form-input">

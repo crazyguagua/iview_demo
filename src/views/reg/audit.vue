@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import loginHeader from '../components/LoginHeader';
+    import loginHeader from '../../components/LoginHeader';
     export default{
         name:'reg',
         components:{

@@ -9,8 +9,8 @@
 </template>
 
 <script>
-    import loginHeader from '../components/LoginHeader';
-    import {BreadCrumb,BreadCrumbItem} from '../components/ui/breadcrumb';
+    import loginHeader from '../../components/LoginHeader';
+    import {BreadCrumb,BreadCrumbItem} from '../../components/ui/breadcrumb';
     export default{
         name:'reg',
         components:{

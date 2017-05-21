@@ -13,12 +13,12 @@
                 <div class="image-boxes clearfix">
                 
                     <div class="image-box">
-                        <router-link to="/reg/select/1"><a ><img src="../assets/images/insurance.png"></img></a></router-link>
+                        <router-link to="/reg/select/1"><a ><img src="../../assets/images/insurance.png"></img></a></router-link>
                         </br>
                         <span>保险公司</span>
                     </div>
                      <div class="image-box">
-                        <router-link to="/reg/select/2"><a ><img src="../assets/images/rescue.png"></img></a></router-link>
+                        <router-link to="/reg/select/2"><a ><img src="../../assets/images/rescue.png"></img></a></router-link>
                         </br>
                         <span>救援公司</span>
                     </div>

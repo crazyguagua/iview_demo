@@ -1,6 +1,8 @@
 <template>
-    <div class="login-container">
-       <login-header></login-header>
+    <div>
+        <login-header></login-header>
+         <div class="login-container">
+       
         <div class="login-title">
             <img src="../assets/images/Logo_96.png" alt="">
              <h1>车辆救援系统</h1>
@@ -32,6 +34,8 @@
             © 2016 江苏亿科达科技发展有限公司版权所有 |<a target="_blank" href="http://www.miitbeian.gov.cn" class="beian-info">苏ICP备11037465号-3</a> 
         </div>
     </div>
+</div>
+   
 </template>
 <script>
     import '../assets/login.css'

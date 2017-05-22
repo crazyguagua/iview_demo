@@ -19,24 +19,27 @@
         }
     }
 </script>
-<style lang="less">
+<style lang="less" >
+    body{
+        background: linear-gradient(#56657D, #798EB1);
+    }
     .reg-body{
         background: linear-gradient(#56657D, #798EB1);
-        position:absolute;
-        top:0;
-        right:0;
-        left:0;
-        bottom:0;
+        // position:absolute;
+        // top:0;
+        // right:0;
+        // left:0;
+        // bottom:0;
     }
     .reg-content{
-        width: 800px;
-        position: absolute;
-        top: 55px;
-        left: 50%;
-        bottom: 0;
-        right: 50%;
-        margin-left: -400px;
+        width:500px;
+        // position: absolute;
+        // top: 55px;
+        // left: 50%;
+        // right: 50%;
+        // margin-left: -250px;
         background: #fff;
+        margin:0px auto;
     }
     .breadcrumb-wrapper{
         position:relative;

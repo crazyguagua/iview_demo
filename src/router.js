@@ -33,6 +33,10 @@ var routes = [
             {
                 path:'select', //这里不能有斜杠   '/select'
                 component: resolve => require(['./views/reg/select'], resolve)
+            },
+            {
+                path:'success',
+                 component: resolve => require(['./views/reg/success'], resolve)
             }
             ]
     },

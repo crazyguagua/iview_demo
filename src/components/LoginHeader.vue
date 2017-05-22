@@ -42,9 +42,9 @@
 </script>
 <style lang="less" scoped>
     .nav-header{
-        position:absolute;
-        top:0;
-        left:0;
+        // position:absolute;
+        // top:0;
+        // left:0;
         width:100%;
         background:#798eb1;
         height:55px;

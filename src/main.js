@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueRouter from 'vue-router'
+import store from './store'
 // import ElementUI from 'element-ui'
 // Vue.use(ElementUI)
 
@@ -29,7 +30,8 @@ Vue.filter('dateformat', function (value,format) {
 
 
 const app = new Vue({
-    router: router
+    router: router,
+    store:store
 }).$mount('#app')
 // loading.globalConfig({
 //     color:'yellow',

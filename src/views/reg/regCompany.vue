@@ -160,7 +160,7 @@
     .reg-form{
         h2{
             height:55px;
-            border-bottom:1px solid #dee5e7;
+            // border-bottom:1px solid #dee5e7;
             line-height:55px;
             font-size:20px;
             padding-left:20px;

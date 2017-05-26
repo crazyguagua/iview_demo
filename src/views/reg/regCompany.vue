@@ -41,7 +41,23 @@
                     <ecode-upload text="税务登记证" v-model="formData.swdjzFileBase64">
                         
                     </ecode-upload>
-                </el-form-item>
+                
+
+               </el-form-item>
+               <div class="el-form-item" v-if="this.formData.type==2">
+                    
+                    <label class="el-form-item__label" style="text-align:left;"><span style="color:red;">*</span>资质证明材料</label>
+                    <div class="el-form-item__content" style="margin-left:100px;">
+                         <el-button type="primary" @click="addOrDeleteCertify(true)" icon="plus">添加</el-button>
+                        <el-button type="primary" @click="addOrDeleteCertify(false)" icon="minus">删除</el-button>
+                        <ecode-upload text="资质证明" v-model="formData.zzzmclFileBase64List[index]" v-for="(file,index) in formData.zzzmclFileBase64List">
+                        
+                        </ecode-upload>
+                    </div>
+                   
+                   
+               </div>
+               
                <el-form-item label="验证码" required prop="verifyCode">
                     
                         <input v-model="formData.verifyCode" type="text" class="form-control " name="pwd" placeholder="" style="">
@@ -74,7 +90,8 @@
           orgShortName: '',
           type:this.$route.params.type,
           yyzzFileBase64:[],
-          requestId:''
+          requestId:'',
+          zzzmclFileBase64List:[]
         },
        validateCode:'',
         rules: {
@@ -124,7 +141,7 @@
                         this.$message.error(data.retMsg);
                     }else{
                         //调到结果页面
-                        _this.$router.push('/success');
+                        _this.$router.push('/success/data.retMsg');
                     } 
             }).catch(function(error) {
                this.$message.error('网络异常');
@@ -134,6 +151,15 @@
           }
         });
       },
+        addOrDeleteCertify(add){
+        if(add){
+             this.formData.zzzmclFileBase64List.push({});
+        }else{
+            this.formData.zzzmclFileBase64List.pop();
+            
+        }
+       
+     },
       getValidateCode(){
             let _this = this;
             this.$http.post('service/api',  {"cmd" : "fetchVerifyCode" }).then(function(m) {

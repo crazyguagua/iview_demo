@@ -102,7 +102,7 @@
 
 <style lang="less">
     .ecode-upload{
-        margin-bottom:5px;
+        margin:5px 0;
         .ecode-upload-file{
             display:none;
         }

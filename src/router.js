@@ -35,7 +35,7 @@ var routes = [
                 component: resolve => require(['./views/reg/select'], resolve)
             },
             {
-                path:'success',
+                path:'success/:message',
                  component: resolve => require(['./views/reg/success'], resolve)
             }
             ]

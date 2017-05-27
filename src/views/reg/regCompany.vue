@@ -141,7 +141,7 @@
                         this.$message.error(data.retMsg);
                     }else{
                         //调到结果页面
-                        _this.$router.push('/success/data.retMsg');
+                        _this.$router.push('/success/'+data.retMsg);
                     } 
             }).catch(function(error) {
                this.$message.error('网络异常');

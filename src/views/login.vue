@@ -12,8 +12,13 @@
                 <div class="form-input"><input v-model="formData.userName" type="text" class="form-control"name="uname" placeholder="请输入用户名"></div>
                 <div class="form-input"><input v-model="formData.pwd" type="password" class="form-control" name="pwd" placeholder="请输入密码"></div>
                 <div class="form-input">
-                    <input v-model="formData.pwd" type="text" class="form-control " name="pwd" placeholder="验证码">
+                    <input v-model="formData.validateCode" type="text" class="form-control " name="pwd" placeholder="验证码">
                     <img :src="codeSrc" alt="" class="validate-code" v-if="requestId!==''" >
+                </div>
+                <div class="form-input">
+                <el-alert
+                :title="errorMsg"
+                :type="type" v-if="errorMsg" :loading="isLoading"/>
                 </div>
                 <!--<div class="form-input">
                     <input type="text" class="form-control" placeholder="请输入验证码">
@@ -56,7 +61,8 @@
                 errorMsg: "",
                 type: 'danger',
                 validateCode:'',
-                requestId:''
+                requestId:'',
+                isLoading:false
 
             }
         },
@@ -68,7 +74,17 @@
         methods: {
             doLogin: function() {
                 let _this = this;
+                if(!this.formData.validateCode){
+                    this.type="error";
+                    this.errorMsg="请输入验证码"
+                    if(/^\d{4}$/.test(this.errorMsg)){
+                        this.errorMsg="请输入4位验证码"
+                    }
+                    return;
+                }
+                this.isLoading = true;
                 this.$http.post('login', this.formData).then(function(m) {
+                    _this.isLoading = false;
                     let data = m.data;
                     if (data.retCode == 0) {
                         _this.errorMsg = data.retMsg;
@@ -77,6 +93,7 @@
                         _this.$router.push('/dashboard');
                     }
                 }).catch(function(error) {
+                    _this.isLoading = false;
                     _this.errorMsg = "网络异常，登陆失败！"
                 })
             },

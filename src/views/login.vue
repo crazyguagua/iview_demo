@@ -9,23 +9,23 @@
         </div>
         <div class="login-panel">
             <div  novalidate class="loginform">
-                <div class="form-input"><input v-model="formData.userName" type="text" class="form-control"name="uname" placeholder="请输入用户名"></div>
-                <div class="form-input"><input v-model="formData.pwd" type="password" class="form-control" name="pwd" placeholder="请输入密码"></div>
+                <div class="form-input"><input v-model="formData.loginName" type="text" class="form-control"name="uname" placeholder="请输入用户名"></div>
+                <div class="form-input"><input v-model="formData.password" type="password" class="form-control" name="pwd" placeholder="请输入密码"></div>
                 <div class="form-input">
-                    <input v-model="formData.validateCode" type="text" class="form-control " name="pwd" placeholder="验证码">
-                    <img :src="codeSrc" alt="" class="validate-code" v-if="requestId!==''" >
+                    <input v-model="formData.verifyCode" type="text" class="form-control " name="pwd" placeholder="验证码">
+                    <img :src="codeSrc" alt="" class="validate-code" v-if="validateCode!==''" @click="getValidateCode">
                 </div>
                 <div class="form-input">
                 <el-alert
                 :title="errorMsg"
-                :type="type" v-if="errorMsg" :loading="isLoading"/>
+                :type="type" v-if="errorMsg" />
                 </div>
                 <!--<div class="form-input">
                     <input type="text" class="form-control" placeholder="请输入验证码">
                 </div>-->
                 <div class="loginbar">
                     <!--<label for=""><input type="checkbox"><span>记住我</span></label>-->
-                    <button class="btn btn-login" @click="doLogin()"><span>登陆</span></button>
+                    <button class="btn btn-login" @click="doLogin()" :loading="isLoading"><span>登陆</span></button>
                 </div>
                 <div class="loginbar">
                     <!--<label for=""><input type="checkbox"><span>记住我</span></label>-->
@@ -34,7 +34,6 @@
             </div>
            
         </div>
-         <Alert :message="errorMsg" :type="type" v-if="errorMsg"></Alert>
          <div class="copy-right-info">
             © 2016 江苏亿科达科技发展有限公司版权所有 |<a target="_blank" href="http://www.miitbeian.gov.cn" class="beian-info">苏ICP备11037465号-3</a> 
         </div>
@@ -44,11 +43,10 @@
 </template>
 <script>
     import '../assets/login.css'
-    import Alert from '../components/ui/alert'
     import LoginHeader from '../components/LoginHeader'
     export default {
         components: {
-            Alert,LoginHeader
+            LoginHeader
         },
         mounted() {
             //获取验证码
@@ -74,16 +72,20 @@
         methods: {
             doLogin: function() {
                 let _this = this;
-                if(!this.formData.validateCode){
+                if(!this.formData.verifyCode){
                     this.type="error";
                     this.errorMsg="请输入验证码"
-                    if(/^\d{4}$/.test(this.errorMsg)){
-                        this.errorMsg="请输入4位验证码"
-                    }
+                   
                     return;
                 }
+                if(!/^\d{4}$/.test(this.formData.verifyCode)){
+                     this.type="error";
+                    this.errorMsg="请输入4位验证码"
+                    return;
+                }
+                    
                 this.isLoading = true;
-                this.$http.post('login', this.formData).then(function(m) {
+                this.$http.req('login', this.formData).then(function(m) {
                     _this.isLoading = false;
                     let data = m.data;
                     if (data.retCode == 0) {
@@ -99,13 +101,13 @@
             },
             getValidateCode(){
                 let _this = this;
-                this.$http.post('service/api',  {"cmd" : "fetchVerifyCode" }).then(function(m) {
+                this.$http.req('fetchVerifyCode').then(function(m) {
                         let data = m.data;
                         if (data.retCode !== 1) {
                             _this.errorMsg = data.retMsg;
                             _this.type = 'warning'
                         }else{
-                            _this.requestId = data.requestId;
+                            _this.formData.requestId = data.requestId;
                             _this.validateCode=data.verifyCodeBase64;
                         } 
                 }).catch(function(error) {

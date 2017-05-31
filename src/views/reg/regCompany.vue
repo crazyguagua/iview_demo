@@ -133,7 +133,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let _this = this;
-            this.$http.post('service/api',  {"cmd" : "orgRegist" ,params:this.formData}).then(function(m) {
+            this.$http.req('orgRegist').then(function(m) {
                     let data = m.data;
                     if (data.retCode !== 1) {
                         // _this.errorMsg = data.retMsg;
@@ -162,7 +162,7 @@
      },
       getValidateCode(){
             let _this = this;
-            this.$http.post('service/api',  {"cmd" : "fetchVerifyCode" }).then(function(m) {
+            this.$http.req('fetchVerifyCode').then(function(m) {
                     let data = m.data;
                     if (data.retCode !== 1) {
                         _this.errorMsg = data.retMsg;

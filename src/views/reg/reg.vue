@@ -24,7 +24,7 @@
         background: linear-gradient(#56657D, #798EB1);
     }
     .reg-body{
-        background: linear-gradient(#56657D, #798EB1);
+        // background: linear-gradient(#56657D, #798EB1);
         // position:absolute;
         // top:0;
         // right:0;

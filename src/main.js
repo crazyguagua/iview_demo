@@ -12,14 +12,15 @@ import store from './store'
 // import 'iview/dist/styles/iview.css'; // 使用 CSS
 import './assets/main.css'
 import './assets/iconfont.css'
-import axios from 'axios'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import http  from './http';
+Vue.prototype.$http = http;
+
 Vue.use(ElementUI);
 
-axios.defaults.baseURL = 'http://sos.jsecode.com/rescue-esb/';
-Vue.prototype.$http = axios;
+
 
 Vue.filter('dateformat', function (value,format) {
   // 返回处理后的值

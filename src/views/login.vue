@@ -73,31 +73,44 @@
             doLogin: function() {
                 let _this = this;
                 if(!this.formData.verifyCode){
-                    this.type="error";
+                    this.type="warning";
                     this.errorMsg="请输入验证码"
                    
                     return;
                 }
                 if(!/^\d{4}$/.test(this.formData.verifyCode)){
-                     this.type="error";
+                     this.type="warning";
                     this.errorMsg="请输入4位验证码"
                     return;
                 }
                     
                 this.isLoading = true;
-                this.$http.req('login', this.formData).then(function(m) {
-                    _this.isLoading = false;
-                    let data = m.data;
-                    if (data.retCode == 0) {
-                        _this.errorMsg = data.retMsg;
-                        _this.type = 'warning'
-                    } else {
-                        _this.$router.push('/dashboard');
-                    }
-                }).catch(function(error) {
-                    _this.isLoading = false;
-                    _this.errorMsg = "网络异常，登陆失败！"
-                })
+                this.$store.dispatch('login',this.formData).then(() => {
+                    this.loading = false;
+                    this.$router.push('/dashboard');
+                    // this.showDialog = true;
+                }).catch(err => {
+                    // console.log(this);
+                    // this.$message.error(err);
+                   
+                    this.loading = false;
+                    this.type="error";
+                    this.errorMsg = err;
+                    this.getValidateCode();
+                });
+                // this.$http.req('login', this.formData).then(function(m) {
+                //     _this.isLoading = false;
+                //     let data = m.data;
+                //     if (data.retCode == 0) {
+                //         _this.errorMsg = data.retMsg;
+                //         _this.type = 'warning'
+                //     } else {
+                //         _this.$router.push('/dashboard');
+                //     }
+                // }).catch(function(error) {
+                //     _this.isLoading = false;
+                //     _this.errorMsg = "网络异常，登陆失败！"
+                // })
             },
             getValidateCode(){
                 let _this = this;
